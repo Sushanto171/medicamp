@@ -18,26 +18,27 @@ import {
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import log from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
 import Container from "./../../components/Container";
-
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "User Name",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Dashboard",
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
-];
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { user, signOutUser } = useAuth();
+  // profile menu component
+  const profileMenuItems = [
+    {
+      label: user?.displayName,
+      icon: UserCircleIcon,
+    },
+    {
+      label: "Dashboard",
+      icon: Cog6ToothIcon,
+    },
+    {
+      label: "Sign Out",
+      icon: PowerIcon,
+    },
+  ];
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -54,7 +55,8 @@ function ProfileMenu() {
             size="sm"
             alt="tania andrew"
             className="border border-white p-0.5"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            referrerPolicy="no-referrer"
+            src={user?.photoURL}
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -82,10 +84,12 @@ function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
+                onClick={isLastItem ? signOutUser : null}
                 as="span"
                 variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
+                className="font-normal w-full"
+                color={`${isLastItem ? "red" : "inherit"}`}
+                type="button"
               >
                 {label}
               </Typography>
@@ -98,7 +102,7 @@ function ProfileMenu() {
 }
 
 export function ComplexNavbar() {
-  const user = false;
+  const { user } = useAuth();
 
   const navLink = (
     <>

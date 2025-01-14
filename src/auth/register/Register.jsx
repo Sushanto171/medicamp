@@ -2,7 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Input } from "@material-tailwind/react";
 import "react-awesome-button/dist/styles.css";
 import { useForm, useWatch } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../../page/shared/LoadingSpinner";
+import { uploadPhotoDB } from "../../utilites/utilites";
+import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 
 const schema = yup.object({
@@ -32,14 +38,35 @@ export default function Register() {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+  const { registerNow, setLoading, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
 
   const photo = useWatch({
     control,
     name: "photo",
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      await registerNow(data.email, data.password);
+      // save Photo on Db
+      delete data.photo;
+      const photoUrl = await uploadPhotoDB(photo);
+      data.photoURL = photoUrl;
+      // update profile
+      await updateUserProfile(data.name, photoUrl);
+      reset();
+      toast.success("Register success");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -88,6 +115,7 @@ export default function Register() {
               variant="standard"
               label="Password*"
               color="teal"
+              type="password"
               placeholder="Type password.."
               {...register("password")}
             />
@@ -126,10 +154,21 @@ export default function Register() {
               </span>
             )}
           </div>
-          <Button type="submit" className="bg-primary hover:bg-secondary mt-4">
-            Join Now
+          <Button
+            type="submit"
+            className="bg-primary hover:bg-secondary mt-4 flex justify-center items-center gap-1"
+          >
+            <LoadingSpinner auth={true} />
+            Register Now
           </Button>
         </form>
+        <SocialLogin />
+        <p className="text-sm my-2 opacity-70">
+          Already have an account?{" "}
+          <Link to="/join-us" className="border-b border-secondary">
+            Join Now
+          </Link>
+        </p>
       </div>
     </>
   );

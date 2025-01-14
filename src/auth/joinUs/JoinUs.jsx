@@ -4,16 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import "react-awesome-button/dist/styles.css";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
 import * as yup from "yup";
+import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../../page/shared/LoadingSpinner";
+import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 const schema = yup.object({
-  name: yup.string().required("Name is required"),
+  password: yup.string().required("Password is required"),
   email: yup
     .string()
     .email("Invalid email address")
@@ -24,20 +27,29 @@ export default function JoinUs() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const captchaRef = useRef(null);
   const [isDisable, setIsDisable] = useState(true);
+  const { joinNow } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    toast.success(data);
+  const onSubmit = async (data) => {
+    try {
+      await joinNow(data.email, data.password);
+      toast.success("Log in Success");
+      reset();
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   // captcha validate
   const handleCaptcha = () => {
     const captcha = captchaRef.current.value;
     if (captcha.length === 6) {
-      console.log(captcha);
       if (validateCaptcha(captcha) === true) {
         loadCaptchaEnginge(6);
         setIsDisable(false);
@@ -66,10 +78,10 @@ export default function JoinUs() {
           <div>
             <Input
               variant="standard"
-              label="Name*"
+              label="Email*"
               color="teal"
-              placeholder="Type Name.. "
-              {...register("name")}
+              placeholder="Type Email.. "
+              {...register("email")}
             />
             {/* name relate error  */}
             {errors.name && (
@@ -80,10 +92,11 @@ export default function JoinUs() {
             {/*email filed*/}
             <Input
               variant="standard"
-              label="Email*"
+              label="Password*"
               color="teal"
-              placeholder="Type Email.."
-              {...register("email")}
+              type="password"
+              placeholder="Type password.."
+              {...register("password")}
             />
             {/* email related error */}
             {errors.email && (
@@ -106,15 +119,16 @@ export default function JoinUs() {
           </div>
 
           <Button
-            disabled={isDisable}
             type="submit"
-            className={`bg-primary hover:bg-secondary mt-4 ${
+            className={`bg-primary hover:bg-secondary mt-4 flex items-center justify-center gap-2 ${
               isDisable ? "cursor-not-allowed opacity-50" : ""
             }`}
           >
+            <LoadingSpinner auth={true} />
             Join Now
           </Button>
         </form>
+        <SocialLogin />
         <p className="text-sm mt-2 opacity-70">
           Not have an account?{" "}
           <Link to="/register" className="border-b border-secondary">
