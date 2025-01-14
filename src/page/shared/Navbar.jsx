@@ -16,7 +16,7 @@ import {
 } from "@material-tailwind/react";
 
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import log from "../../assets/logo.png";
 import Container from "./../../components/Container";
 
@@ -143,12 +143,14 @@ export function ComplexNavbar() {
               </>
             ) : (
               <>
-                <Button
-                  size="sm"
-                  className="text-black border border-white hover:bg-[#135D66]  bg-accent px-2 text-sm "
-                >
-                  <span>Join Us</span>
-                </Button>
+                <Link to="/join-us">
+                  <Button
+                    size="sm"
+                    className="text-black border border-white hover:bg-[#135D66]  bg-accent px-2 text-sm "
+                  >
+                    <span>Join Us</span>
+                  </Button>
+                </Link>
               </>
             )}
           </div>
