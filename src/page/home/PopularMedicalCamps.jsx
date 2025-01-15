@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 import Container from "../../components/Container";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
@@ -19,14 +20,17 @@ const PopularMedicalCamps = () => {
           ))}
         </div>
         <div className="mt-12">
-          <Button
-            variant="text"
-            size="lg"
-            className="flex items-center gap-1 border border-b-4 border-accent group relative pr-12"
-          >
-            See More{" "}
-            <IoIosArrowRoundForward className="text-2xl group-hover:right-3 absolute right-5 transition-all " />
-          </Button>
+          {/* redirect to available page */}
+          <Link to="/available-camps">
+            <Button
+              variant="text"
+              size="lg"
+              className="flex items-center gap-1 border border-b-4 border-accent group relative pr-12 hover:bg-accent/10"
+            >
+              See All Camps{" "}
+              <IoIosArrowRoundForward className="text-2xl group-hover:right-3 absolute right-5 transition-all " />
+            </Button>
+          </Link>
         </div>
       </Container>
     </>

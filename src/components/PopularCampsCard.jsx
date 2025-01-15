@@ -29,7 +29,7 @@ export function PopularCampsCard({
   return (
     <Card
       variant="gradient"
-      className="w-full bg-accent/30 p-3 max-w-[20rem]  mx-auto md:max-w-[24rem] lg:max-w-[28rem] pb-2"
+      className="w-full bg-accent/30 p-3 max-w-[20rem]  mx-auto md:max-w-[24rem] lg:max-w-[32rem] pb-2"
     >
       <CardHeader
         floated={false}
