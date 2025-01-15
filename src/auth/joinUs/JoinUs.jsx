@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import "react-awesome-button/dist/styles.css";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { BiPlusMedical } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
@@ -12,7 +13,6 @@ import {
 } from "react-simple-captcha";
 import * as yup from "yup";
 import useAuth from "../../hooks/useAuth";
-import LoadingSpinner from "../../page/shared/LoadingSpinner";
 import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 const schema = yup.object({
@@ -32,7 +32,7 @@ export default function JoinUs() {
   } = useForm({ resolver: yupResolver(schema) });
   const captchaRef = useRef(null);
   const [isDisable, setIsDisable] = useState(true);
-  const { joinNow } = useAuth();
+  const { joinNow, loading } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -43,6 +43,7 @@ export default function JoinUs() {
       navigate("/");
     } catch (error) {
       toast.error(error.message);
+      console.log(isDisable);
     }
   };
 
@@ -120,11 +121,10 @@ export default function JoinUs() {
 
           <Button
             type="submit"
-            className={`bg-primary hover:bg-secondary mt-4 flex items-center justify-center gap-2 ${
-              isDisable ? "cursor-not-allowed opacity-50" : ""
-            }`}
+            className={`bg-primary hover:bg-secondary mt-4 flex items-center justify-center gap-2 
+              `}
           >
-            <LoadingSpinner auth={true} />
+            {loading && <BiPlusMedical className="animate-spin size-4" />}
             Join Now
           </Button>
         </form>

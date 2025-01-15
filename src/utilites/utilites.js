@@ -14,3 +14,16 @@ export const uploadPhotoDB = async (photo) => {
     toast.error(error.message);
   }
 };
+
+export const saveUserDataDB = async (userData, axiosPublic) => {
+  try {
+    console.log(userData);
+    const { data } = await axiosPublic.post(
+      `/users/${userData.email}`,
+      userData
+    );
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};

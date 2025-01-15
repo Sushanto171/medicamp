@@ -3,11 +3,12 @@ import { Button, Input } from "@material-tailwind/react";
 import "react-awesome-button/dist/styles.css";
 import { useForm, useWatch } from "react-hook-form";
 import toast from "react-hot-toast";
+import { BiPlusMedical } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import useAuth from "../../hooks/useAuth";
-import LoadingSpinner from "../../page/shared/LoadingSpinner";
-import { uploadPhotoDB } from "../../utilites/utilites";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { saveUserDataDB, uploadPhotoDB } from "../../utilites/utilites";
 import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 
@@ -41,7 +42,8 @@ export default function Register() {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const { registerNow, setLoading, updateUserProfile } = useAuth();
+  const { registerNow, setLoading, updateUserProfile, loading } = useAuth();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   const photo = useWatch({
@@ -58,6 +60,14 @@ export default function Register() {
       data.photoURL = photoUrl;
       // update profile
       await updateUserProfile(data.name, photoUrl);
+      const userData = {
+        email: data.email,
+        name: data.name,
+        photo: photoUrl,
+        role: "user",
+      };
+      // save user data on DB
+      await saveUserDataDB(userData, axiosPublic);
       reset();
       toast.success("Register success");
       navigate("/");
@@ -158,7 +168,7 @@ export default function Register() {
             type="submit"
             className="bg-primary hover:bg-secondary mt-4 flex justify-center items-center gap-1"
           >
-            <LoadingSpinner auth={true} />
+            {loading && <BiPlusMedical className="animate-spin size-4" />}
             Register Now
           </Button>
         </form>

@@ -20,6 +20,7 @@ import { Link, NavLink } from "react-router-dom";
 import log from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 import Container from "./../../components/Container";
+import LoadingSpinner from "./LoadingSpinner";
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -84,12 +85,11 @@ function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
-                onClick={isLastItem ? signOutUser : null}
+                onClick={isLastItem ? signOutUser : () => {}}
                 as="span"
                 variant="small"
                 className="font-normal w-full"
                 color={`${isLastItem ? "red" : "inherit"}`}
-                type="button"
               >
                 {label}
               </Typography>
@@ -102,7 +102,7 @@ function ProfileMenu() {
 }
 
 export function ComplexNavbar() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const navLink = (
     <>
@@ -117,13 +117,14 @@ export function ComplexNavbar() {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? "underline" : "")}
-          to="/available-camp"
+          to="/available-camps"
         >
-          Available Camp
+          Available Camps
         </NavLink>
       </li>
     </>
   );
+  if (loading) return <LoadingSpinner auth={false} />;
   return (
     <Navbar className="py-4 bg-primary rounded-none text-white px-0 m-0">
       <Container>
@@ -131,9 +132,11 @@ export function ComplexNavbar() {
           <div className="flex-1 flex items-center">
             {/* logo */}
             <div className="w-36 ">
-              <Button variant="text" className="p-0">
-                <img src={log} />
-              </Button>
+              <Link to="/">
+                <Button variant="text" className="p-0">
+                  <img src={log} />
+                </Button>
+              </Link>
             </div>
             {/* navigation */}
             <ul className=" flex-1 flex justify-center items-center gap-4">

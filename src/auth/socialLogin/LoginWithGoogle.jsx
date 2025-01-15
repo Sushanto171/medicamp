@@ -3,15 +3,25 @@ import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { saveUserDataDB } from "../../utilites/utilites";
 
 const LoginWithGoogle = () => {
   const { loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleLogin = async () => {
     try {
-      await loginWithGoogle();
+      const { user } = await loginWithGoogle();
       navigate("/");
+      const userData = {
+        email: user.email,
+        name: user.displayName,
+        photo: user.photoURL,
+        role: "user",
+      };
+      await saveUserDataDB(userData, axiosPublic);
     } catch (error) {
       toast.error(error.message);
     }

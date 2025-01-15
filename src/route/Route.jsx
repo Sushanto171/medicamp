@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/available-camp",
+        path: "/available-camps",
         element: <AvailableCamp />,
       },
       {
