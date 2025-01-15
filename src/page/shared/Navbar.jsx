@@ -68,6 +68,25 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
+        {/* mobile link */}
+        <ul className="px-4 border-b-2 border-accent flex flex-col mb-4 gap-3 py-4 sm:hidden">
+          <li className="w-full">
+            <NavLink
+              className={({ isActive }) => `${isActive ? "underline" : ""} `}
+              to="/"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
+              className={({ isActive }) => (isActive ? "underline" : "")}
+              to="/available-camps"
+            >
+              Available Camps
+            </NavLink>
+          </li>
+        </ul>
         {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
@@ -139,7 +158,7 @@ export function ComplexNavbar() {
               </Link>
             </div>
             {/* navigation */}
-            <ul className=" flex-1 flex justify-center items-center gap-4">
+            <ul className="hidden  flex-1 sm:flex justify-center items-center gap-4">
               {navLink}
             </ul>
           </div>

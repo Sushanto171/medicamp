@@ -4,7 +4,7 @@ const LoadingSpinner = () => {
   return (
     <div>
       <div className="h-screen w-full flex justify-center items-center">
-        <img src={image} alt="spinner" />
+        <img className="max-w-56" src={image} alt="spinner" />
       </div>
     </div>
   );

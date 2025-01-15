@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const SectionTitle = ({ title }) => {
   return (
-    <div className="text-center font-semibold text-3xl text-text">
+    <div className="text-center font-semibold text-2xl sm:text-3xl md:text-4xl text-text my-12 uppercase">
       <h2>{title}</h2>
     </div>
   );
