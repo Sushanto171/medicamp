@@ -15,6 +15,7 @@ import {
   FaUserMd,
   FaUsers,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export function PopularCampsCard({
   campName,
@@ -25,6 +26,7 @@ export function PopularCampsCard({
   location,
   healthcareProfessional,
   participantCount,
+  _id,
 }) {
   return (
     <Card
@@ -88,14 +90,16 @@ export function PopularCampsCard({
         </ul>
       </CardBody>
       <CardFooter className="mt-3 p-0">
-        <Button
-          size="lg"
-          className="hover:scale-[1.02] bg-accent focus:scale-[1.02] active:scale-100 text-text"
-          ripple={false}
-          fullWidth={true}
-        >
-          Join Now
-        </Button>
+        <Link to={`/camp-details/${_id}`}>
+          <Button
+            size="lg"
+            className="hover:scale-[1.02] bg-accent focus:scale-[1.02] active:scale-100 text-text"
+            ripple={false}
+            fullWidth={true}
+          >
+            See Details
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
