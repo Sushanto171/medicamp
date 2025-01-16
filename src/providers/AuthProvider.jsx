@@ -39,6 +39,7 @@ const AuthProvider = ({ children }) => {
         console.log("log out", currentUser);
         setUser(currentUser);
         setLoading(false);
+        localStorage.setItem("token", "");
       }
     });
     return () => unSubscribe();

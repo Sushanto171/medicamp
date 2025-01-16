@@ -8,7 +8,7 @@ import useCamps from "../../hooks/useCamps";
 
 const PopularMedicalCamps = () => {
   const { camps } = useCamps({ home: true });
-  console.log(camps);
+
   return (
     <>
       <Container>

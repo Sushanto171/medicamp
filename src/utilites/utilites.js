@@ -17,12 +17,11 @@ export const uploadPhotoDB = async (photo) => {
 
 export const saveUserDataDB = async (userData, axiosPublic) => {
   try {
-    console.log(userData);
     const { data } = await axiosPublic.post(
       `/users/${userData.email}`,
       userData
     );
-    console.log(data);
+    return data.data;
   } catch (error) {
     console.log(error);
   }

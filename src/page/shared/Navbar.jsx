@@ -16,7 +16,7 @@ import {
 } from "@material-tailwind/react";
 
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import log from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 import Container from "./../../components/Container";
@@ -25,6 +25,7 @@ import LoadingSpinner from "./LoadingSpinner";
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { user, signOutUser } = useAuth();
+  const navigate = useNavigate();
   // profile menu component
   const profileMenuItems = [
     {
@@ -89,6 +90,8 @@ function ProfileMenu() {
         </ul>
         {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
+          const isMiddleItem = key === 1;
+
           return (
             <MenuItem
               key={label}
@@ -104,7 +107,13 @@ function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
-                onClick={isLastItem ? signOutUser : () => {}}
+                onClick={() =>
+                  isLastItem
+                    ? signOutUser()
+                    : isMiddleItem
+                    ? navigate("/dashboard")
+                    : () => {}
+                }
                 as="span"
                 variant="small"
                 className="font-normal w-full"
