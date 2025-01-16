@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import image from "../../assets/preloader-medicalist.gif";
 const LoadingSpinner = () => {
   return (
@@ -8,9 +7,6 @@ const LoadingSpinner = () => {
       </div>
     </div>
   );
-};
-LoadingSpinner.propTypes = {
-  auth: PropTypes.bool.isRequired,
 };
 
 export default LoadingSpinner;

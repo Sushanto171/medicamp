@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
           name: currentUser?.displayName,
         };
         const { data } = await axiosPublic.post("/jwt", userData);
-        console.log(data);
+        // console.log(data);
         localStorage.setItem("token", data?.token);
       } else {
         console.log("log out", currentUser);

@@ -7,35 +7,35 @@ import {
 } from "@material-tailwind/react";
 import { TfiLayoutColumn2Alt, TfiLayoutColumn3Alt } from "react-icons/tfi";
 
-import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { LuArrowDownUp } from "react-icons/lu";
 import Container from "../../components/Container";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
+import LiveSearch from "../shared/LiveSearch";
+import LoadingSpinner from "./../shared/LoadingSpinner";
 
 const AvailableCamp = () => {
   const [sort, setSort] = useState("Sort");
   const [layout, setLayout] = useState(true);
-  const { camps } = useCamps({ home: false });
-  console.log(camps);
+  const { camps, refetch, isLoading } = useCamps({ home: false, sort });
+  useEffect(() => {
+    refetch();
+    if (sort !== "Sort") {
+      toast.success(`Successfully sorted by ${sort}`);
+    }
+  }, [sort, refetch]);
+
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className="">
       <nav className=" w-full bg-accent sticky top-0 backdrop-blur-md z-50">
         <Container>
           <div className="grid md:grid-cols-3 items-center h-full py-4 gap-2">
             {/* search flied */}
-            <div className="relative overflow-hidden rounded-full">
-              <input
-                type="text"
-                placeholder="Search on CampName, time, date"
-                className="w-full shadow-2xl shadow-gray-700 p-2 pl-4 pr-20 rounded-full border border-primary/80 outline-0 placeholder:text-sm placeholder:text-text/60 text-text"
-              />
-              <button className="absolute top-0 right-0 w-16 h-11 flex items-center justify-center bg-primary/80 text-white text-3xl font-semibold">
-                <CiSearch />
-              </button>
-            </div>
+            <LiveSearch data={camps} />
             <div></div>
             {/* sort */}
             <div className="flex justify-end gap-2">
