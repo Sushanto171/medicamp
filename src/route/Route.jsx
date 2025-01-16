@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import JoinUs from "../auth/joinUs/JoinUs";
 import Register from "../auth/register/Register";
@@ -24,12 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/camp-details/:id",
-        loader: async ({ params }) => {
-          const { data } = await axios(
-            `${import.meta.env.VITE_BASE_URL}/camp/${params.id}`
-          );
-          return data?.data || {};
-        },
+
         element: <CampDetails />,
       },
       {

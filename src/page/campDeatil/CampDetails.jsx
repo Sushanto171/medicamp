@@ -1,18 +1,35 @@
-import { Button } from "@material-tailwind/react";
 import { FaDollarSign } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
-import { IoIosArrowRoundForward } from "react-icons/io";
 
+import { useQuery } from "@tanstack/react-query";
 import {
   MdAccessTime,
   MdDateRange,
   MdLocationOn,
   MdPeople,
 } from "react-icons/md";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { JoinCampModal } from "../../components/modal/JoinCampModal";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import LoadingSpinner from "../shared/LoadingSpinner";
 import SocialShare from "./SocialShare";
 
 const CampDetails = () => {
+  const axiosPublic = useAxiosPublic();
+  const { id } = useParams();
+  const {
+    data: camp = {},
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["camp-details", id],
+    queryFn: async () => {
+      const { data } = await axiosPublic(`/camp/${id}`);
+
+      return data?.data;
+    },
+  });
+  if (isLoading) return <LoadingSpinner />;
   const {
     campName,
     image,
@@ -23,7 +40,7 @@ const CampDetails = () => {
     healthcareProfessional,
     participantCount,
     description,
-  } = useLoaderData() || {};
+  } = camp;
 
   return (
     <div className="flex flex-col lg:flex-row items-start gap-8 p-6 lg:p-12 bg-gray-50 min-h-screen">
@@ -117,13 +134,7 @@ const CampDetails = () => {
 
         <div className="mt-4 sm:flex items-center justify-between space-y-4 sm:space-y-0">
           <div className="flex-1">
-            <Button
-              variant="text"
-              className="flex items-center gap-1 bg-secondary text-white hover:text-primary border border-b-4 border-secondary group relative pr-12 hover:bg-accent/10"
-            >
-              Join Camp
-              <IoIosArrowRoundForward className="text-2xl group-hover:right-3 absolute right-5 transition-all " />
-            </Button>
+            <JoinCampModal refetch={refetch} campDetails={camp} />
           </div>
           <SocialShare campName={campName} />
         </div>

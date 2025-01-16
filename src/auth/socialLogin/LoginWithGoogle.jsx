@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Button } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
@@ -6,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { saveUserDataDB } from "../../utilites/utilites";
 
-const LoginWithGoogle = () => {
+const LoginWithGoogle = ({ state }) => {
   const { loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
@@ -14,7 +15,7 @@ const LoginWithGoogle = () => {
   const handleLogin = async () => {
     try {
       const { user } = await loginWithGoogle();
-      navigate("/");
+      navigate(`${state ? state : "/"}`);
       const userData = {
         email: user.email,
         name: user.displayName,

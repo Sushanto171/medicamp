@@ -5,7 +5,7 @@ import "react-awesome-button/dist/styles.css";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BiPlusMedical } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -34,13 +34,14 @@ export default function JoinUs() {
   const [isDisable, setIsDisable] = useState(true);
   const { joinNow, loading } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const onSubmit = async (data) => {
     try {
       await joinNow(data.email, data.password);
       toast.success("Log in Success");
       reset();
-      navigate("/");
+      navigate(`${state ? state : "/"}`);
     } catch (error) {
       toast.error(error.message);
       console.log(isDisable);
@@ -128,7 +129,7 @@ export default function JoinUs() {
             Join Now
           </Button>
         </form>
-        <SocialLogin />
+        <SocialLogin state={state} />
         <p className="text-sm mt-2 opacity-70">
           Not have an account?{" "}
           <Link to="/register" className="border-b border-secondary">
