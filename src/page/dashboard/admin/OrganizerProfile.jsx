@@ -3,7 +3,7 @@ import Profile from "../../../components/Profile";
 const OrganizerProfile = () => {
   return (
     <div>
-      <Profile />
+      <Profile title="Organizer" />
     </div>
   );
 };

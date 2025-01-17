@@ -7,14 +7,12 @@ export const uploadPhotoDB = async (photo, base64 = null) => {
     if (base64) {
       formData.append("image", base64.split(",")[1]);
       const data = formData.get("image");
-      console.log(data);
+
       if (data === "undefined" || data === undefined || !data) {
-        console.log("undefined");
         return;
       }
     }
     if (photo) {
-      console.log("photo");
       formData.append("image", photo[0]);
     }
 
@@ -36,6 +34,6 @@ export const saveUserDataDB = async (userData, axiosPublic) => {
     );
     return data.data;
   } catch (error) {
-    console.log(error);
+    toast.error(error.message);
   }
 };

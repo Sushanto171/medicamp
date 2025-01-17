@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Avatar, Button, Input, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -8,18 +9,10 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import LoadingSpinner from "../page/shared/LoadingSpinner";
 import { uploadPhotoDB } from "../utilites/utilites";
 
-const Profile = () => {
+const Profile = ({ title }) => {
   const axiosSecure = useAxiosSecure();
   const { user, loading, updateUserProfile, setLoading } = useAuth();
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: user?.displayName || "Anonymous",
-    email: user?.email,
-    photoURL:
-      user?.photoURL ||
-      "https://img.icons8.com/?size=100&id=20750&format=png&color=000000",
-  });
-
   // fetch user to db
   const { data: userDB = {}, isLoading } = useQuery({
     queryKey: ["userDB", user?.email],
@@ -27,6 +20,15 @@ const Profile = () => {
       const { data } = await axiosSecure(`/user/${user?.email}`);
       return data?.data;
     },
+  });
+  const [formData, setFormData] = useState({
+    name: user?.displayName || "Anonymous",
+    email: user?.email,
+    photoURL:
+      user?.photoURL ||
+      "https://img.icons8.com/?size=100&id=20750&format=png&color=000000",
+    phone: userDB?.phone,
+    address: userDB?.address,
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -53,7 +55,9 @@ const Profile = () => {
       formData.photoURL ===
         "https://img.icons8.com/?size=100&id=20750&format=png&color=000000" ||
       !formData.name ||
-      !formData.photoURL
+      !formData.photoURL ||
+      !formData.phone ||
+      !formData.address
     ) {
       toast.error("Invalid file input");
       return;
@@ -72,6 +76,8 @@ const Profile = () => {
       const updateUserData = {
         name: formData.name,
         photo: formData.photoURL,
+        phone: formData.phone,
+        address: formData.address,
       };
       const { data } = await axiosSecure.patch(
         `/user/${user.email}`,
@@ -88,14 +94,14 @@ const Profile = () => {
       setLoading(false);
     }
   };
-  console.log({ isLoading, loading, updateLoading });
+
   if (isLoading || loading || updateLoading) return <LoadingSpinner />;
 
   return (
     <div className="bg-gray-50 flex items-center justify-center sm:h-[calc(100vh-120px)]">
       <div className="bg-white rounded-lg shadow-md w-full max-w-lg p-2 sm:p-8">
         <Typography variant="h4" className="text-center mb-4">
-          Organizer Profile
+          {title} Profile
         </Typography>
         <div className="flex flex-col items-center mb-6">
           {isEditing ? (
@@ -147,14 +153,22 @@ const Profile = () => {
                 onChange={handleChange}
                 required
               />
-              {/* <Input
-                type="email"
-                name="email"
-                label="Email"
-                value={formData.email}
+              <Input
+                type="text"
+                name="phone"
+                label="Phone Number"
+                value={formData.phone}
                 onChange={handleChange}
                 required
-              /> */}
+              />
+              <Input
+                type="text"
+                name="address"
+                label="Address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
             </>
           ) : (
             <>
@@ -165,6 +179,16 @@ const Profile = () => {
                 <Typography variant="small" className="text-gray-600">
                   {formData.email}
                 </Typography>
+                {formData?.phone && (
+                  <Typography variant="small" className="text-gray-600">
+                    Phone: {formData?.phone}
+                  </Typography>
+                )}
+                {formData?.address && (
+                  <Typography variant="small" className="text-gray-600">
+                    Address: {formData?.address}
+                  </Typography>
+                )}
               </div>
             </>
           )}
