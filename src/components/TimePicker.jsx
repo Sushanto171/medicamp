@@ -12,7 +12,7 @@ const TimePicker = ({ setTime }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-center border border-primary/50 rounded-md h-fit w-full">
+      <div className="flex gap-2 items-center border border-primary/50 rounded-md h-fit w-fit">
         {/* Hour Selector */}
         <select
           className="border border-gray-300 rounded-md p-2"

@@ -6,30 +6,51 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "./../../../components/SectionTitle";
 import TimePicker from "./../../../components/TimePicker";
+import { uploadPhotoDB } from "./../../../utilites/utilites";
 
 const AddCamp = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState("");
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState(null);
+  const [formFile, setFormFile] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    data.time = time;
-    data.data = format(new Date(startDate), "yyyy-MM-dd");
-    console.log(data);
+  const onSubmit = async (camp) => {
+    camp.time = time;
+    camp.date = format(new Date(startDate), "yyyy-MM-dd");
+    camp.participantCount = 0;
+    try {
+      // save image to imgbb
+      const url = await uploadPhotoDB(formFile);
+      if (!url) return toast.error("Something error.Please try again");
+      camp.image = url;
+      // post on db
+      const { data } = await axiosSecure.post("/camps", camp);
+      toast.success(data?.message);
+      reset();
+      setFormFile(null);
+      setImage(null);
+      setImageName("");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
     if (image?.name) {
-      const name = image?.name?.slice(0, 10);
+      const name = image?.name?.slice(0, 7);
       const type = image?.name?.slice(image.name.length - 3, image.name.length);
       setImageName(name + "... ." + type);
     }
@@ -87,6 +108,7 @@ const AddCamp = () => {
           <div>
             <Input
               label="Camp Fees*"
+              type="number"
               {...register("campFees", { required: "Camp Fees is required" })}
               placeholder="Enter camp fees"
               className="w-full"
@@ -97,9 +119,9 @@ const AddCamp = () => {
           </div>
 
           {/* grid */}
-          <div className="flex items-center flex-wrap justify-between gap-5 sm:space-y-0">
+          <div className="flex items-center flex-wrap gap-5 sm:space-y-0 justify-between">
             {/* Image */}
-            <div>
+            <div className="flex-1 min-w-40">
               <label
                 htmlFor="image"
                 className="text-sm border w-full flex items-center text-center justify-center border-primary/50 py-2.5 rounded-md px-1 bg-accent text-primary"
@@ -110,17 +132,21 @@ const AddCamp = () => {
               </label>
               <input
                 id="image"
+                accept="image/*"
                 type="file"
                 {...register("image", { required: "Image is required" })}
                 className="w-full hidden"
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => [
+                  setImage(e.target.files[0]),
+                  setFormFile(e.target.files),
+                ]}
               />
               {errors.image && (
                 <p className="text-red-500 text-sm">{errors.image.message}</p>
               )}
             </div>
             {/* Date */}
-            <div className="relative">
+            <div className="relative flex-1 min-w-40 w-full">
               <span className="absolute bg-white text-[11px] left-2 -top-2 text-gray-700 px-0.5 z-10">
                 Date*
               </span>
@@ -128,12 +154,12 @@ const AddCamp = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 dateFormat="dd/MM/yyyy"
-                className="w-full border-primary/50 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
+                className="w-full px-2 border-primary/50 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
               />
             </div>
 
             {/* Time */}
-            <div className="relative pt-0.5">
+            <div className="relative pt-0.5 flex-1 min-w-40">
               <span className="absolute bg-white text-[11px] left-2 -top-1.5 text-gray-700 px-0.5">
                 Time*
               </span>

@@ -13,7 +13,9 @@ export const uploadPhotoDB = async (photo, base64 = null) => {
       }
     }
     if (photo) {
+      console.log(photo);
       formData.append("image", photo[0]);
+      console.log(formData.get("image"));
     }
 
     const { data } = await axios.post(
