@@ -1,5 +1,11 @@
+import Profile from "../../../components/Profile";
+
 const ParticipantProfile = () => {
-  return <div>this Participant proflie</div>;
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 };
 
 export default ParticipantProfile;

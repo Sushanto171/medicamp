@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { auth } from "../firebase/firebase.init";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
@@ -71,6 +72,7 @@ const AuthProvider = ({ children }) => {
   const signOutUser = async () => {
     setLoading(true);
     await signOut(auth);
+    toast.success("Sign out success");
   };
 
   const authInfo = {

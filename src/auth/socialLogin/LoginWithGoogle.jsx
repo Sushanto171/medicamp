@@ -15,6 +15,7 @@ const LoginWithGoogle = ({ state }) => {
   const handleLogin = async () => {
     try {
       const { user } = await loginWithGoogle();
+      toast.success("User has login");
       navigate(`${state ? state : "/"}`);
       const userData = {
         email: user.email,

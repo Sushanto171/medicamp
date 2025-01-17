@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import Container from "../components/Container";
 import DashboardNavbar from "../page/dashboard/DashboardNavbar";
 import DashboardSidebar from "../page/dashboard/DashboardSidebar";
 
@@ -14,14 +15,16 @@ const DashboardLayout = () => {
         setIsCollapsed={setIsCollapsed}
       />
 
-      <div className="flex">
+      <div className="flex relative">
         {/* Sidebar */}
         <DashboardSidebar isCollapsed={isCollapsed} />
 
         {/* Main Content */}
-        <div className="flex-1 h-[2000px] p-5">
+        <div className="flex-1 p-5">
           {/* Your main content goes here */}
-          <Outlet />
+          <Container>
+            <Outlet />
+          </Container>
         </div>
       </div>
     </>

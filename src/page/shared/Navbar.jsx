@@ -58,7 +58,10 @@ function ProfileMenu() {
             alt="tania andrew"
             className="border border-white p-0.5"
             referrerPolicy="no-referrer"
-            src={user?.photoURL}
+            src={
+              user?.photoURL ||
+              "https://img.icons8.com/?size=100&id=20750&format=png&color=000000"
+            }
           />
           <ChevronDownIcon
             strokeWidth={2.5}
@@ -119,7 +122,7 @@ function ProfileMenu() {
                 className="font-normal w-full"
                 color={`${isLastItem ? "red" : "inherit"}`}
               >
-                {label}
+                {label || "Anonymous user"}
               </Typography>
             </MenuItem>
           );

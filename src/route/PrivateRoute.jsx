@@ -1,15 +1,18 @@
-import { useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import LoadingSpinner from "../page/shared/LoadingSpinner";
 
 const PrivateRoute = ({ children }) => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  if (!user) {
-    navigate("/");
-    return;
+  const { user, loading } = useAuth();
+
+  if (user) {
+    children;
+    return children;
   }
 
-  return children;
+  if (loading) return <LoadingSpinner />;
+  return <Navigate to={"/"} />;
 };
 
 export default PrivateRoute;

@@ -1,5 +1,11 @@
+import Profile from "../../../components/Profile";
+
 const OrganizerProfile = () => {
-  return <div>this is OrganizerProfile</div>;
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 };
 
 export default OrganizerProfile;

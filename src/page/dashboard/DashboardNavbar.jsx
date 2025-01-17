@@ -1,17 +1,30 @@
 /* eslint-disable react/prop-types */
 import { Avatar } from "@material-tailwind/react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAdmin from "../../hooks/useAdmin";
 import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
-  // Sidebar collapsed state
+  const navigate = useNavigate();
+  const { isAdmin, isLoading } = useAdmin();
 
-  const { user } = useAuth();
-
+  const { user, loading } = useAuth();
+  const handleAvatar = () => {
+    if (isAdmin) {
+      navigate("/dashboard/organizer-profile");
+    }
+    if (!isAdmin && user) {
+      navigate("/dashboard/participant-profile");
+    }
+  };
+  if (loading || isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
-    <nav className="h-20 sticky top-0 flex justify-between bg-primary/80 z-50">
+    <nav className="h-20 sticky top-0 flex justify-between bg-primary/80 z-50 backdrop-blur-lg">
       {/* Logo */}
       <div className="flex items-center justify-center max-w-64 w-full md:border-r ">
         <Link to="/">
@@ -25,15 +38,19 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
             Welcome!
           </span>
           <h4 className="sm:text-xl truncate text-white leading-snug">
-            {user?.displayName}
+            {user?.displayName || "Anonymous"}
           </h4>
         </div>
         <Avatar
+          onClick={handleAvatar}
           referrerPolicy="no-referrer"
-          src={user?.photoURL}
+          src={
+            user?.photoURL ||
+            "https://img.icons8.com/?size=100&id=20750&format=png&color=000000"
+          }
           alt="avatar"
           withBorder={true}
-          className="p-0.5 border-white/90"
+          className="p-0.5 border-white/90 cursor-pointer"
         />
       </div>
       {/* Sidebar toggle button */}

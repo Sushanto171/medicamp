@@ -11,7 +11,8 @@ const AdminRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if ((!isAdmin && user) || !user) {
+    if (!isAdmin && !user) {
+      console.log("Admin route", { isAdmin, user });
       navigate("/");
       return;
     }
