@@ -1,50 +1,28 @@
-import { Avatar } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
-import useAdmin from "../hooks/useAdmin";
-import useAuth from "../hooks/useAuth";
-import AdminNavlink from "../page/dashboard/admin/AdminNavlink";
-import UserNavLink from "../page/dashboard/user/UserNavLink";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import DashboardNavbar from "../page/dashboard/DashboardNavbar";
+import DashboardSidebar from "../page/dashboard/DashboardSidebar";
+
 const DashboardLayout = () => {
-  const { isAdmin } = useAdmin();
-  const { user } = useAuth();
-  console.log(isAdmin);
+  const [isCollapsed, setIsCollapsed] = useState(false); // Sidebar collapsed state
+
   return (
     <>
-      <div className="flex">
-        {/* menu */}
-        <div className="max-w-64 w-full bg-secondary pb-3 items-center h-screen sticky top-0 overflow-y-auto flex flex-col justify-between ">
-          {/* heading */}
-          <div className="flex  gap-3 items-end border-b py-8 border-gray-400  bg-primary/80 p-2 w-full">
-            <Avatar
-              referrerPolicy="no-referrer"
-              src={user?.photoURL}
-              alt="avatar"
-              withBorder={true}
-              className="p-0.5 border-white/90"
-            />
-            <div className="flex flex-col ">
-              <span className="text-white text-sm opacity-80 leading-none">
-                Welcome!
-              </span>
-              <h4 className="text-2xl truncate text-white leading-snug">
-                {user?.displayName.split(" ")[0]}
-              </h4>
-            </div>
-          </div>
-          {/* body */}
-          <div className="flex-1">
-            {/* Organizer */}
-            <AdminNavlink />
-            {/* User */}
-            <UserNavLink />
-          </div>
+      {/* Navbar */}
+      <DashboardNavbar
+        isCollapsed={isCollapsed}
+        setIsCollapsed={setIsCollapsed}
+      />
 
-          <Link to="/">
-            <img className="w-40" src={logo} alt="logo" />
-          </Link>
+      <div className="flex">
+        {/* Sidebar */}
+        <DashboardSidebar isCollapsed={isCollapsed} />
+
+        {/* Main Content */}
+        <div className="flex-1 h-[2000px] p-5">
+          {/* Your main content goes here */}
+          <Outlet />
         </div>
-        <div className="h-[2000px]"></div>
       </div>
     </>
   );

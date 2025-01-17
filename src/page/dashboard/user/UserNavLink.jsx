@@ -7,50 +7,58 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
+const userNavLinks = [
+  {
+    to: "/dashboard/analytics",
+    icon: "FaChartBar",
+    label: "Analytics",
+  },
+  {
+    to: "/dashboard/participant-profile",
+    icon: "FaUserCircle",
+    label: "Participant Profile",
+  },
+  {
+    to: "/dashboard/registered-camps",
+    icon: "FaClipboardList",
+    label: "Registered Camps",
+  },
+  {
+    to: "/dashboard/payment-history",
+    icon: "FaMoneyBillWave",
+    label: "Payment History",
+  },
+];
+
+const iconMapping = {
+  FaChartBar: FaChartBar,
+  FaUserCircle: FaUserCircle,
+  FaClipboardList: FaClipboardList,
+  FaMoneyBillWave: FaMoneyBillWave,
+};
+
 const UserNavLink = () => {
   return (
     <div className="dashboard-sidebar bg-secondary p-6 shadow-lg">
       <ul className="space-y-4">
-        <li className="flex items-center">
-          <FaChartBar className="text-white mr-3" />
-          <NavLink
-            to="/dashboard/analytics"
-            activeClassName="text-blue-300 font-semibold"
-            className="text-white hover:text-blue-200 transition"
-          >
-            Analytics
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <FaUserCircle className="text-white mr-3" />
-          <NavLink
-            to="/dashboard/participant-profile"
-            activeClassName="text-blue-300 font-semibold"
-            className="text-white hover:text-blue-200 transition"
-          >
-            Participant Profile
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <FaClipboardList className="text-white mr-3" />
-          <NavLink
-            to="/dashboard/registered-camps"
-            activeClassName="text-blue-300 font-semibold"
-            className="text-white hover:text-blue-200 transition"
-          >
-            Registered Camps
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <FaMoneyBillWave className="text-white mr-3" />
-          <NavLink
-            to="/dashboard/payment-history"
-            activeClassName="text-blue-300 font-semibold"
-            className="text-white hover:text-blue-200 transition"
-          >
-            Payment History
-          </NavLink>
-        </li>
+        {userNavLinks.map((link, i) => {
+          const Icon = iconMapping[link.icon];
+          return (
+            <li key={i}>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  `${
+                    isActive ? "text-blue-300" : "text-white"
+                  } hover:text-blue-200 transition flex items-center`
+                }
+              >
+                <Icon className=" mr-3" />
+                {link.label}
+              </NavLink>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
