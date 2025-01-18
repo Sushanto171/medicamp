@@ -4,9 +4,11 @@ import { ComplexNavbar } from "./../page/shared/Navbar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="">
       {/* navbar */}
-      <ComplexNavbar />
+      <div className="bg-primary">
+        <ComplexNavbar />
+      </div>
       {/* outlet */}
       <div className="min-h-[calc(100vh-280px)]">
         <Outlet />

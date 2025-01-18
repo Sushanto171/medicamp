@@ -157,8 +157,8 @@ export function ComplexNavbar() {
   );
   if (loading) return <LoadingSpinner auth={false} />;
   return (
-    <Navbar className="py-4 bg-primary rounded-none text-white px-0 m-0">
-      <Container>
+    <Container>
+      <Navbar className="py-4 bg-primary rounded-none text-white px-0 m-0 w-full border-0 shadow-none">
         <div className=" w-full relative mx-auto flex items-center justify-between ">
           <div className="flex-1 flex items-center">
             {/* logo */}
@@ -193,7 +193,7 @@ export function ComplexNavbar() {
             )}
           </div>
         </div>
-      </Container>
-    </Navbar>
+      </Navbar>
+    </Container>
   );
 }

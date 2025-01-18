@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Avatar, Button, Input, Typography } from "@material-tailwind/react";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { BiPlusMedical } from "react-icons/bi";
 import { LiaPenSolid } from "react-icons/lia";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useDBUser from "../hooks/useDBUser";
 import LoadingSpinner from "../page/shared/LoadingSpinner";
 import { uploadPhotoDB } from "../utilites/utilites";
 
@@ -14,13 +15,7 @@ const Profile = ({ title }) => {
   const { user, loading, updateUserProfile, setLoading } = useAuth();
   const [updateLoading, setUpdateLoading] = useState(false);
   // fetch user to db
-  const { data: userDB = {}, isLoading } = useQuery({
-    queryKey: ["userDB", user?.email],
-    queryFn: async () => {
-      const { data } = await axiosSecure(`/user/${user?.email}`);
-      return data?.data;
-    },
-  });
+  const { userDB, isLoading, refetch } = useDBUser();
   const [formData, setFormData] = useState({
     name: user?.displayName || "Anonymous",
     email: user?.email,
@@ -87,6 +82,7 @@ const Profile = ({ title }) => {
       //   success message show
       toast.success(data?.message);
       setIsEditing(false);
+      refetch();
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -95,7 +91,7 @@ const Profile = ({ title }) => {
     }
   };
 
-  if (isLoading || loading || updateLoading) return <LoadingSpinner />;
+  if (isLoading || loading) return <LoadingSpinner />;
 
   return (
     <div className="bg-gray-50 flex items-center justify-center sm:h-[calc(100vh-120px)]">
@@ -197,14 +193,17 @@ const Profile = ({ title }) => {
           {isEditing ? (
             <Button
               onClick={handleSave}
-              className="bg-accent hover:bg-secondary"
+              className="bg-accent hover:bg-secondary flex items-center "
             >
+              {updateLoading && (
+                <BiPlusMedical className="animate-spin size-4" />
+              )}
               Save Changes
             </Button>
           ) : (
             <Button
               onClick={() => setIsEditing(true)}
-              className="bg-gray-500 hover:bg-gray-600"
+              className="bg-accent hover:bg-secondary/80 "
             >
               Edit Profile
             </Button>

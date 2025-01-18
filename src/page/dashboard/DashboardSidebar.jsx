@@ -30,7 +30,7 @@ const DashboardSidebar = ({ isCollapsed }) => {
     <div
       className={`${
         isCollapsed ? "hidden sm:flex" : "flex"
-      } flex-col max-w-64 w-full bg-secondary pb-3 sm:h-[calc(100vh-80px)] fixed sm:sticky sm:top-20 overflow-y-auto justify-between z-20`}
+      } flex-col max-w-64 w-full bg-secondary pb-3 h-[calc(100vh-80px)] fixed sm:sticky sm:top-20 overflow-y-auto justify-between z-20`}
     >
       <div className="flex-1">
         {isAdmin && user ? (

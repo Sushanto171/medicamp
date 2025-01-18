@@ -45,8 +45,11 @@ const CampUpdateModal = () => {
   }, [image]);
   return (
     <>
-      <Button onClick={handleOpen} variant="gradient">
-        Open Modal
+      <Button
+        onClick={handleOpen}
+        className="px-3 py-0.5 rounded-sm bg-secondary/70 hover:bg-secondary/90"
+      >
+        Edit
       </Button>
       <Dialog
         open={open}

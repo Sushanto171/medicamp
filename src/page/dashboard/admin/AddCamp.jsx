@@ -5,8 +5,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 
-import { format } from "date-fns";
+import { compareAsc, format } from "date-fns";
 import toast from "react-hot-toast";
+import { BiPlusMedical } from "react-icons/bi";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "./../../../components/SectionTitle";
 import TimePicker from "./../../../components/TimePicker";
@@ -19,6 +20,7 @@ const AddCamp = () => {
   const [imageName, setImageName] = useState(null);
   const [formFile, setFormFile] = useState(null);
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -29,13 +31,22 @@ const AddCamp = () => {
 
   const onSubmit = async (camp) => {
     camp.time = time;
+    // validate date
+    const compareDate = compareAsc(new Date(), new Date(startDate));
+    if (compareDate === 1) {
+      return toast.error("The date must be in the future");
+    }
     camp.date = format(new Date(startDate), "yyyy-MM-dd");
     camp.participantCount = 0;
+    camp.campFees = parseInt(camp.campFees);
+
     try {
+      setLoading(true);
       // save image to imgbb
       const url = await uploadPhotoDB(formFile);
       if (!url) return toast.error("Something error.Please try again");
       camp.image = url;
+
       // post on db
       const { data } = await axiosSecure.post("/camps", camp);
       toast.success(data?.message);
@@ -45,6 +56,8 @@ const AddCamp = () => {
       setImageName("");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +71,7 @@ const AddCamp = () => {
 
   return (
     <div>
-      <SectionTitle title="Create a New Camp" />
+      <SectionTitle my={6} title="Create a New Camp" />
       <div className="p-4 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Camp Name */}
@@ -187,9 +200,10 @@ const AddCamp = () => {
           <div className="text-center">
             <Button
               type="submit"
-              className="bg-primary w-full text-white hover:bg-primary/80"
+              className="bg-primary w-full text-white hover:bg-primary/80 flex items-center justify-center"
             >
-              Submit
+              {loading && <BiPlusMedical className="animate-spin size-4" />}
+              Save Camp
             </Button>
           </div>
         </form>

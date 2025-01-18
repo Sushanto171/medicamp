@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
+import useDBUser from "./useDBUser";
 
 const useAdmin = () => {
   const { user, loading } = useAuth();
+  const { userDB } = useDBUser();
+
   const axiosSecure = useAxiosSecure();
   const {
     data: isAdmin = null,
@@ -12,7 +15,9 @@ const useAdmin = () => {
   } = useQuery({
     queryKey: ["admin", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/admin/${user?.email}`);
+      const { data } = await axiosSecure(
+        `/admin/${user?.email || userDB?.email}`
+      );
       return data?.data;
     },
     enabled: !loading,
