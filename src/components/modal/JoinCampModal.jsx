@@ -46,6 +46,8 @@ export function JoinCampModal({ campDetails, refetch }) {
         (formData.participantEmail = user?.email),
         (formData.participantPhoto = user?.photoURL);
       formData.campID = campDetails._id;
+      formData.paymentStatus = false;
+      formData.confirmationStatus = "Pending";
 
       // save data to db
       const { data } = await axiosSecure.post(

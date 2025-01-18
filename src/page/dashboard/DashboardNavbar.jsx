@@ -26,7 +26,7 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
   return (
     <nav className="h-20 sticky top-0 flex justify-between bg-primary/80 z-50 backdrop-blur-lg">
       {/* Logo */}
-      <div className="flex items-center justify-center max-w-64 w-full md:border-r ">
+      <div className="flex items-center justify-center max-w-64 w-full  ">
         <Link to="/">
           <img className="w-40" src={logo} alt="logo" />
         </Link>

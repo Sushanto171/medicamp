@@ -53,7 +53,7 @@ const AvailableCamp = () => {
               <Menu>
                 <MenuHandler>
                   <Button
-                    disabled={camps.length === 0}
+                    disabled={camps.length <= 1}
                     title="Sort"
                     className="relative w-40 p rounded-full bg-primary/70 border-secondary pl-2 whitespace-nowrap"
                   >
@@ -85,7 +85,7 @@ const AvailableCamp = () => {
                   Layout
                 </span>
                 <Button
-                  disabled={camps.length === 0}
+                  disabled={camps.length <= 1}
                   variant="text"
                   title="2 column"
                   onClick={() => setLayout(false)}
@@ -96,7 +96,7 @@ const AvailableCamp = () => {
                   <TfiLayoutColumn2Alt />
                 </Button>
                 <Button
-                  disabled={camps.length === 0}
+                  disabled={camps.length <= 1}
                   variant="text"
                   title="3 column"
                   onClick={() => setLayout(true)}

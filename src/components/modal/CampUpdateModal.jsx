@@ -44,7 +44,7 @@ const CampUpdateModal = ({ camp, refetch }) => {
 
       // finally update
       const { data } = await axiosSecure.patch(
-        `/camp/${camp._id}`,
+        `/update-camp/${camp._id}`,
         updatedCamp
       );
       toast.success(data.message);
