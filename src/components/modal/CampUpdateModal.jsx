@@ -1,10 +1,5 @@
-import {
-  Button,
-  Dialog,
-  DialogFooter,
-  Input,
-  Textarea,
-} from "@material-tailwind/react";
+/* eslint-disable react/prop-types */
+import { Button, Dialog, Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
@@ -12,14 +7,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 
 import { format } from "date-fns";
+
+import toast from "react-hot-toast";
 import SectionTitle from "../SectionTitle";
 import TimePicker from "../TimePicker";
+import useAxiosSecure from "./../../hooks/useAxiosSecure";
+import { uploadPhotoDB } from "./../../utilites/utilites";
 
-const CampUpdateModal = () => {
+const CampUpdateModal = ({ camp, refetch }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-
-  const [startDate, setStartDate] = useState(new Date());
+  const axiosSecure = useAxiosSecure();
+  const [startDate, setStartDate] = useState(camp?.date);
   const [time, setTime] = useState("");
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState(null);
@@ -30,10 +29,30 @@ const CampUpdateModal = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    data.time = time;
-    data.data = format(new Date(startDate), "yyyy-MM-dd");
-    console.log(data);
+  const onSubmit = async (updatedCamp) => {
+    updatedCamp.time = time;
+    updatedCamp.date = format(new Date(startDate), "yyyy-MM-dd");
+    updatedCamp.campFees = parseInt(updatedCamp.campFees);
+    try {
+      // if organizer change image then save to db or not save
+      if (image) {
+        const url = await uploadPhotoDB(image);
+        updatedCamp.image = url;
+      } else {
+        updatedCamp.image = camp.image;
+      }
+
+      // finally update
+      const { data } = await axiosSecure.patch(
+        `/camp/${camp._id}`,
+        updatedCamp
+      );
+      toast.success(data.message);
+      handleOpen();
+      refetch();
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -56,7 +75,7 @@ const CampUpdateModal = () => {
         handler={handleOpen}
         className="max-h-[80%] overflow-x-auto"
       >
-        <SectionTitle title="Update Camp info" />
+        <SectionTitle my={6} title="Update Camp info" />
         <div className="p-4 max-w-2xl mx-auto">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Camp Name */}
@@ -65,6 +84,7 @@ const CampUpdateModal = () => {
                 label="Camp Name*"
                 {...register("campName", { required: "Camp Name is required" })}
                 placeholder="Enter camp name"
+                defaultValue={camp?.campName}
                 className="w-full"
               />
               {errors.campName && (
@@ -83,6 +103,7 @@ const CampUpdateModal = () => {
                 })}
                 placeholder="Enter healthcare professional name"
                 className="w-full"
+                defaultValue={camp?.healthcareProfessional}
               />
               {errors.healthcareProfessional && (
                 <p className="text-red-500 text-sm">
@@ -98,6 +119,7 @@ const CampUpdateModal = () => {
                 {...register("location", { required: "Location is required" })}
                 placeholder="Enter location"
                 className="w-full"
+                defaultValue={camp?.location}
               />
               {errors.location && (
                 <p className="text-red-500 text-sm">
@@ -113,6 +135,7 @@ const CampUpdateModal = () => {
                 {...register("campFees", { required: "Camp Fees is required" })}
                 placeholder="Enter camp fees"
                 className="w-full"
+                defaultValue={camp?.campFees}
               />
               {errors.campFees && (
                 <p className="text-red-500 text-sm">
@@ -136,13 +159,9 @@ const CampUpdateModal = () => {
                 <input
                   id="image"
                   type="file"
-                  {...register("image", { required: "Image is required" })}
                   className="w-full hidden"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={(e) => setImage(e.target.files)}
                 />
-                {errors.image && (
-                  <p className="text-red-500 text-sm">{errors.image.message}</p>
-                )}
               </div>
               {/* Date */}
               <div className="relative flex-1 min-w-40 w-full">
@@ -153,7 +172,7 @@ const CampUpdateModal = () => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat="dd/MM/yyyy"
-                  className="w-full border-primary/50 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
+                  className="w-full px-3 border-primary/50 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
                 />
               </div>
 
@@ -162,7 +181,7 @@ const CampUpdateModal = () => {
                 <span className="absolute bg-white text-[11px] left-2 -top-1.5 text-gray-700 px-0.5">
                   Time*
                 </span>
-                <TimePicker setTime={setTime} />
+                <TimePicker defaultTime={camp?.time} setTime={setTime} />
               </div>
             </div>
 
@@ -170,6 +189,7 @@ const CampUpdateModal = () => {
             <div>
               <Textarea
                 label="Description*"
+                defaultValue={camp?.description}
                 {...register("description", {
                   required: "Description is required",
                 })}
@@ -183,29 +203,19 @@ const CampUpdateModal = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="text-center">
+            <div className="text-center flex gap-2">
               <Button
                 type="submit"
                 className="bg-primary w-full text-white hover:bg-primary/80"
               >
                 Submit
               </Button>
+              <Button onClick={handleOpen} className="mr-1 bg-accent">
+                <span>Cancel</span>
+              </Button>
             </div>
           </form>
         </div>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
       </Dialog>
     </>
   );

@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
-const TimePicker = ({ setTime }) => {
-  const [hour, setHour] = useState("12");
-  const [minute, setMinute] = useState("00");
-  const [period, setPeriod] = useState("AM");
+const TimePicker = ({ setTime, defaultTime = "" }) => {
+  const [hour, setHour] = useState(defaultTime.slice(0, 2) || "12");
+  const [minute, setMinute] = useState(defaultTime.slice(3, 5) || "00");
+  const [period, setPeriod] = useState(
+    defaultTime.slice(6, defaultTime.length) || "AM"
+  );
   useEffect(() => {
     const realTime = `${hour}:${minute} ${period}`;
     setTime(realTime);

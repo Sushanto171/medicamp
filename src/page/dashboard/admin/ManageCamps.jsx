@@ -1,12 +1,51 @@
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle";
 import useCamps from "../../../hooks/useCamps";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import CampUpdateModal from "./../../../components/modal/CampUpdateModal";
+import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 
 const ManageCamps = () => {
-  const { camps, isLoading } = useCamps({ home: false });
+  const { camps, isLoading, refetch } = useCamps({ home: false });
+  const axiosSecure = useAxiosSecure();
   if (isLoading) return <LoadingSpinner />;
-  console.log(camps);
+
+  const sweetAlert = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "you won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0B383D",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await HandleDelete(id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
+  const HandleDelete = async (id) => {
+    try {
+      const { data } = await axiosSecure.delete(`/camp/${id}`);
+      refetch();
+      if (data.deletedCount > 0) {
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <>
       <SectionTitle my={6} title="All Camps" />
@@ -66,8 +105,11 @@ const ManageCamps = () => {
                 </td>
                 <td className="border border-gray-300 px-4 py-2 space-x-2 items-center ">
                   <div className="flex gap-2">
-                    <CampUpdateModal />
-                    <button className="bg-red-400 text-white px-2 py-0.5 rounded hover:bg-red-600">
+                    <CampUpdateModal refetch={refetch} camp={camp} />
+                    <button
+                      onClick={() => sweetAlert(camp._id)}
+                      className="bg-red-400 text-white px-2 py-0.5 rounded hover:bg-red-600"
+                    >
                       Delete
                     </button>
                   </div>
@@ -105,8 +147,11 @@ const ManageCamps = () => {
                 {camp.healthcareProfessional}
               </p>
               <div className="mt-4 flex space-x-2">
-                <CampUpdateModal />
-                <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                <CampUpdateModal refetch={refetch} camp={camp} />
+                <button
+                  onClick={() => sweetAlert(camp._id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                >
                   Delete
                 </button>
               </div>
