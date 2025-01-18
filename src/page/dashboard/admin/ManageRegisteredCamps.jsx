@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { TiInfoLarge } from "react-icons/ti";
 import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle";
 import LoadingSpinner from "../../shared/LoadingSpinner";
@@ -89,33 +90,36 @@ const ManageRegisteredCamps = () => {
                 <td className="border p-1 text-text">{i + 1}</td>
                 <td className="border p-1 text-text">{camp.campName}</td>
                 <td className="border p-1 text-text">${camp.campFees}</td>
-                <td className="border p-1 text-text">{camp.participantName}</td>
+                <td
+                  title={camp.participantEmail}
+                  className="border p-1 text-text flex "
+                >
+                  {camp.participantName} <TiInfoLarge />
+                </td>
                 <td className="border p-1 text-text">
                   {camp.paymentStatus ? "Paid" : "Unpaid"}
                 </td>
                 <td className="border p-1 text-text">
-                  {camp.confirmationStatus}
+                  {camp.confirmationStatus ? "Confirmed" : "Pending"}
                 </td>
                 <td className="w-40 grid grid-cols-2 p-2">
                   <button
                     onClick={() => handleConfirm(camp._id)}
                     disabled={
-                      camp.confirmationStatus === "Confirmed" ||
-                      camp.paymentStatus === false
+                      camp.confirmationStatus || camp.paymentStatus === false
                     }
                     title={
                       (!camp.paymentStatus && "Participant did not pay") ||
-                      (camp.confirmationStatus === "Confirmed" &&
+                      (camp.confirmationStatus &&
                         "Participant already confirmed")
                     }
                     className={` py-1   rounded-sm text-white ${
-                      camp.paymentStatus === false ||
-                      camp.confirmationStatus === "Confirmed"
+                      camp.paymentStatus === false || camp.confirmationStatus
                         ? "cursor-not-allowed bg-gray-400 px-0.5"
                         : " bg-secondary/60 hover:bg-secondary/70 px-2"
                     }`}
                   >
-                    {camp.confirmationStatus === "Pending" ? (
+                    {!camp.confirmationStatus ? (
                       "Confirm"
                     ) : (
                       <p className="text-sm">Confirmed</p>
@@ -123,18 +127,14 @@ const ManageRegisteredCamps = () => {
                   </button>
                   <button
                     onClick={() => handleCancel(camp._id, camp.campID)}
-                    disabled={
-                      camp.paymentStatus &&
-                      camp.confirmationStatus === "Confirmed"
-                    }
+                    disabled={camp.paymentStatus && camp.confirmationStatus}
                     title={
-                      camp.confirmationStatus === "Confirmed"
+                      camp.confirmationStatus
                         ? "Participant already confirmed"
                         : ""
                     }
                     className={`ml-2 px-2 py-1   rounded-sm text-white  ${
-                      camp.paymentStatus &&
-                      camp.confirmationStatus === "Confirmed"
+                      camp.paymentStatus && camp.confirmationStatus
                         ? "cursor-not-allowed bg-gray-400"
                         : "bg-red-400 hover:bg-red-600"
                     }`}
