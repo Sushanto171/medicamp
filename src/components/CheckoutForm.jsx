@@ -55,25 +55,24 @@ const CheckoutForm = ({ camp, refetch, handleClose }) => {
 
       // if succeed
       if (paymentIntent.status === "succeeded") {
-        toast.success("Payment successful!");
-      }
+        // add payment history on db
+        const paymentData = {
+          campName: camp.campName,
+          campFees: camp.campFees,
+          participantEmail: camp.participantEmail,
+          participantName: camp.participantName,
+          participantID: camp._id,
+          transactionID: paymentIntent.id,
+        };
+        const { data: paymentRes } = await axiosSecure.post(
+          `/payments/${camp._id}`,
+          paymentData
+        );
 
-      // add payment history on db
-      const paymentData = {
-        campName: camp.campName,
-        campFees: camp.campFees,
-        participantEmail: camp.participantEmail,
-        participantName: camp.participantName,
-        campID: camp.campID,
-        transactionID: paymentIntent.id,
-      };
-      const { data: paymentRes } = await axiosSecure.post(
-        `/payments/${camp._id}`,
-        paymentData
-      );
-      console.log(paymentRes);
-      refetch();
-      handleClose();
+        handleClose();
+        toast.success(paymentRes.message);
+        refetch();
+      }
     } catch (error) {
       toast.error("Payment Failed. Please try again.");
       console.log(error);

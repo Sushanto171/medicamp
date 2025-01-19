@@ -22,7 +22,6 @@ const RegisteredCamps = () => {
     enabled: !!user?.email,
   });
 
-  console.log(registered);
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>
@@ -59,11 +58,27 @@ const RegisteredCamps = () => {
                 </td>
                 <td className="border p-1 text-text">${camp.campFees}</td>
                 <td className="border p-1 text-text">{camp.participantName}</td>
-                <td className="border p-1 text-text">
-                  {camp.paymentStatus ? "Paid" : "Unpaid"}
+                <td className={` border p-1 text-text`}>
+                  <span
+                    className={` px-2 py-0.5 rounded-sm ${
+                      camp.paymentStatus
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
+                  >
+                    {camp.paymentStatus ? "Paid" : "Unpaid"}
+                  </span>
                 </td>
                 <td className="border p-1 text-text">
-                  {camp.confirmationStatus ? "Confirmed" : "Pending"}
+                  <span
+                    className={` px-2 py-0.5 rounded-sm ${
+                      camp.confirmationStatus
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
+                  >
+                    {camp.confirmationStatus ? "Confirmed" : "Pending"}
+                  </span>
                 </td>
                 <td className="w-40 grid grid-cols-2 p-2">
                   {/* payment modal*/}
