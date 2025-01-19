@@ -57,6 +57,12 @@ export function JoinCampModal({ campDetails, refetch }) {
       toast.success(data?.message);
       refetch();
       handleOpen(); // Close modal after submission
+      setFormData({
+        age: "",
+        phoneNumber: "",
+        gender: "",
+        emergencyContact: "",
+      });
     } catch (error) {
       toast.error(error.message);
     }

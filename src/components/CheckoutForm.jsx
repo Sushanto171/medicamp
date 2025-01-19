@@ -8,7 +8,6 @@ const CheckoutForm = ({ camp, refetch, handleClose }) => {
   const elements = useElements();
   const [error, setError] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [transactionId, setTransactionId] = useState("");
   const axiosSecure = useAxiosSecure();
 
   const handleSubmit = async (e) => {
@@ -56,10 +55,25 @@ const CheckoutForm = ({ camp, refetch, handleClose }) => {
 
       // if succeed
       if (paymentIntent.status === "succeeded") {
-        setTransactionId(paymentIntent.id);
         toast.success("Payment successful!");
-        console.log(paymentIntent);
       }
+
+      // add payment history on db
+      const paymentData = {
+        campName: camp.campName,
+        campFees: camp.campFees,
+        participantEmail: camp.participantEmail,
+        participantName: camp.participantName,
+        campID: camp.campID,
+        transactionID: paymentIntent.id,
+      };
+      const { data: paymentRes } = await axiosSecure.post(
+        `/payments/${camp._id}`,
+        paymentData
+      );
+      console.log(paymentRes);
+      refetch();
+      handleClose();
     } catch (error) {
       toast.error("Payment Failed. Please try again.");
       console.log(error);

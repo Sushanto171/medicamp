@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { TiInfoLarge } from "react-icons/ti";
-import Swal from "sweetalert2";
 import SectionTitle from "../../../components/SectionTitle";
 import LoadingSpinner from "../../shared/LoadingSpinner";
+import ParticipantCancel from "../../shared/ParticipantCancel";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 
 const ManageRegisteredCamps = () => {
@@ -26,38 +26,13 @@ const ManageRegisteredCamps = () => {
     const { data } = await axiosSecure.patch(
       `/confirmation-participant/${id}`,
       {
-        confirmationStatus: "Confirmed",
+        confirmationStatus: true,
       }
     );
     toast.success(data.message);
     refetch();
   };
 
-  const handleCancel = (id, campID) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#0b383d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(
-          `/delete-participant/${id}/${campID}`
-        );
-        refetch();
-        Swal.fire({
-          title: "Deleted!",
-          text: data.message,
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="">
@@ -128,22 +103,11 @@ const ManageRegisteredCamps = () => {
                       <p className="text-sm">Confirmed</p>
                     )}
                   </button>
-                  <button
-                    onClick={() => handleCancel(camp._id, camp.campID)}
+                  <ParticipantCancel
+                    camp={camp}
+                    refetch={refetch}
                     disabled={camp.paymentStatus && camp.confirmationStatus}
-                    title={
-                      camp.confirmationStatus
-                        ? "Participant already confirmed"
-                        : ""
-                    }
-                    className={`ml-2 px-2 py-1   rounded-sm text-white  ${
-                      camp.paymentStatus && camp.confirmationStatus
-                        ? "cursor-not-allowed bg-gray-400"
-                        : "bg-red-400 hover:bg-red-600"
-                    }`}
-                  >
-                    Cancel
-                  </button>
+                  />
                 </td>
               </tr>
             ))}

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { FeedbackModal } from "../../../components/modal/FeedbackModal";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../shared/LoadingSpinner";
+import ParticipantCancel from "../../shared/ParticipantCancel";
 import PayModal from "./../../../components/modal/PayModal";
 import SectionTitle from "./../../../components/SectionTitle";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
@@ -19,9 +21,6 @@ const RegisteredCamps = () => {
     },
     enabled: !!user?.email,
   });
-  const handleCancel = () => {
-    console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-  };
 
   console.log(registered);
   if (isLoading) return <LoadingSpinner />;
@@ -71,33 +70,16 @@ const RegisteredCamps = () => {
                   <PayModal camp={camp} refetch={refetch} />
                   {!camp.confirmationStatus ? (
                     <>
-                      <button
-                        onClick={() => handleCancel(camp._id)}
+                      <ParticipantCancel
+                        camp={camp}
+                        refetch={refetch}
                         disabled={camp.paymentStatus}
-                        title={
-                          camp.confirmationStatus ? "You already joined" : ""
-                        }
-                        className={`ml-2 px-2 py-1 rounded-sm text-white ${
-                          camp.paymentStatus
-                            ? "cursor-not-allowed bg-gray-400"
-                            : "bg-red-400 hover:bg-red-600"
-                        }`}
-                      >
-                        Cancel
-                      </button>
+                      />
                     </>
                   ) : (
                     <>
-                      <button
-                        onClick={() => handleCancel(camp._id)}
-                        disabled={
-                          !camp.paymentStatus && !camp.confirmationStatus
-                        }
-                        title={"Write feedback for better improvement"}
-                        className={`ml-2 px-0.5 py-1 rounded-sm text-white bg-secondary/60 text-sm hover:bg-secondary/85`}
-                      >
-                        Feedback
-                      </button>
+                      {/* feedback button */}
+                      <FeedbackModal camp={camp} />
                     </>
                   )}
                 </td>
