@@ -70,15 +70,31 @@ const ManageRegisteredCamps = () => {
                 <td className="border p-1 text-text">${camp.campFees}</td>
                 <td
                   title={camp.participantEmail}
-                  className="border p-1 text-text flex "
+                  className=" p-1 text-text flex "
                 >
                   {camp.participantName} <TiInfoLarge />
                 </td>
                 <td className="border p-1 text-text">
-                  {camp.paymentStatus ? "Paid" : "Unpaid"}
+                  <span
+                    className={` px-2 py-0.5 rounded-sm ${
+                      camp.paymentStatus
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
+                  >
+                    {camp.paymentStatus ? "Paid" : "Unpaid"}
+                  </span>
                 </td>
                 <td className="border p-1 text-text">
-                  {camp.confirmationStatus ? "Confirmed" : "Pending"}
+                  <span
+                    className={` px-2 py-0.5 rounded-sm ${
+                      camp.confirmationStatus
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
+                  >
+                    {camp.confirmationStatus ? "Confirmed" : "Pending"}
+                  </span>
                 </td>
                 <td className="w-40 grid grid-cols-2 p-2">
                   <button
@@ -87,9 +103,10 @@ const ManageRegisteredCamps = () => {
                       camp.confirmationStatus || camp.paymentStatus === false
                     }
                     title={
-                      (!camp.paymentStatus && "Participant did not pay") ||
-                      (camp.confirmationStatus &&
-                        "Participant already confirmed")
+                      (!camp.paymentStatus ? "Participant did not pay" : "") ||
+                      (camp.confirmationStatus
+                        ? "Participant already confirmed"
+                        : "")
                     }
                     className={` py-1   rounded-sm text-white ${
                       camp.paymentStatus === false || camp.confirmationStatus
