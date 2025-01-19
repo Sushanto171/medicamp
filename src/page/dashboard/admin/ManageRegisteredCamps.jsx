@@ -88,7 +88,10 @@ const ManageRegisteredCamps = () => {
                 className={`${i % 2 !== 0 ? "bg-accent/10" : ""}  text-center`}
               >
                 <td className="border p-1 text-text">{i + 1}</td>
-                <td className="border p-1 text-text">{camp.campName}</td>
+                <td className="border p-1 text-text">
+                  {camp.campName.slice(0, 25)}
+                  {camp.campName.length > 24 && ".."}
+                </td>
                 <td className="border p-1 text-text">${camp.campFees}</td>
                 <td
                   title={camp.participantEmail}

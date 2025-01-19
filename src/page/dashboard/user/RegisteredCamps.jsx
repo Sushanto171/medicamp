@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../../shared/LoadingSpinner";
+import PayModal from "./../../../components/modal/PayModal";
 import SectionTitle from "./../../../components/SectionTitle";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 const RegisteredCamps = () => {
@@ -17,9 +19,12 @@ const RegisteredCamps = () => {
     },
     enabled: !!user?.email,
   });
-  const handleCancel = () => {};
-  const handlePaid = () => {};
+  const handleCancel = () => {
+    console.log(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+  };
+
   console.log(registered);
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div>
       <SectionTitle my={6} title="Explore Registered Camps" />
@@ -49,7 +54,10 @@ const RegisteredCamps = () => {
                 className={`${i % 2 !== 0 ? "bg-accent/10" : ""} text-center`}
               >
                 <td className="border p-1 text-text">{i + 1}</td>
-                <td className="border p-1 text-text">{camp.campName}</td>
+                <td className="border p-1 text-text">
+                  {camp.campName.slice(0, 25)}
+                  {camp.campName.length > 24 && ".."}
+                </td>
                 <td className="border p-1 text-text">${camp.campFees}</td>
                 <td className="border p-1 text-text">{camp.participantName}</td>
                 <td className="border p-1 text-text">
@@ -59,34 +67,39 @@ const RegisteredCamps = () => {
                   {camp.confirmationStatus ? "Confirmed" : "Pending"}
                 </td>
                 <td className="w-40 grid grid-cols-2 p-2">
-                  <button
-                    onClick={() => handlePaid(camp._id)}
-                    disabled={camp.paymentStatus}
-                    title={camp.paymentStatus && "You already paid"}
-                    className={`py-1 rounded-sm text-white ${
-                      camp.paymentStatus
-                        ? "cursor-not-allowed bg-gray-400 px-0.5"
-                        : "bg-secondary/60 hover:bg-secondary/70 px-2"
-                    }`}
-                  >
-                    {camp.paymentStatus ? (
-                      "Paid"
-                    ) : (
-                      <p className="text-sm">Pay</p>
-                    )}
-                  </button>
-                  <button
-                    onClick={() => handleCancel(camp._id)}
-                    disabled={camp.paymentStatus && camp.confirmationStatus}
-                    title={camp.confirmationStatus && "You already joined"}
-                    className={`ml-2 px-2 py-1 rounded-sm text-white ${
-                      camp.paymentStatus && camp.confirmationStatus
-                        ? "cursor-not-allowed bg-gray-400"
-                        : "bg-red-400 hover:bg-red-600"
-                    }`}
-                  >
-                    Cancel
-                  </button>
+                  {/* payment modal*/}
+                  <PayModal camp={camp} refetch={refetch} />
+                  {!camp.confirmationStatus ? (
+                    <>
+                      <button
+                        onClick={() => handleCancel(camp._id)}
+                        disabled={camp.paymentStatus}
+                        title={
+                          camp.confirmationStatus ? "You already joined" : ""
+                        }
+                        className={`ml-2 px-2 py-1 rounded-sm text-white ${
+                          camp.paymentStatus
+                            ? "cursor-not-allowed bg-gray-400"
+                            : "bg-red-400 hover:bg-red-600"
+                        }`}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleCancel(camp._id)}
+                        disabled={
+                          !camp.paymentStatus && !camp.confirmationStatus
+                        }
+                        title={"Write feedback for better improvement"}
+                        className={`ml-2 px-0.5 py-1 rounded-sm text-white bg-secondary/60 text-sm hover:bg-secondary/85`}
+                      >
+                        Feedback
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
