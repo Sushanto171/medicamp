@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { FooterWithLogo } from "../page/shared/Footer";
+
+import Footer from "./../page/shared/Footer";
 import { ComplexNavbar } from "./../page/shared/Navbar";
 
 const MainLayout = () => {
@@ -14,7 +15,7 @@ const MainLayout = () => {
         <Outlet />
       </div>
       {/* footer */}
-      <FooterWithLogo />
+      <Footer />
     </div>
   );
 };

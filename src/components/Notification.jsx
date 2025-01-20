@@ -13,10 +13,9 @@ import useAuth from "../hooks/useAuth";
 
 export function NotificationsMenu() {
   const { notifications } = useAuth();
-  console.log(notifications);
   const [newNotification, setNewNotification] = useState(false);
   const [seenNotification, setSeenNotification] = useState([]);
-  console.log(seenNotification);
+
   const unSeenNotification = notifications.filter(
     (notification) => !seenNotification.includes(notification.transactionID)
   );
@@ -65,6 +64,13 @@ export function NotificationsMenu() {
                   className="font-semibold"
                 >
                   {item.message}
+                </Typography>
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="font-semibold"
+                >
+                  Camp Name: {item.campName}
                 </Typography>
                 <Typography
                   variant="small"

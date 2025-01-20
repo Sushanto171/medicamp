@@ -10,7 +10,7 @@ const useSocket = () => {
     // Establish websocket connection
     socketRef.current = new WebSocket("ws://localhost:8080");
     socketRef.current.onopen = () => {
-      console.log("Connected to websocket server");
+      //   console.log("Connected to websocket server");
     };
     socketRef.current.onmessage = (e) => {
       const message = e.data;
@@ -26,7 +26,7 @@ const useSocket = () => {
     };
 
     socketRef.current.onclose = () => {
-      console.log("disconnected form websocket server");
+      //   console.log("disconnected form websocket server");
     };
 
     return () => socketRef.current.close();
@@ -44,10 +44,6 @@ const useSocket = () => {
         })
       );
     }
-
-    socketRef.current.onerror = (error) => {
-      console.log("socket", error);
-    };
   };
   return { sendNotification };
 };

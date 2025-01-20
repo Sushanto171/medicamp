@@ -20,3 +20,15 @@
   max-height: 400px;
   object-fit: cover;
 }
+
+.swiper-slide {
+  width: 69%;
+}
+
+/* .swiper-slide:nth-child(2n) {
+  width: 60%;
+}
+
+.swiper-slide:nth-child(3n) {
+  width: 60%;
+} */

@@ -3,10 +3,13 @@ import JoinUs from "../auth/joinUs/JoinUs";
 import Register from "../auth/register/Register";
 import DashboardLayout from "../layout/DashboardLayout";
 import MainLayout from "../layout/MainLayout";
+import AboutUs from "../page/AboutUs";
 import AvailableCamp from "../page/availableCamp/AvailableCamp";
 import CampDetails from "../page/campDeatil/CampDetails";
+import CareerPage from "../page/careear/Career";
 import Error from "../page/error/Error";
 import Home from "../page/home/Home";
+import Services from "../page/Services";
 import AddCamp from "./../page/dashboard/admin/AddCamp";
 import ManageCamps from "./../page/dashboard/admin/ManageCamps";
 import ManageRegisteredCamps from "./../page/dashboard/admin/ManageRegisteredCamps";
@@ -31,6 +34,18 @@ export const router = createBrowserRouter([
       {
         path: "/available-camps",
         element: <AvailableCamp />,
+      },
+      {
+        path: "/career",
+        element: <CareerPage />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/Services",
+        element: <Services />,
       },
       {
         path: "/camp-details/:id",

@@ -90,6 +90,30 @@ function ProfileMenu() {
               Available Camps
             </NavLink>
           </li>
+          <li className="w-full">
+            <NavLink
+              className={({ isActive }) => (isActive ? "underline" : "")}
+              to="/career"
+            >
+              Career
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "underline" : "")}
+              to="/about-us"
+            >
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "underline" : "")}
+              to="/services"
+            >
+              Services
+            </NavLink>
+          </li>
         </ul>
         {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
@@ -151,6 +175,30 @@ export function ComplexNavbar() {
           to="/available-camps"
         >
           Available Camps
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? "underline" : "")}
+          to="/career"
+        >
+          Career
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? "underline" : "")}
+          to="/about-us"
+        >
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? "underline" : "")}
+          to="/services"
+        >
+          Services
         </NavLink>
       </li>
     </>
