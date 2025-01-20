@@ -32,7 +32,7 @@ export default function JoinUs() {
   } = useForm({ resolver: yupResolver(schema) });
   const captchaRef = useRef(null);
   const [isDisable, setIsDisable] = useState(true);
-  const { joinNow, loading } = useAuth();
+  const { joinNow, loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -44,7 +44,7 @@ export default function JoinUs() {
       navigate(`${state ? state : "/"}`);
     } catch (error) {
       toast.error(error.message);
-      console.log(isDisable);
+      setLoading(false);
     }
   };
 

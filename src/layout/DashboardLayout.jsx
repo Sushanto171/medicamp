@@ -5,8 +5,8 @@ import DashboardNavbar from "../page/dashboard/DashboardNavbar";
 import DashboardSidebar from "../page/dashboard/DashboardSidebar";
 
 const DashboardLayout = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false); // Sidebar collapsed state
-
+  const [isCollapsed, setIsCollapsed] = useState(true); // Sidebar collapsed state
+  const handleClose = () => setIsCollapsed(!isCollapsed);
   return (
     <>
       {/* Navbar */}
@@ -17,7 +17,7 @@ const DashboardLayout = () => {
 
       <div className="flex relative">
         {/* Sidebar */}
-        <DashboardSidebar isCollapsed={isCollapsed} />
+        <DashboardSidebar handleClose={handleClose} isCollapsed={isCollapsed} />
 
         {/* Main Content */}
         <div className="flex-1 p-5">

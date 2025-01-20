@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -84,6 +85,8 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     registerNow,
     signOutUser,
+    notifications,
+    setNotifications,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children} </AuthContext.Provider>

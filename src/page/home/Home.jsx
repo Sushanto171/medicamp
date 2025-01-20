@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import { FeedbackSection } from "./FeedbackSection";
 import PopularMedicalCamps from "./PopularMedicalCamps";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
       {/* banner */}
       <Banner />
       <PopularMedicalCamps />
+      <FeedbackSection />
       <div></div>
     </div>
   );

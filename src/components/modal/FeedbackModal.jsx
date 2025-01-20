@@ -21,6 +21,7 @@ export function FeedbackModal({ camp }) {
       feedback,
       rating,
       campID: camp.campID,
+      photo: user.photoURL,
     };
     try {
       const { data } = await axiosSecure.post("/feedback", feedbackInfo);

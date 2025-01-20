@@ -120,7 +120,7 @@ const AvailableCamp = () => {
         <div
           className={`grid ${
             layout ? "md:grid-cols-3" : "md:grid-cols-2"
-          } sm:grid-cols-2  gap-8`}
+          } sm:grid-cols-2  gap-8 mt-12`}
         >
           {camps.length === 0 ? (
             <>

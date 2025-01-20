@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Rating, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
 const RatingFeedback = ({ camp }) => {
   const axiosPublic = useAxiosPublic();
+  const [loadAll, setLoadAll] = useState(3);
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback", camp?._id],
     queryFn: async () => {
@@ -26,7 +28,7 @@ const RatingFeedback = ({ camp }) => {
   return (
     <>
       <div className="my-6">
-        <h3 className="text-lg text-text truncate">
+        <h3 className="text-lg text-text ">
           Rating & Feedback of {camp.campName}
         </h3>
         <div className="flex items-center gap-2 font-bold text-blue-gray-500 mt-4">
@@ -45,7 +47,7 @@ const RatingFeedback = ({ camp }) => {
           <h4 className="text-lg font-semibold text-gray-800">Reviews:</h4>
           {feedbacks.length > 0 ? (
             <div className="space-y-3 mt-4">
-              {feedbacks.slice(0, 3).map((feedback) => (
+              {feedbacks.slice(0, loadAll).map((feedback) => (
                 <div
                   key={feedback._id}
                   className="p-4 bg-white shadow rounded-lg border border-gray-200"
@@ -70,7 +72,10 @@ const RatingFeedback = ({ camp }) => {
               ))}
               <div>
                 {feedbacks?.length > 3 && (
-                  <button className="border p-1 bg-accent/50 rounded">
+                  <button
+                    onClick={() => setLoadAll(feedbacks.length)}
+                    className="border p-1 bg-accent/50 rounded"
+                  >
                     Reed All Reviews
                   </button>
                 )}

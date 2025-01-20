@@ -12,7 +12,7 @@ import AdminNavlink from "./admin/AdminNavlink";
 import LoadingSpinner from "./../shared/LoadingSpinner";
 import UserNavLink from "./user/UserNavLink";
 
-const DashboardSidebar = ({ isCollapsed }) => {
+const DashboardSidebar = ({ isCollapsed, handleClose }) => {
   const { isAdmin, isLoading } = useAdmin();
   const { user, loading, signOutUser } = useAuth();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const DashboardSidebar = ({ isCollapsed }) => {
         isCollapsed ? "hidden sm:flex" : "flex"
       } flex-col w-64  bg-secondary pb-3 h-[calc(100vh-80px)] fixed sm:sticky sm:top-20 overflow-y-auto justify-between z-50`}
     >
-      <div className="flex-1">
+      <div onClick={handleClose} className="flex-1">
         {isAdmin && user ? (
           <>
             <AdminNavlink />

@@ -3,6 +3,7 @@ import { Avatar } from "@material-tailwind/react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { NotificationsMenu } from "../../components/Notification";
 import useAdmin from "../../hooks/useAdmin";
 import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -31,8 +32,13 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
           <img className="w-40" src={logo} alt="logo" />
         </Link>
       </div>
+
       {/* Heading */}
       <div className="flex gap-3 items-end border-b h-full border-gray-400 p-2 pr-10">
+        {/* notification */}
+        <div>
+          <NotificationsMenu />
+        </div>
         <div className="flex flex-col">
           <span className="text-white text-sm opacity-80 leading-none text-right">
             Welcome!
@@ -41,6 +47,7 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
             {user?.displayName || "Anonymous"}
           </h4>
         </div>
+
         <Avatar
           onClick={handleAvatar}
           referrerPolicy="no-referrer"

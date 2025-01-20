@@ -3,12 +3,14 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "./../hooks/useAxiosSecure";
+import useSocket from "./Socket";
 const CheckoutForm = ({ camp, refetch, handleClose }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
   const [processing, setProcessing] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const { sendNotification } = useSocket();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +70,8 @@ const CheckoutForm = ({ camp, refetch, handleClose }) => {
           `/payments/${camp._id}`,
           paymentData
         );
-
+        // sent notification
+        sendNotification(paymentIntent.id, camp.campName);
         handleClose();
         toast.success(paymentRes.message);
         refetch();
