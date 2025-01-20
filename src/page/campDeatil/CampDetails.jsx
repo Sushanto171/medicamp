@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { JoinCampModal } from "../../components/modal/JoinCampModal";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import RatingFeedback from "./RatingFeedback";
 import SocialShare from "./SocialShare";
 
 const CampDetails = () => {
@@ -52,6 +53,8 @@ const CampDetails = () => {
           className="rounded-lg shadow-lg w-full max-h-[500px] object-cover"
           loading="lazy"
         />
+
+        <RatingFeedback camp={camp} />
       </div>
 
       {/* Right: Camp Details */}

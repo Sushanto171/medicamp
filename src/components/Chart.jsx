@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 
-export default function Chart({ chartData }) {
+export default function Chart({ chartData = [] }) {
   const chartInfo = chartData.map((item) => ({
     name: item.campName,
     participants: item.participantCount,

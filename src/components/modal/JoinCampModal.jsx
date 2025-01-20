@@ -15,14 +15,17 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../page/shared/LoadingSpinner";
+import useAdmin from "./../../hooks/useAdmin";
 
 export function JoinCampModal({ campDetails, refetch }) {
   const handleOpen = () => setOpen(!open);
   const [open, setOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const axiosSecure = useAxiosSecure();
+  const { isAdmin, isLoading } = useAdmin();
 
   const [formData, setFormData] = useState({
     age: "",
@@ -49,6 +52,8 @@ export function JoinCampModal({ campDetails, refetch }) {
       formData.paymentStatus = false;
       formData.confirmationStatus = false;
 
+      // validate user whether admin
+
       // save data to db
       const { data } = await axiosSecure.post(
         `/participants/${campDetails._id}`,
@@ -68,12 +73,17 @@ export function JoinCampModal({ campDetails, refetch }) {
     }
   };
 
+  if (isLoading || loading) return <LoadingSpinner />;
   return (
     <>
       {/* Trigger Button */}
       <Button
         onClick={() =>
-          user ? handleOpen() : navigate("/join-us", { state: pathname })
+          isAdmin
+            ? toast.error("The organizer cannot attend this camp.")
+            : user
+            ? handleOpen()
+            : navigate("/join-us", { state: pathname })
         }
         variant="text"
         className="flex items-center gap-1 bg-secondary text-white hover:text-primary border border-b-4 border-secondary group relative pr-12 hover:bg-accent/10"
