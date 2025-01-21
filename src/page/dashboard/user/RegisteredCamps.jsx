@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { FeedbackModal } from "../../../components/modal/FeedbackModal";
 import useAuth from "../../../hooks/useAuth";
+import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import ParticipantCancel from "../../shared/ParticipantCancel";
 import PayModal from "./../../../components/modal/PayModal";
@@ -8,6 +10,8 @@ import SectionTitle from "./../../../components/SectionTitle";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 const RegisteredCamps = () => {
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
   const { user } = useAuth();
   const {
     data: registered = [],
@@ -21,10 +25,19 @@ const RegisteredCamps = () => {
     },
     enabled: !!user?.email,
   });
+  console.log(search);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || loading) return <LoadingSpinner />;
   return (
     <div>
+      <LiveSearch
+        data={registered}
+        searchKey={setSearch}
+        refetch={refetch}
+        keywordName={"registered"}
+        placeholder="Search by camp name"
+        handleLoading={setLoading}
+      />
       <SectionTitle my={6} title="Explore Registered Camps" />
       {registered.length <= 0 ? (
         <h3 className="text-lg font-medium text-text">No data available.</h3>

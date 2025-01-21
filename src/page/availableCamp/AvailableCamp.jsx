@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { LuArrowDownUp } from "react-icons/lu";
 import Container from "../../components/Container";
+import Pagination from "../../components/Pagination";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
@@ -21,7 +22,16 @@ const AvailableCamp = () => {
   const [sort, setSort] = useState("Sort");
   const [layout, setLayout] = useState(true);
   const [search, setSearch] = useState(null);
-  const { camps, refetch, isLoading } = useCamps({ home: false, sort, search });
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { camps, refetch, isLoading, totalData } = useCamps({
+    home: false,
+    sort,
+    search,
+    page: currentPage - 1,
+  });
+
   useEffect(() => {
     refetch();
     if (sort !== "Sort") {
@@ -29,7 +39,7 @@ const AvailableCamp = () => {
     }
   }, [sort, refetch]);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || loading) return <LoadingSpinner />;
 
   return (
     <div className="">
@@ -42,6 +52,7 @@ const AvailableCamp = () => {
               refetch={refetch}
               searchKey={setSearch}
               keywordName={"available"}
+              handleLoading={setLoading}
             />
             <div></div>
             {/* sort */}
@@ -130,6 +141,13 @@ const AvailableCamp = () => {
             camps.map((camp) => <PopularCampsCard key={camp._id} {...camp} />)
           )}
         </div>
+        {totalData > 10 && (
+          <Pagination
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            totalData={totalData}
+          />
+        )}
       </Container>
     </div>
   );

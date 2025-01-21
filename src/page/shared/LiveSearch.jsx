@@ -1,35 +1,60 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
-const LiveSearch = ({ data, refetch, searchKey, keywordName }) => {
+const LiveSearch = ({
+  data,
+  refetch,
+  searchKey,
+  keywordName,
+  placeholder = "Search here",
+  handleLoading,
+}) => {
   const [search, setSearch] = useState("");
   const [select, setSelect] = useState("");
   const [match, setMatch] = useState("");
   const [click, setClick] = useState(false);
   const palletRef = useRef(null);
   const [keyword, setKeyword] = useState([]);
+  // console.log(data);
+  useEffect(() => {
+    let createKeyword = [];
+    for (const camp of data) {
+      handleLoading(true);
+      if (keywordName === "participants") {
+        createKeyword.push(camp.campName);
+        createKeyword.push(camp.participantName);
+      }
+      if (keywordName === "registered" || keywordName === "payments") {
+        createKeyword.push(camp.campName);
+      }
+      if (keywordName === "available" || keywordName === "allCamps") {
+        createKeyword.push(camp.campName);
+        createKeyword.push(camp.location);
+        createKeyword.push(camp.date);
+        createKeyword.push(camp.healthcareProfessional);
+      }
+    }
+    //   setKeyword on localstorage
+    localStorage.setItem(keywordName, JSON.stringify(createKeyword));
 
-  let createKeyword = [];
-  for (const camp of data) {
-    createKeyword.push(camp.campName);
-    createKeyword.push(camp.location);
-    createKeyword.push(camp.date);
-    createKeyword.push(camp.healthcareProfessional);
-  }
+    if (data.length >= 0) {
+      handleLoading(false);
+    }
+  }, [data, keywordName]);
 
-  //   setKeyword on localstorage
-  localStorage.setItem(keywordName, JSON.stringify(createKeyword));
   useEffect(() => {
     setKeyword(JSON.parse(localStorage.getItem(keywordName)));
   }, []);
 
+  // console.log(keyword);
   useEffect(() => {
     if (search) {
       setMatch(
         keyword.filter((key) =>
-          key.toLowerCase().includes(search.toLowerCase())
+          key.toLowerCase().includes(search?.toLowerCase())
         )
       );
     }
@@ -44,12 +69,14 @@ const LiveSearch = ({ data, refetch, searchKey, keywordName }) => {
   }, [select]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeOut = setTimeout(() => {
       refetch();
     }, 100);
 
     searchKey(search);
-  }, [search, match]);
+
+    return () => clearTimeout(timeOut);
+  }, [search, match, refetch]);
   //   console.log(search);
   return (
     <div className="relative max-w-sm rounded-full">
@@ -59,7 +86,7 @@ const LiveSearch = ({ data, refetch, searchKey, keywordName }) => {
         onChange={(e) => setSearch(e.target.value)}
         onClick={() => setClick(true)}
         onBlur={() => setTimeout(() => setClick(false), 500)}
-        placeholder="Search here.."
+        placeholder={`${placeholder}...`}
         className="w-full group focus:shadow shadow-gray-700 p-2 pl-4 pr-20 rounded-full border border-primary/80 outline-0 placeholder:text-sm placeholder:text-text/60 text-text"
       />
       <button className="absolute top-0 right-0 w-16 h-[41px] flex items-center justify-center rounded-r-full bg-primary/80 text-white text-3xl font-semibold">
@@ -123,6 +150,7 @@ LiveSearch.propTypes = {
   refetch: PropTypes.func,
   searchKey: PropTypes.func,
   keywordName: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 export default LiveSearch;

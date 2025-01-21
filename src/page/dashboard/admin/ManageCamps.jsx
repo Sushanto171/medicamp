@@ -1,15 +1,24 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
 import useCamps from "../../../hooks/useCamps";
+import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import CampUpdateModal from "./../../../components/modal/CampUpdateModal";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 
 const ManageCamps = () => {
-  const { camps, isLoading, refetch } = useCamps({ home: false });
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const { camps, isLoading, refetch, totalData } = useCamps({
+    home: false,
+    search,
+    page: currentPage - 1,
+  });
   const axiosSecure = useAxiosSecure();
-  if (isLoading) return <LoadingSpinner />;
 
   const sweetAlert = (id) => {
     Swal.fire({
@@ -45,9 +54,16 @@ const ManageCamps = () => {
       toast.error(error.message);
     }
   };
-
+  if (loading || isLoading) return <LoadingSpinner />;
   return (
     <>
+      <LiveSearch
+        refetch={refetch}
+        searchKey={setSearch}
+        keywordName={"allCamps"}
+        data={camps}
+        handleLoading={setLoading}
+      />
       <SectionTitle my={6} title="All Camps" />
       <div className="overflow-x-auto">
         {/* Table for large screens */}
@@ -119,6 +135,14 @@ const ManageCamps = () => {
             </tbody>
           </table>
         </div>
+        {/* pagination */}
+        {totalData > 10 && (
+          <Pagination
+            totalData={totalData}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        )}
       </div>
     </>
   );

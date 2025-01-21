@@ -1,23 +1,39 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 
 const PaymentHistory = () => {
   const axiosSecure = useAxiosSecure();
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const { data: payments = [], isLoading } = useQuery({
+  const {
+    data: payments = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["payments", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure(`/payments-history/${user?.email}`);
       return data?.data;
     },
   });
-
-  if (isLoading) return <LoadingSpinner />;
+  console.log(search);
+  if (isLoading || loading) return <LoadingSpinner />;
   return (
     <>
+      <LiveSearch
+        data={payments}
+        searchKey={setSearch}
+        refetch={refetch}
+        keywordName={"payments"}
+        placeholder="Search by camp name"
+        handleLoading={setLoading}
+      />
       <SectionTitle title="Payment History" my={6} />
       {payments.length <= 0 ? (
         <h3 className="text-lg font-medium text-text">No history available</h3>

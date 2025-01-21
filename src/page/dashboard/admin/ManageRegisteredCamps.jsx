@@ -1,21 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { TiInfoLarge } from "react-icons/ti";
+import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
+import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import ParticipantCancel from "../../shared/ParticipantCancel";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 
 const ManageRegisteredCamps = () => {
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [totalData, setTotalData] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: participants = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["participants"],
+    queryKey: ["participants", currentPage],
     queryFn: async () => {
-      const { data } = await axiosSecure("/participants");
+      const { data } = await axiosSecure(
+        `/participants?search=${search}&page=${currentPage - 1}`
+      );
+      setTotalData(data?.totalData);
       return data?.data;
     },
   });
@@ -33,9 +43,17 @@ const ManageRegisteredCamps = () => {
     refetch();
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading || loading) return <LoadingSpinner />;
   return (
     <div className="">
+      <LiveSearch
+        data={participants}
+        refetch={refetch}
+        keywordName={"participants"}
+        searchKey={setSearch}
+        placeholder="Search by camp name or participants name"
+        handleLoading={setLoading}
+      />
       <SectionTitle my={6} title="Participant Registration Table" />
       <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
         <table className="table-auto border-collapse border border-gray-300 w-full min-w-max">
@@ -131,6 +149,15 @@ const ManageRegisteredCamps = () => {
           </tbody>
         </table>
       </div>
+      {/* pagination */}
+      {totalData > 10 && (
+        <Pagination
+          data={participants}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          totalData={totalData}
+        />
+      )}
     </div>
   );
 };
