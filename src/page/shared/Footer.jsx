@@ -45,6 +45,22 @@ const Footer = () => {
 
         <hr className="my-8 border-blue-gray-50" />
 
+        {/* Contact Information Section */}
+        <div className="text-center mb-8">
+          <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
+          <p className="mb-2">123 MediCamp Street, Health City, HC 12345</p>
+          <p className="mb-2">Phone: +1 (234) 567-890</p>
+          <p>
+            Email:{" "}
+            <a
+              href="mailto:info@medicamp.com"
+              className="text-accent hover:underline"
+            >
+              info@medicamp.com
+            </a>
+          </p>
+        </div>
+
         {/* Social Media and Email */}
         <div className="flex flex-wrap items-center justify-center gap-8">
           {/* Social Icons */}

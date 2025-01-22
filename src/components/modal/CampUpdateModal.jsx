@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 
 import toast from "react-hot-toast";
+import { BiPlusMedical } from "react-icons/bi";
 import SectionTitle from "../SectionTitle";
 import TimePicker from "../TimePicker";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
@@ -22,6 +23,7 @@ const CampUpdateModal = ({ camp, refetch }) => {
   const [time, setTime] = useState("");
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -34,6 +36,7 @@ const CampUpdateModal = ({ camp, refetch }) => {
     updatedCamp.date = format(new Date(startDate), "yyyy-MM-dd");
     updatedCamp.campFees = parseInt(updatedCamp.campFees);
     try {
+      setLoading(true);
       // if organizer change image then save to db or not save
       if (image) {
         const url = await uploadPhotoDB(image);
@@ -52,6 +55,8 @@ const CampUpdateModal = ({ camp, refetch }) => {
       refetch();
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -206,8 +211,9 @@ const CampUpdateModal = ({ camp, refetch }) => {
             <div className="text-center flex gap-2">
               <Button
                 type="submit"
-                className="bg-primary w-full text-white hover:bg-primary/80"
+                className="bg-primary w-full flex items-center justify-center text-white hover:bg-primary/80"
               >
+                {loading && <BiPlusMedical className="animate-spin size-4" />}
                 Submit
               </Button>
               <Button onClick={handleOpen} className="mr-1 bg-accent">

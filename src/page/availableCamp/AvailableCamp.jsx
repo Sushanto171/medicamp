@@ -15,6 +15,7 @@ import Pagination from "../../components/Pagination";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
+import { scrollToTop } from "../../utilites/utilites";
 import LiveSearch from "../shared/LiveSearch";
 import LoadingSpinner from "./../shared/LoadingSpinner";
 
@@ -30,6 +31,7 @@ const AvailableCamp = () => {
     sort,
     search,
     page: currentPage - 1,
+    available: true,
   });
 
   useEffect(() => {
@@ -37,12 +39,13 @@ const AvailableCamp = () => {
     if (sort !== "Sort") {
       toast.success(`Successfully sorted by ${sort}`);
     }
+    scrollToTop();
   }, [sort, refetch]);
 
   if (isLoading || loading) return <LoadingSpinner />;
 
   return (
-    <div className="">
+    <div className="mb-12">
       <nav className=" w-full bg-accent sticky top-0 backdrop-blur-md z-50">
         <Container>
           <div className="grid md:grid-cols-3 items-center h-full py-4 gap-2">
@@ -141,11 +144,12 @@ const AvailableCamp = () => {
             camps.map((camp) => <PopularCampsCard key={camp._id} {...camp} />)
           )}
         </div>
-        {totalData > 10 && (
+        {totalData > 9 && (
           <Pagination
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             totalData={totalData}
+            available={true}
           />
         )}
       </Container>

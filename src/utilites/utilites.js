@@ -36,3 +36,10 @@ export const saveUserDataDB = async (userData, axiosPublic) => {
     toast.error(error.message);
   }
 };
+
+export const scrollToTop = (behavior = "smooth") => {
+  window.scrollTo({
+    top: 0,
+    behavior,
+  });
+};

@@ -2,6 +2,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import doctorImage from "../../assets/banner.jpeg"; // Replace with a doctor or medical staff image
 import bgBanner from "../../assets/bg-banner.png";
+import services from "../../assets/service.jpg";
+import vaccinated from "../../assets/vaccinated.jpg";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,10 +13,17 @@ import "swiper/css/pagination";
 import "./styles.css";
 
 // Import required modules
+import { Link } from "react-router-dom";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Container from "../../components/Container";
 
 const Banner = () => {
+  const handleBtn = () => {
+    const section = document.getElementById("popular-camps");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <>
       <Swiper
@@ -35,19 +44,23 @@ const Banner = () => {
         <SwiperSlide>
           <div
             className="w-full relative bg-no-repeat bg-cover"
-            style={{ backgroundImage: `url(${bgBanner})` }}
+            style={{ backgroundImage: `url(${services})` }}
           >
             <div className="h-[300px] sm:h-[400px] w-full flex items-center justify-center">
-              <div className="absolute w-full h-full bg-gradient-to-r from-blue-800 via-transparent to-blue-800 opacity-80"></div>
+              <div className="absolute w-full h-full bg-gradient-to-r bg-black/40 opacity-80"></div>
               <div className="relative z-10 text-white text-center px-8 space-y-4">
                 <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold">
-                  Welcome to MediCamp
+                  Empowering Communities
                 </h1>
                 <p className="text-sm md:text-md lg:text-lg">
-                  Transforming lives through accessible healthcare and community
-                  support.
+                  Over 500 families benefited from our health services in the
+                  2024 MediCamp.
                 </p>
-                <button className="px-4 sm:px-6 py-2 bg-secondary text-white font-medium rounded hover:bg-primary transition">
+
+                <button
+                  onClick={handleBtn}
+                  className="px-4 sm:px-6 py-2 bg-secondary text-white font-medium rounded hover:bg-primary transition"
+                >
                   Discover Camps
                 </button>
               </div>
@@ -72,9 +85,11 @@ const Banner = () => {
                       Our dedicated healthcare team is committed to delivering
                       quality care with empathy and expertise.
                     </p>
-                    <button className="px-4 sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
-                      Learn More About Us
-                    </button>
+                    <Link to={"/about-us"} className="block">
+                      <button className="px-4 sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
+                        Learn More About Us
+                      </button>
+                    </Link>
                   </div>
                   <div className="hidden sm:block">
                     <img
@@ -93,21 +108,23 @@ const Banner = () => {
         <SwiperSlide>
           <div
             className="w-full relative bg-no-repeat bg-cover"
-            style={{ backgroundImage: `url(${bgBanner})` }}
+            style={{ backgroundImage: `url(${vaccinated})` }}
           >
             <div className="h-[300px] sm:h-[400px] w-full flex items-center justify-center">
               <div className="absolute w-full h-full bg-gradient-to-r from-green-800 via-transparent to-green-800 opacity-80"></div>
               <div className="relative z-10 text-white text-center px-8 space-y-4">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-                  Make a Difference Today
+                  Making an Impact
                 </h2>
                 <p className="text-sm md:text-md lg:text-lg">
-                  Your time and skills can change lives. Join our mission to
-                  bring healthcare to underserved communities.
+                  Vaccinated 2000+ children and adults in collaboration with
+                  local NGOs.
                 </p>
-                <button className="px-4 sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
-                  Become a Volunteer
-                </button>
+                <Link to="/career" className="block">
+                  <button className="px-4 sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
+                    Become a Volunteer
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

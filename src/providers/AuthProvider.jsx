@@ -88,6 +88,7 @@ const AuthProvider = ({ children }) => {
     notifications,
     setNotifications,
   };
+
   return (
     <AuthContext.Provider value={authInfo}>{children} </AuthContext.Provider>
   );

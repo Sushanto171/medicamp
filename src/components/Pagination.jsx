@@ -1,16 +1,30 @@
+import { useEffect } from "react";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
+import { scrollToTop } from "../utilites/utilites";
 
 /* eslint-disable react/prop-types */
-const Pagination = ({ setCurrentPage, currentPage, totalData = 0 }) => {
-  const totalPage = +Math.round(totalData / 10);
+const Pagination = ({
+  setCurrentPage,
+  currentPage,
+  totalData = 0,
+  available = false,
+}) => {
+  const totalPage = +Math.ceil(totalData / 10);
 
   const array = Array.from({ length: totalPage });
+  useEffect(() => {
+    scrollToTop();
+  }, [currentPage]);
   return (
     <div className="flex items-center justify-between my-8">
       <p className="text-xs sm:text-base">
-        Showing {currentPage * 10 - 9}-
-        {currentPage === totalPage ? totalData : currentPage * 10} of{" "}
-        {totalData}
+        Showing {currentPage * 10 - 9}-{" "}
+        {available
+          ? currentPage * 9
+          : currentPage === totalPage
+          ? totalData
+          : currentPage * 10}{" "}
+        of {totalData}
       </p>
       <div className="w-fit border rounded-md overflow-hidden flex scale-75 sm:scale-100">
         <button

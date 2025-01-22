@@ -9,6 +9,7 @@ import "./index.css";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import { router } from "./route/Route.jsx";
 const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

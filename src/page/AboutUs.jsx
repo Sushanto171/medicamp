@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import { scrollToTop } from "../utilites/utilites";
 
 const AboutUs = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Header Section */}

@@ -7,7 +7,7 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import FeedbackCard from "../../components/FeedbackCard";
 import SectionTitle from "../../components/SectionTitle";
 import "./styles.css";
@@ -28,7 +28,7 @@ export function FeedbackSection() {
         <SectionTitle title="Participants Feedback" />
       </div>
       <div
-        className="bg-no-repeat bg-cover relative"
+        className="bg-no-repeat bg-cover relative mt-6"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
         <div className="backdrop-blur w-full h-full absolute"></div>
@@ -36,11 +36,12 @@ export function FeedbackSection() {
           <Swiper
             slidesPerView={"auto"}
             centeredSlides={true}
+            autoplay={5000}
             spaceBetween={30}
             pagination={{
               clickable: true,
             }}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
             {feedbacks.map((feedback) => (

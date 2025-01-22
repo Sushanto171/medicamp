@@ -8,24 +8,31 @@ import ParticipantCancel from "../../shared/ParticipantCancel";
 import PayModal from "./../../../components/modal/PayModal";
 import SectionTitle from "./../../../components/SectionTitle";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
+
+import Pagination from "./../../../components/Pagination";
 const RegisteredCamps = () => {
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [totalData, setTotalData] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const { user } = useAuth();
   const {
     data: registered = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["registered", user?.email],
+    queryKey: ["registered", user?.email, currentPage],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/participant/${user?.email}`);
+      const { data } = await axiosSecure(
+        `/participant/${user?.email}?search=${search}&page=${currentPage - 1}`
+      );
+      setTotalData(data?.totalData || 0);
       return data?.data;
     },
     enabled: !!user?.email,
   });
-  console.log(search);
+  console.log(totalData);
 
   if (isLoading || loading) return <LoadingSpinner />;
   return (
@@ -125,6 +132,13 @@ const RegisteredCamps = () => {
             </tbody>
           </table>
         </div>
+      )}
+      {totalData > 10 && (
+        <Pagination
+          totalData={totalData}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       )}
     </div>
   );

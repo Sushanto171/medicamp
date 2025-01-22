@@ -2,6 +2,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { FaUserDoctor } from "react-icons/fa6";
 
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import {
   MdAccessTime,
   MdDateRange,
@@ -12,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { JoinCampModal } from "../../components/modal/JoinCampModal";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import { scrollToTop } from "./../../utilites/utilites";
 import RatingFeedback from "./RatingFeedback";
 import SocialShare from "./SocialShare";
 
@@ -30,6 +32,10 @@ const CampDetails = () => {
       return data?.data;
     },
   });
+
+  useEffect(() => {
+    scrollToTop();
+  }, [refetch]);
   if (isLoading) return <LoadingSpinner />;
   const {
     campName,

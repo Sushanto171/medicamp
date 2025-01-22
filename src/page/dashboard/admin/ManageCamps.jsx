@@ -17,6 +17,7 @@ const ManageCamps = () => {
     home: false,
     search,
     page: currentPage - 1,
+    available: false,
   });
   const axiosSecure = useAxiosSecure();
 

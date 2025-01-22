@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -11,18 +12,25 @@ const PaymentHistory = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalData, setTotalData] = useState(0);
   const {
     data: payments = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["payments", user?.email],
+    queryKey: ["payments", user?.email, currentPage],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/payments-history/${user?.email}`);
+      const { data } = await axiosSecure(
+        `/payments-history/${user?.email}?search=${search}&page=${
+          currentPage - 1
+        }`
+      );
+      setTotalData(data?.totalData || 0);
+
       return data?.data;
     },
   });
-  console.log(search);
   if (isLoading || loading) return <LoadingSpinner />;
   return (
     <>
@@ -97,6 +105,13 @@ const PaymentHistory = () => {
             </tbody>
           </table>
         </div>
+      )}
+      {totalData > 10 && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalData={totalData}
+        />
       )}
     </>
   );

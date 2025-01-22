@@ -1,6 +1,8 @@
 import Banner from "./Banner";
 import { FeedbackSection } from "./FeedbackSection";
+import KeyServices from "./KeyService";
 import PopularMedicalCamps from "./PopularMedicalCamps";
+import SuccessStories from "./SeccessStories";
 
 const Home = () => {
   return (
@@ -8,6 +10,8 @@ const Home = () => {
       {/* banner */}
       <Banner />
       <PopularMedicalCamps />
+      <KeyServices />
+      <SuccessStories />
       <FeedbackSection />
       <div></div>
     </div>

@@ -14,7 +14,10 @@ const PopularMedicalCamps = () => {
       <Container>
         <SectionTitle title="Popular Medical Camps" />
         {/* cards section */}
-        <div className="grid mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div
+          id="popular-camps"
+          className="grid mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+        >
           {camps.map((camp) => (
             <PopularCampsCard key={camp._id} {...camp} />
           ))}

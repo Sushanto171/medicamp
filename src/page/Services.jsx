@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import { scrollToTop } from "../utilites/utilites";
 
 const Services = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   const services = [
     {
       id: 1,
