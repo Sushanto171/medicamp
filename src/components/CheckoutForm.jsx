@@ -77,8 +77,7 @@ const CheckoutForm = ({ camp, refetch, handleClose }) => {
         refetch();
       }
     } catch (error) {
-      toast.error("Payment Failed. Please try again.");
-      console.log(error);
+      toast.error(error.message);
     } finally {
       setProcessing(false);
     }

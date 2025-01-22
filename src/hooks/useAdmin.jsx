@@ -9,16 +9,18 @@ const useAdmin = () => {
 
   const axiosSecure = useAxiosSecure();
   const {
-    data: isAdmin = null,
+    data: isAdmin = false,
     error,
     isLoading,
   } = useQuery({
     queryKey: ["admin", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(
-        `/admin/${user?.email || userDB?.email}`
-      );
-      return data?.data;
+      if (user) {
+        const { data } = await axiosSecure(
+          `/admin/${user?.email || userDB?.email}`
+        );
+        return data?.data;
+      }
     },
     enabled: !loading,
   });

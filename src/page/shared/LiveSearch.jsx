@@ -18,7 +18,7 @@ const LiveSearch = ({
   const [click, setClick] = useState(false);
   const palletRef = useRef(null);
   const [keyword, setKeyword] = useState([]);
-  // console.log(data);
+
   useEffect(() => {
     let createKeyword = [];
     for (const camp of data) {
@@ -49,7 +49,6 @@ const LiveSearch = ({
     setKeyword(JSON.parse(localStorage.getItem(keywordName)));
   }, []);
 
-  // console.log(keyword);
   useEffect(() => {
     if (search) {
       setMatch(
@@ -77,7 +76,7 @@ const LiveSearch = ({
 
     return () => clearTimeout(timeOut);
   }, [search, match, refetch]);
-  //   console.log(search);
+
   return (
     <div className="relative max-w-sm rounded-full">
       <input

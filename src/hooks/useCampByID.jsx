@@ -3,7 +3,7 @@ import useAxiosPublic from "./useAxiosPublic";
 
 const useCampByID = (id) => {
   const axiosPublic = useAxiosPublic();
-  console.log(id);
+
   const {
     data: camp = {},
     refetch,

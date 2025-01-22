@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
   createUserWithEmailAndPassword,
+  GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -18,6 +19,7 @@ export const AuthContext = createContext();
 
 // provider
 const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        console.log("user --->", currentUser.email);
+        // console.log("user --->", currentUser.email);
         setUser(currentUser);
         setLoading(false);
         const userData = {
@@ -35,10 +37,9 @@ const AuthProvider = ({ children }) => {
           name: currentUser?.displayName,
         };
         const { data } = await axiosPublic.post("/jwt", userData);
-        // console.log(data);
+
         localStorage.setItem("token", data?.token);
       } else {
-        console.log("log out", currentUser);
         setUser(currentUser);
         setLoading(false);
         localStorage.setItem("token", "");
@@ -60,6 +61,10 @@ const AuthProvider = ({ children }) => {
   const loginWithGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
+  };
+  const LoginWithGithub = () => {
+    setLoading(true);
+    return signInWithPopup(auth, githubProvider);
   };
 
   const updateUserProfile = (name, photoUrl) => {
@@ -87,6 +92,7 @@ const AuthProvider = ({ children }) => {
     signOutUser,
     notifications,
     setNotifications,
+    LoginWithGithub,
   };
 
   return (

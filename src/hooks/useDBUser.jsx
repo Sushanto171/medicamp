@@ -12,8 +12,10 @@ const useDBUser = () => {
   } = useQuery({
     queryKey: ["userDB", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/user/${user?.email}`);
-      return data?.data;
+      if (user) {
+        const { data } = await axiosSecure(`/user/${user?.email}`);
+        return data?.data;
+      }
     },
     enabled: !loading,
   });

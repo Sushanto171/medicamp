@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import {
-  Area,
   Bar,
+  BarChart,
   CartesianGrid,
-  ComposedChart,
   Legend,
-  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,42 +11,33 @@ import {
 } from "recharts";
 
 export default function Chart({ chartData = [] }) {
-  const chartInfo = chartData.map((item) => ({
+  const data = chartData.map((item) => ({
     name: item.campName,
-    participants: item.participantCount,
     fees: item.campFees,
     feedbacks: item.totalFeedbacks,
+    participants: item.participantCount,
   }));
 
   return (
-    <div style={{ width: "100%", height: 300 }}>
-      <ResponsiveContainer>
-        <ComposedChart
-          width={500}
-          height={400}
-          data={chartInfo}
-          margin={{
-            top: 20,
-            right: 20,
-            bottom: 20,
-            left: 20,
-          }}
-        >
-          <CartesianGrid stroke="#f5f5f5" />
-          <XAxis dataKey="name" scale="band" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Area
-            type="monotone"
-            dataKey="feedbacks"
-            fill="#8884d8"
-            stroke="#8884d8"
-          />
-          <Bar dataKey="fees" barSize={20} fill="#413ea0" />
-          <Line type="monotone" dataKey="participants" stroke="#ff7300" />
-        </ComposedChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart
+        data={data}
+        margin={{
+          top: 20,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="feedbacks" stackId="a" fill="#8884d8" />
+        <Bar dataKey="participants" stackId="a" fill="#82ca9d" />
+        <Bar dataKey="fees" fill="#ffc658" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }

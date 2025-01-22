@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import LoginWithFacebook from "./LoginWithFacebook";
+import LoginWithGithub from "./LoginWithGithub";
 import LoginWithGoogle from "./LoginWithGoogle";
 
 const SocialLogin = ({ state }) => {
@@ -9,7 +9,7 @@ const SocialLogin = ({ state }) => {
         <span className="absolute -top-3 bg-white px-4 opacity-70">OR</span>
       </div>
       <div className="flex items-center my-2 justify-center">
-        <LoginWithGoogle state={state} /> <LoginWithFacebook />
+        <LoginWithGoogle state={state} /> <LoginWithGithub />
       </div>
     </>
   );

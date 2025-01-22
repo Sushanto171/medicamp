@@ -7,7 +7,7 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { signOutUser } = useAuth();
+  const { signOutUser, setLoading } = useAuth();
   const navigate = useNavigate();
 
   axiosSecure.interceptors.request.use(
@@ -17,7 +17,6 @@ const useAxiosSecure = () => {
       return config;
     },
     (error) => {
-      console.log("interReq", error);
       return Promise.reject(error);
     }
   );
@@ -33,6 +32,7 @@ const useAxiosSecure = () => {
         if (status === 401 || status === 403) {
           signOutUser();
           navigate("/join-us");
+          setLoading(false);
         }
       }
       return Promise.reject(error);

@@ -32,7 +32,6 @@ const RegisteredCamps = () => {
     },
     enabled: !!user?.email,
   });
-  console.log(totalData);
 
   if (isLoading || loading) return <LoadingSpinner />;
   return (

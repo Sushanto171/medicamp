@@ -16,14 +16,16 @@ const Analytics = () => {
     queryKey: ["analytics"],
     queryFn: async () => {
       const { data } = await axiosSecure("/analytics-overview");
+      setChartData(data?.chartData || []);
+
       return data;
     },
   });
+
   useEffect(() => {
     setRevenue(analytics.revenue);
     setTotalParticipants(analytics.totalParticipants);
     setTotalCamps(analytics.totalCamps);
-    setChartData(analytics.chartData);
   }, [analytics]);
 
   if (isLoading) return <LoadingSpinner />;
@@ -31,7 +33,6 @@ const Analytics = () => {
     <div>
       {/* brief overview*/}
       <AnalyticsOverview {...{ revenue, totalParticipants, totalCamps }} />
-
       <Chart chartData={chartData} />
     </div>
   );
