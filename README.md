@@ -7,8 +7,8 @@ MediCamp is a comprehensive MERN stack application designed to efficiently manag
 ## **Live Demo**
 
 - **Live Site**: [MediCamp Live](https://medicamp-91966.web.app/)
-- **Client Repository**: [Client-Side Code](https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-Sushanto171)
-- **Server Repository**: [Server-Side Code](https://github.com/Programming-Hero-Web-Course4/b10a12-server-side-Sushanto171)
+- **Client Repository**: [Client-Side Code](https://github.com/Sushanto171/medicamp)
+- **Server Repository**: [Server-Side Code](https://github.com/Sushanto171/medicamp-server)
 
 ---
 
