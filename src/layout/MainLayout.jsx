@@ -10,9 +10,9 @@ const MainLayout = () => {
     scrollToTop();
   }, []);
   return (
-    <div className="">
+    <div className="relative">
       {/* navbar */}
-      <div className="bg-primary">
+      <div className="bg-primary sticky top-0 z-50">
         <ComplexNavbar />
       </div>
       {/* outlet */}
