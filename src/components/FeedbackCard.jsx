@@ -1,5 +1,6 @@
 import { Rating } from "@material-tailwind/react";
 import { FaQuoteLeft } from "react-icons/fa";
+import { FeedbackModal } from "./modal/FeadbackModal";
 
 /* eslint-disable react/prop-types */
 const FeedbackCard = ({ feedbackData }) => {
@@ -28,9 +29,7 @@ const FeedbackCard = ({ feedbackData }) => {
           {feedback.length > 100 ? `${feedback.slice(0, 185)}...` : feedback}
         </p>
         {feedback.length > 185 && (
-          <button className="mt-4 text-secondary dark:text-accent font-bold text-base hover:underline ">
-            Read More
-          </button>
+          <FeedbackModal {...{ name, feedback, rating, photo }} />
         )}
       </div>
     </div>

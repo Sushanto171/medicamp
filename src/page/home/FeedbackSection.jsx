@@ -13,6 +13,7 @@ import SectionTitle from "../../components/SectionTitle";
 import "./styles.css";
 export function FeedbackSection() {
   const axiosPublic = useAxiosPublic();
+
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedbacks"],
     queryFn: async () => {
@@ -36,11 +37,14 @@ export function FeedbackSection() {
           <Swiper
             slidesPerView={"auto"}
             centeredSlides={true}
-            autoplay={5000}
-            spaceBetween={30}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             pagination={{
               clickable: true,
             }}
+            pauseOnMouseEnter={true}
             modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
