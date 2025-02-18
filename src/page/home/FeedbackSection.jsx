@@ -44,7 +44,6 @@ export function FeedbackSection() {
             pagination={{
               clickable: true,
             }}
-            pauseOnMouseEnter={true}
             modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
