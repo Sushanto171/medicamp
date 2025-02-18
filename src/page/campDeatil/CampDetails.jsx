@@ -18,6 +18,7 @@ import RatingFeedback from "./RatingFeedback";
 import SocialShare from "./SocialShare";
 
 const CampDetails = () => {
+  const today = new Date().toISOString().split("T")[0];
   const axiosPublic = useAxiosPublic();
   const { id } = useParams();
   const {
@@ -32,7 +33,7 @@ const CampDetails = () => {
       return data?.data;
     },
   });
-
+  // scroll
   useEffect(() => {
     scrollToTop();
   }, [refetch]);
@@ -77,15 +78,20 @@ const CampDetails = () => {
               Date:
             </span>
             <span className="text-text dark:text-gray-300 font-semibold">
-              {date}
+              <span className={date < today ? "line-through" : ""}>{date}</span>{" "}
+              {date < today && "(Campaigns Done)"}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <MdAccessTime className="text-primary dark:text-white" />
-            <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
+            <span className="text-gray-500 dark:text-white  font-medium hidden sm:block ">
               Time:
             </span>
-            <span className="text-text dark:text-gray-300 font-semibold">
+            <span
+              className={`text-text dark:text-gray-300 font-semibold line-through ${
+                date < today ? "line-through" : ""
+              } `}
+            >
               {time}
             </span>
           </div>

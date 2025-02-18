@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { scrollToTop } from "../../utilites/utilites";
 import Banner from "./Banner";
 import { FeedbackSection } from "./FeedbackSection";
 import KeyServices from "./KeyService";
@@ -7,6 +9,9 @@ import RecentMedicalCamps from "./RecentMedicalCamps";
 import SuccessStories from "./SeccessStories";
 
 const Home = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className=" ">
       {/* banner */}

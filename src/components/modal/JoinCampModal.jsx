@@ -19,6 +19,7 @@ import LoadingSpinner from "../../page/shared/LoadingSpinner";
 import useAdmin from "./../../hooks/useAdmin";
 
 export function JoinCampModal({ campDetails, refetch }) {
+  const today = new Date().toISOString().split("T")[0];
   const handleOpen = () => setOpen(!open);
   const [open, setOpen] = useState(false);
   const { user, loading } = useAuth();
@@ -78,6 +79,7 @@ export function JoinCampModal({ campDetails, refetch }) {
     <>
       {/* Trigger Button */}
       <Button
+        disabled={campDetails?.date < today}
         onClick={() =>
           isAdmin
             ? toast.error("The organizer cannot attend this camp.")

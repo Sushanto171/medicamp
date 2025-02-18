@@ -37,9 +37,11 @@ const KeyServices = () => {
   return (
     <section className="bg-secondary text-white py-12">
       <Container>
-        <div className="container mx-auto text-center space-y-8">
-          <h2 className=" text-3xl md:text-4xl font-bold">Our Key Services</h2>
-          <p className="text-lg opacity-80">
+        <div className="container mx-auto text-center ">
+          <h2 className=" text-3xl md:text-4xl font-bold pb-2">
+            Our Key Services
+          </h2>
+          <p className="text-lg opacity-80 pb-8">
             MediCamp offers a range of essential healthcare services to improve
             the lives of underserved communities.
           </p>

@@ -16,10 +16,11 @@ import {
 } from "@material-tailwind/react";
 import "./navbar.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import log from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
+import { scrollToTop } from "../../utilites/utilites";
 import Container from "./../../components/Container";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -164,7 +165,9 @@ function ProfileMenu() {
 
 export function ComplexNavbar() {
   const { user, loading } = useAuth();
-
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   const navLink = (
     <>
       <li>
