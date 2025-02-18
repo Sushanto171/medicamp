@@ -55,44 +55,58 @@ const ManageRegisteredCamps = () => {
         handleLoading={setLoading}
       />
       <SectionTitle my={6} title="Participant Registration Table" />
-      <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
-        <table className="table-auto border-collapse border border-gray-300 w-full min-w-max">
+      <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg ">
+        <table className="table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-200">
           <thead>
             <tr>
-              <th className="border p-2 bg-secondary text-white">#</th>
-              <th className="border p-2 bg-secondary text-white">Camp Name</th>
-              <th className="border p-2 bg-secondary text-white">Camp Fees</th>
-              <th className="border p-2 bg-secondary text-white">
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
+                #
+              </th>
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
+                Camp Name
+              </th>
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
+                Camp Fees
+              </th>
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
                 Participant Name
               </th>
-              <th className="border p-2 bg-secondary text-white">
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
                 Payment Status
               </th>
-              <th className="border p-2 bg-secondary text-white">
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
                 Confirmation Status
               </th>
-              <th className="border p-2 bg-secondary text-white">Actions</th>
+              <th className="border p-2 bg-secondary dark:border-gray-700 text-white">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {participants.map((camp, i) => (
               <tr
                 key={camp._id}
-                className={`${i % 2 !== 0 ? "bg-accent/10" : ""}  text-center`}
+                className={`${
+                  i % 2 !== 0 ? "bg-accent/10" : ""
+                } hover:-translate-x-0.5 text-center`}
               >
-                <td className="border p-1 text-text">{i + 1}</td>
-                <td className="border p-1 text-text">
+                <td className="border dark:border-gray-800 p-1 text-text dark:text-gray-200">
+                  {i + 1 * currentPage * 10 - 9}
+                </td>
+                <td className="border dark:border-gray-800 p-1 text-text dark:text-gray-200">
                   {camp.campName.slice(0, 25)}
                   {camp.campName.length > 24 && ".."}
                 </td>
-                <td className="border p-1 text-text">${camp.campFees}</td>
+                <td className="border dark:border-gray-800 p-1 text-text dark:text-gray-200">
+                  ${camp.campFees}
+                </td>
                 <td
                   title={camp.participantEmail}
-                  className=" p-1 text-text flex "
+                  className=" p-1 text-text dark:text-gray-200 flex "
                 >
                   {camp.participantName} <TiInfoLarge />
                 </td>
-                <td className="border p-1 text-text">
+                <td className="border dark:border-gray-800 p-1 text-text dark:text-gray-200">
                   <span
                     className={` px-2 py-0.5 rounded-sm ${
                       camp.paymentStatus
@@ -103,7 +117,7 @@ const ManageRegisteredCamps = () => {
                     {camp.paymentStatus ? "Paid" : "Unpaid"}
                   </span>
                 </td>
-                <td className="border p-1 text-text">
+                <td className="border dark:border-gray-800 p-1 text-text dark:text-gray-200">
                   <span
                     className={` px-2 py-0.5 rounded-sm ${
                       camp.confirmationStatus
@@ -126,10 +140,10 @@ const ManageRegisteredCamps = () => {
                         ? "Participant already confirmed"
                         : "")
                     }
-                    className={` py-1   rounded-sm text-white ${
+                    className={` py-1 rounded-sm text-white ${
                       camp.paymentStatus === false || camp.confirmationStatus
                         ? "cursor-not-allowed bg-gray-400 px-0.5"
-                        : " bg-secondary/60 hover:bg-secondary/70 px-2"
+                        : " bg-secondary/60 dark:border-gray-700 hover:bg-secondary/70 px-2"
                     }`}
                   >
                     {!camp.confirmationStatus ? (

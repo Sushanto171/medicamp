@@ -53,7 +53,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="pb-12 min-h-screen">
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
@@ -67,13 +67,13 @@ const Services = () => {
 
       <Container>
         {/* Services Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
+        <section className="py-12">
+          <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
                   <img
                     src={service.icon}
@@ -93,12 +93,12 @@ const Services = () => {
         </section>
 
         {/* Call to Action Section */}
-        <section className="py-16 bg-gray-100">
-          <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-semibold text-gray-800">
+        <section className="py-12">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200">
               Join Us Today
             </h2>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-gray-600 dark:text-gray-400">
               Become a part of our mission to make healthcare accessible to
               everyone. Whether as a participant, volunteer, or supporter, your
               contribution matters.

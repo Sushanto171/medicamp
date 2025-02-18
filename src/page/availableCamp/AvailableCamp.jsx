@@ -134,8 +134,10 @@ const AvailableCamp = () => {
           {/* content section */}
           <div
             className={`grid ${
-              layout ? "md:grid-cols-3" : "md:grid-cols-2"
-            } sm:grid-cols-2  gap-8 mt-12`}
+              layout
+                ? "lg:grid-cols-4 md:grid-cols-3 gap-4"
+                : "md:grid-cols-2 gap-8 "
+            } sm:grid-cols-2  mt-12`}
           >
             {camps.length === 0 ? (
               <>
@@ -145,7 +147,7 @@ const AvailableCamp = () => {
               camps.map((camp) => <PopularCampsCard key={camp._id} {...camp} />)
             )}
           </div>
-          {totalData > 9 && (
+          {totalData > 12 && (
             <Pagination
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}

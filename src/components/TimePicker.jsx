@@ -17,7 +17,7 @@ const TimePicker = ({ setTime, defaultTime = "" }) => {
       <div className="flex gap-2 items-center border border-primary/50 rounded-md h-fit w-fit">
         {/* Hour Selector */}
         <select
-          className="border border-gray-300 rounded-md p-2"
+          className="border border-gray-300 dark:bg-background rounded-md p-2"
           value={hour}
           onChange={(e) => setHour(e.target.value)}
         >
@@ -31,7 +31,7 @@ const TimePicker = ({ setTime, defaultTime = "" }) => {
         </select>
         {/* Minute Selector */}
         <select
-          className="border border-gray-300 rounded-md p-2"
+          className="border border-gray-300 dark:bg-background rounded-md p-2"
           value={minute}
           onChange={(e) => setMinute(e.target.value)}
         >
@@ -45,7 +45,7 @@ const TimePicker = ({ setTime, defaultTime = "" }) => {
         </select>
         {/* AM/PM Selector */}
         <select
-          className="border border-gray-300 rounded-md p-2"
+          className="border border-gray-300 dark:bg-background rounded-md p-2"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >

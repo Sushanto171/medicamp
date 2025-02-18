@@ -69,58 +69,63 @@ const ManageCamps = () => {
       <div className="overflow-x-auto">
         {/* Table for large screens */}
         <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
-          <table className="table-auto border-collapse border border-gray-300 w-full min-w-max">
+          <table className="table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300">
             <thead className="bg-secondary text-white">
               <tr>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   #
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Camp Image
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Camp Name
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Date & Time
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Location
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Healthcare Professional
                 </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
+                <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
               {camps.map((camp, index) => (
-                <tr key={camp._id} className="hover:bg-gray-100">
-                  <td className="border border-gray-300 px-4 py-2">
-                    {index + 1}
+                <tr
+                  key={camp._id}
+                  className={`${
+                    index % 2 !== 0 ? "bg-accent/10" : ""
+                  } hover:-translate-x-0.5 text-center`}
+                >
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
+                    {index + 1 * currentPage * 10 - 9}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     <img
                       className="w-20 h-16 object-cover rounded-md"
                       alt={`${camp.campName} image`}
                       src={camp.image}
                     />
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {camp.campName}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {camp.date}: {camp.time}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {camp.location}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {camp.healthcareProfessional}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 space-x-2 items-center">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2 space-x-2 items-center">
                     <div className="flex gap-2">
                       <CampUpdateModal refetch={refetch} camp={camp} />
                       <button

@@ -37,14 +37,14 @@ export function NotificationsMenu() {
   return (
     <Menu key={notifications.length}>
       <MenuHandler>
-        <IconButton variant="text">
+        <IconButton variant="text" className="w-5 h-5 mt-2">
           {newNotification ? (
             <MdOutlineNotificationAdd
               onClick={handleNotification}
-              className="text-xl text-white"
+              className="text-2xl text-white"
             />
           ) : (
-            <IoIosNotificationsOutline className="text-xl text-white" />
+            <IoIosNotificationsOutline className="text-2xl text-white" />
           )}
         </IconButton>
       </MenuHandler>

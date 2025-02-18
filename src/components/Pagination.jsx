@@ -20,16 +20,20 @@ const Pagination = ({
       <p className="text-xs sm:text-base">
         Showing {currentPage * 10 - 9}-{" "}
         {available
-          ? currentPage * 9
+          ? totalData < 12
+            ? totalData
+            : currentPage * 12
           : currentPage === totalPage
           ? totalData
           : currentPage * 10}{" "}
         of {totalData}
       </p>
       <div className="w-fit border rounded-md overflow-hidden flex scale-75 sm:scale-100">
+        {/* Previous button */}
         <button
+          disabled={currentPage <= 1}
           onClick={() => setCurrentPage((prev) => (prev > 2 ? prev - 1 : 1))}
-          className="border w-8 h-8 flex items-center justify-center hover:bg-secondary hover:text-white"
+          className="border w-8 h-8 flex items-center disabled:text-gray-400 justify-center hover:bg-secondary disabled:hover:bg-transparent disabled:cursor-not-allowed hover:text-white"
         >
           <TbPlayerTrackPrev />
         </button>
@@ -45,11 +49,13 @@ const Pagination = ({
             {i + 1}
           </button>
         ))}
+        {/* Next button */}
         <button
+          disabled={totalPage == currentPage}
           onClick={() =>
             setCurrentPage((prev) => (prev < totalPage ? prev + 1 : totalPage))
           }
-          className="border w-8 h-8 flex items-center justify-center hover:bg-secondary hover:text-white"
+          className="border w-8 h-8 flex items-center justify-center disabled:text-gray-500 hover:bg-secondary hover:text-white disabled:hover:bg-transparent disabled:cursor-not-allowed"
         >
           <TbPlayerTrackNext />
         </button>

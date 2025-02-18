@@ -12,7 +12,7 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
   const navigate = useNavigate();
   const { isAdmin, isLoading } = useAdmin();
 
-  const { user, loading } = useAuth();
+  const { user, loading, dark, setDark } = useAuth();
   const handleAvatar = () => {
     if (isAdmin) {
       navigate("/dashboard/organizer-profile");
@@ -24,19 +24,26 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
   if (loading || isLoading) {
     return <LoadingSpinner />;
   }
+
   return (
-    <nav className="h-20 sticky top-0 flex justify-between bg-primary/80 z-50 backdrop-blur-lg">
+    <nav className="h-20 sticky top-0 flex justify-end sm:justify-between bg-primary/80 z-50 backdrop-blur-lg ">
       {/* Logo */}
-      <div className="flex items-center justify-center max-w-64 w-full  ">
+      <div className=" items-center justify-center max-w-64 w-full hidden sm:flex ">
         <Link to="/">
           <img className="w-40" src={logo} alt="logo" />
         </Link>
       </div>
 
       {/* Heading */}
-      <div className="flex gap-3 items-end border-b h-full border-gray-400 p-2 pr-10">
+      <div className="flex gap-3 items-center h-full p-2 pr-10">
+        <div className="hidden sm:block">
+          <label className="switch scale-75 mb-0 mt-2 ">
+            <input onClick={() => setDark(!dark)} type="checkbox" />
+            <span className="dark"></span>
+          </label>
+        </div>
         {/* notification */}
-        <div>
+        <div className="hidden sm:block">
           <NotificationsMenu />
         </div>
         <div className="flex flex-col">

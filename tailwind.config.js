@@ -15,24 +15,24 @@ export default withMT({
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#003C43", // Light Mode Primary
-          dark: "#1A2E35", // Dark Mode Primary
+          DEFAULT: "#003C43",
+          dark: "#1A2E35",
         },
         secondary: {
-          DEFAULT: "#135D66", // Light Mode Secondary
-          dark: "#0E3742", // Dark Mode Secondary
+          DEFAULT: "#135D66",
+          dark: "#0E3742",
         },
         accent: {
-          DEFAULT: "#77B0AA", // Light Mode Accent
-          dark: "#4A7A78", // Dark Mode Accent
+          DEFAULT: "#77B0AA",
+          dark: "#4A7A78",
         },
         background: {
-          DEFAULT: "#E3FEF7", // Light Mode Background
-          dark: "#1D232A", // Dark Mode Background
+          DEFAULT: "#E3FEF7",
+          dark: "#1D232A",
         },
         text: {
-          DEFAULT: "#333333", // Light Mode Text
-          dark: "#FFFFFF", // Dark Mode Text
+          DEFAULT: "#333333",
+          dark: "#FFFFFF",
         },
       },
       plugins: [forms, typography],

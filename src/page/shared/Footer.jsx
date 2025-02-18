@@ -67,7 +67,7 @@ const Footer = () => {
           {/* Social Icons */}
           <div className="flex gap-4">
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/sushantochandrasharkar.me"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-xl hover:text-accent"
@@ -83,7 +83,7 @@ const Footer = () => {
               <FaTwitter />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/sushanto-kumar171"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white text-xl hover:text-accent"

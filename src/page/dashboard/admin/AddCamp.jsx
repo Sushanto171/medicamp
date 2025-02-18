@@ -72,7 +72,7 @@ const AddCamp = () => {
   return (
     <div>
       <SectionTitle my={6} title="Create a New Camp" />
-      <div className="p-4 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
+      <div className="p-4 max-w-2xl mx-auto bg-white dark:bg-background rounded-lg shadow-md">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Camp Name */}
           <div>
@@ -167,7 +167,7 @@ const AddCamp = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 dateFormat="dd/MM/yyyy"
-                className="w-full px-2 border-primary/50 py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
+                className="w-full px-2 border-primary/50 dark:bg-background  py-2 border rounded-md shadow-sm focus:ring-primary focus:border-primary "
               />
             </div>
 

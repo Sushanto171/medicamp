@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
   const [notifications, setNotifications] = useState([]);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -47,6 +48,15 @@ const AuthProvider = ({ children }) => {
     });
     return () => unSubscribe();
   }, [axiosPublic]);
+
+  // handle dark/light mood
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [dark]);
 
   const registerNow = (email, password) => {
     setLoading(true);
@@ -93,6 +103,8 @@ const AuthProvider = ({ children }) => {
     notifications,
     setNotifications,
     LoginWithGithub,
+    dark,
+    setDark,
   };
 
   return (

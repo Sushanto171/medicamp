@@ -9,12 +9,17 @@ import useAuth from "../../hooks/useAuth";
 import useAdmin from "./../../hooks/useAdmin";
 import AdminNavlink from "./admin/AdminNavlink";
 
+import {
+  MdElectricalServices,
+  MdOutlinePermDeviceInformation,
+} from "react-icons/md";
+import { NotificationsMenu } from "../../components/Notification";
 import LoadingSpinner from "./../shared/LoadingSpinner";
 import UserNavLink from "./user/UserNavLink";
 
 const DashboardSidebar = ({ isCollapsed, handleClose }) => {
   const { isAdmin, isLoading } = useAdmin();
-  const { user, loading, signOutUser } = useAuth();
+  const { user, loading, signOutUser, setDark, dark } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     if (isAdmin) {
@@ -32,6 +37,13 @@ const DashboardSidebar = ({ isCollapsed, handleClose }) => {
         isCollapsed ? "hidden sm:flex" : "flex"
       } flex-col w-64  bg-secondary pb-3 h-[calc(100vh-80px)] fixed sm:sticky sm:top-20 overflow-y-auto justify-between z-50`}
     >
+      <div className="flex items-center justify-between px-4 sm:hidden">
+        <label className="switch scale-75">
+          <input onClick={() => setDark(!dark)} type="checkbox" />
+          <span className="dark"></span>
+        </label>
+        <NotificationsMenu />
+      </div>
       <div onClick={handleClose} className="flex-1">
         {isAdmin && user ? (
           <>
@@ -43,7 +55,7 @@ const DashboardSidebar = ({ isCollapsed, handleClose }) => {
           <Navigate to="/" />
         )}
         <div className="px-6">
-          <ul className="flex flex-col gap-2 my-6">
+          <ul className="flex flex-col gap-4 my-6">
             <li>
               <NavLink
                 to={"/"}
@@ -59,6 +71,24 @@ const DashboardSidebar = ({ isCollapsed, handleClose }) => {
               >
                 <AiFillProduct />
                 Available Camps
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/services"}
+                className={`flex items-center gap-3 font-medium text-white/80`}
+              >
+                <MdElectricalServices />
+                Services
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/about-us"}
+                className={`flex items-center gap-3 font-medium text-white/80`}
+              >
+                <MdOutlinePermDeviceInformation />
+                About Us
               </NavLink>
             </li>
             <li>

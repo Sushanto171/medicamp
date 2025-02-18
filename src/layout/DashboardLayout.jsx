@@ -20,10 +20,12 @@ const DashboardLayout = () => {
         <DashboardSidebar handleClose={handleClose} isCollapsed={isCollapsed} />
 
         {/* Main Content */}
-        <div className="flex-1 p-5">
+        <div className="flex-1 p-5 dark:bg-background-dark">
           {/* Your main content goes here */}
           <Container>
-            <Outlet />
+            <div className="dark:bg-background-dark">
+              <Outlet />
+            </div>
           </Container>
         </div>
       </div>

@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import PropTypes from "prop-types";
 
-const SectionTitle = ({ title, my }) => {
+const SectionTitle = ({ title, my, feedback = false }) => {
   return (
     <div
-      className={`text-center font-semibold text-2xl sm:text-3xl md:text-4xl text-primary dark:text-white my-${
+      className={`text-center font-semibold ${
+        feedback ? "text-white" : "text-primary"
+      } text-2xl sm:text-3xl md:text-4xl  dark:text-white my-${
         my || 10
       } capitalize`}
     >

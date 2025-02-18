@@ -14,6 +14,7 @@ import {
   Navbar,
   Typography,
 } from "@material-tailwind/react";
+import "./navbar.css";
 
 import React from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -24,7 +25,7 @@ import LoadingSpinner from "./LoadingSpinner";
 
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { user, signOutUser } = useAuth();
+  const { user, signOutUser, setDark, dark } = useAuth();
   const navigate = useNavigate();
   // profile menu component
   const profileMenuItems = [
@@ -46,6 +47,11 @@ function ProfileMenu() {
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+      <label className="switch mr-1">
+        <input onClick={() => setDark(!dark)} type="checkbox" />
+        <span className="dark"></span>
+      </label>
+
       <MenuHandler>
         <Button
           variant="text"
