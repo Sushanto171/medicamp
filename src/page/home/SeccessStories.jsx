@@ -38,7 +38,7 @@ const SuccessStories = () => {
   return (
     <section className="py-12 dark:bg-background-dark">
       <Container>
-        <SectionTitle title="Success Stories" />
+        <SectionTitle title="Success_ Stories" />
         <div className="w-full  text-center pt-3 ">
           <p className="text-gray-600 text-lg mb-12 dark:text-gray-300 ">
             Discover how MediCamp has made a meaningful impact in people&lsquo;s

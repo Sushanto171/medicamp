@@ -36,14 +36,14 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
 
       {/* Heading */}
       <div className="flex gap-3 items-center h-full p-2 pr-10">
-        <div className="hidden sm:block">
+        <div title="Theme" className="hidden sm:block">
           <label className="switch scale-75 mb-0 mt-2 ">
             <input onClick={() => setDark(!dark)} type="checkbox" />
             <span className="dark"></span>
           </label>
         </div>
         {/* notification */}
-        <div className="hidden sm:block">
+        <div title="Notification" className="hidden sm:block">
           <NotificationsMenu />
         </div>
         <div className="flex flex-col">
@@ -64,6 +64,7 @@ const DashboardNavbar = ({ setIsCollapsed, isCollapsed }) => {
           }
           alt="avatar"
           withBorder={true}
+          title="Profile"
           className="p-0.5 border-white/90 cursor-pointer"
         />
       </div>

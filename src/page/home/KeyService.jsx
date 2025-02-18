@@ -5,6 +5,7 @@ import {
   FaSyringe,
 } from "react-icons/fa";
 import Container from "../../components/Container";
+import "./keyService.css";
 
 const KeyServices = () => {
   const services = [
@@ -39,7 +40,7 @@ const KeyServices = () => {
       <Container>
         <div className="container mx-auto text-center ">
           <h2 className=" text-3xl md:text-4xl font-bold pb-2">
-            Our Key Services
+            Our Key_ Services
           </h2>
           <p className="text-lg opacity-80 pb-8">
             MediCamp offers a range of essential healthcare services to improve
@@ -50,7 +51,7 @@ const KeyServices = () => {
               <div
                 data-aos="zoom-in"
                 key={index}
-                className="p-6 bg-white dark:bg-background text-primary rounded-lg shadow-md hover:shadow-lg transition duration-300"
+                className="box p-6 cursor-pointer bg-white dark:bg-background text-primary rounded-lg hover:scale-[1.02] shadow-lg transition-all duration-300"
               >
                 <div className="flex justify-center mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>

@@ -22,7 +22,7 @@ const RecentMedicalCamps = () => {
   return (
     <>
       <Container>
-        <SectionTitle title="Recent Medical Camps" />
+        <SectionTitle title="Recent Medical_ Camps" />
         {/* cards section */}
         <div
           id="popular-camps"

@@ -32,7 +32,7 @@ export function FeedbackSection() {
         <div className="backdrop-blur -z-0 w-full h-full absolute"></div>
         <div className="py-12 relative">
           <div className="pb-8">
-            <SectionTitle feedback={true} title="Participants Feedback" />
+            <SectionTitle feedback={true} title="Participants_ Feedback" />
           </div>
           <Swiper
             slidesPerView={"auto"}

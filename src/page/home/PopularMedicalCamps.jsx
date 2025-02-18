@@ -12,7 +12,7 @@ const PopularMedicalCamps = () => {
   return (
     <div className="py-12">
       <Container>
-        <SectionTitle title="Popular Medical Camps" />
+        <SectionTitle title="Popular Medical_ Camps" />
         {/* cards section */}
         <div
           id="popular-camps"

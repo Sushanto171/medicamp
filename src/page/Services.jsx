@@ -57,7 +57,7 @@ const Services = () => {
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold">Our Services</h1>
+          <h1 className="text-4xl font-bold">Our_ Services</h1>
           <p className="mt-4 text-lg">
             At MediCamp, we are dedicated to providing essential healthcare
             services that make a difference in people&apos;s lives.
@@ -73,7 +73,7 @@ const Services = () => {
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  className="p-6 box bg-background rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
                   <img
                     src={service.icon}

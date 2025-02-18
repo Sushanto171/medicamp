@@ -12,7 +12,7 @@ const AboutUs = () => {
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold">About MediCamp</h1>
+          <h1 className="text-4xl font-bold">About_ MediCamp</h1>
           <p className="mt-4 text-lg">
             Empowering communities by connecting people with healthcare camps.
             Together, we make healthcare accessible to everyone.
@@ -49,19 +49,19 @@ const AboutUs = () => {
               Our Impact
             </h2>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="p-6 rounded-lg shadow-md text-center">
+              <div className="p-6 rounded-lg shadow-md text-center bg-background box">
                 <h3 className="text-4xl font-bold text-secondary">50+</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   Camps Organized
                 </p>
               </div>
-              <div className="p-6 rounded-lg shadow-md text-center">
+              <div className="p-6 rounded-lg shadow-md text-center bg-background box">
                 <h3 className="text-4xl font-bold text-secondary">10K+</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   Lives Impacted
                 </p>
               </div>
-              <div className="p-6 rounded-lg shadow-md text-center">
+              <div className="p-6 rounded-lg shadow-md text-center bg-background box">
                 <h3 className="text-4xl font-bold text-secondary">200+</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   Volunteers
@@ -83,7 +83,7 @@ const AboutUs = () => {
             </p>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Replace with dynamic team members later */}
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md text-center">
+              <div className="p-6  bg-background rounded-lg shadow-md text-center box">
                 <img
                   src="https://i.ibb.co/YbLVvkQ/team-member-1.jpg"
                   alt="Team Member"
@@ -96,7 +96,7 @@ const AboutUs = () => {
                   Founder & CEO
                 </p>
               </div>
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md text-center">
+              <div className="p-6  bg-background rounded-lg shadow-md text-center box">
                 <img
                   src="https://i.ibb.co/RhZVfDN/team-member-2.jpg"
                   alt="Team Member"
@@ -109,7 +109,7 @@ const AboutUs = () => {
                   Chief Operations Officer
                 </p>
               </div>
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md text-center">
+              <div className="p-6  bg-background rounded-lg shadow-md text-center box">
                 <img
                   src="https://i.ibb.co/18cN6fB/team-member-3.jpg"
                   alt="Team Member"

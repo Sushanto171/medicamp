@@ -48,7 +48,7 @@ function ProfileMenu() {
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
-      <label className="switch mr-1">
+      <label title="Theme" className="switch mr-1">
         <input onClick={() => setDark(!dark)} type="checkbox" />
         <span className="dark"></span>
       </label>
@@ -60,6 +60,7 @@ function ProfileMenu() {
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
           <Avatar
+            title="Menu"
             variant="circular"
             size="sm"
             alt="tania andrew"
@@ -125,6 +126,7 @@ function ProfileMenu() {
         {profileMenuItems.map(({ label, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           const isMiddleItem = key === 1;
+          const isFirstItem = key === 0;
 
           return (
             <MenuItem
@@ -150,7 +152,9 @@ function ProfileMenu() {
                 }
                 as="span"
                 variant="small"
-                className="font-normal w-full"
+                className={`${
+                  isFirstItem ? "cursor-default" : ""
+                } font-normal w-full`}
                 color={`${isLastItem ? "red" : "inherit"}`}
               >
                 {label || "Anonymous user"}

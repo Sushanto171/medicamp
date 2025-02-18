@@ -1,5 +1,6 @@
 import Marquee from "react-fast-marquee";
 import SectionTitle from "../../components/SectionTitle";
+
 const partners = [
   {
     id: 1,
@@ -47,7 +48,7 @@ export default function PartnersCollaborations() {
   return (
     <section className="py-12 ">
       <div>
-        <SectionTitle title="Partners & Collaborations" />
+        <SectionTitle title="Partners_ & Collaborations" />
       </div>
       <div className="max-w-6xl mx-auto px-4 text-center">
         <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
@@ -59,7 +60,7 @@ export default function PartnersCollaborations() {
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="bg-white dark:bg-background dark:shadow-secondary cursor-pointer mx-4 rounded-xl shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="box bg-white dark:bg-background dark:shadow-secondary cursor-pointer mx-4 rounded-xl shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 <img
                   src={partner.logo}

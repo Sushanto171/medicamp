@@ -12,7 +12,7 @@ const CareerPage = () => {
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold">Join Our Mission</h1>
+          <h1 className="text-4xl font-bold">Join Our_ Mission</h1>
           <p className="mt-4 text-lg">
             Be the change you want to see in the world. Join us as a passionate
             volunteer and make a difference today!
@@ -28,7 +28,7 @@ const CareerPage = () => {
               Why Join Us?
             </h2>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md">
+              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md box">
                 <h3 className="text-xl font-bold text-gray-700">
                   Make an Impact
                 </h3>
@@ -37,7 +37,7 @@ const CareerPage = () => {
                   communities and lives.
                 </p>
               </div>
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md">
+              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md box">
                 <h3 className="text-xl font-bold text-gray-700">
                   Build Connections
                 </h3>
@@ -46,7 +46,7 @@ const CareerPage = () => {
                   relationships.
                 </p>
               </div>
-              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md">
+              <div className="p-6 bg-gray-50 dark:bg-background rounded-lg shadow-md box">
                 <h3 className="text-xl font-bold text-gray-700">
                   Grow Yourself
                 </h3>
