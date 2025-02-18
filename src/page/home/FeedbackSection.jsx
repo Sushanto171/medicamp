@@ -23,16 +23,16 @@ export function FeedbackSection() {
 
   if (isLoading) return <LoadingSpinner />;
   return (
-    <div>
-      <div>
-        <SectionTitle title="Participants Feedback" />
-      </div>
+    <>
       <div
-        className="bg-no-repeat bg-cover relative mt-6"
+        className="bg-no-repeat bg-cover relative"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <div className="backdrop-blur w-full h-full absolute"></div>
-        <div className="py-12">
+        <div className="backdrop-blur -z-0 w-full h-full absolute"></div>
+        <div className="py-12 relative">
+          <div className="pb-8">
+            <SectionTitle title="Participants Feedback" />
+          </div>
           <Swiper
             slidesPerView={"auto"}
             centeredSlides={true}
@@ -52,6 +52,6 @@ export function FeedbackSection() {
           </Swiper>
         </div>
       </div>
-    </div>
+    </>
   );
 }

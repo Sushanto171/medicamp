@@ -6,7 +6,7 @@ import SuccessStories from "./SeccessStories";
 
 const Home = () => {
   return (
-    <div className="space-y-9 ">
+    <div className=" ">
       {/* banner */}
       <Banner />
       <PopularMedicalCamps />

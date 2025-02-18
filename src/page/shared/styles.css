@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes rotate-border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .animate-rotate-border {
+    position: relative; /* Parent container হিসেবে কাজ করবে */
+    width: 100px; /* প্রয়োজন মতো সেট করো */
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  .animate-rotate-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(#ff0052 20deg, transparent 120deg);
+    animation: rotate-border 2s linear infinite;
+    z-index: -1; /* এটি ব্যাকগ্রাউন্ডে রাখবে */
+  }
+}

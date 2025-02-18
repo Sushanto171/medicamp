@@ -86,7 +86,7 @@ export function JoinCampModal({ campDetails, refetch }) {
             : navigate("/join-us", { state: pathname })
         }
         variant="text"
-        className="flex items-center gap-1 bg-secondary text-white hover:text-primary border border-b-4 border-secondary group relative pr-12 hover:bg-accent/10"
+        className="flex items-center gap-1 bg-secondary dark:hover:text-white text-white hover:text-primary border border-b-4 border-secondary group relative pr-12 hover:bg-accent/10"
       >
         Join Camp
         <IoIosArrowRoundForward className="text-2xl group-hover:right-3 absolute right-5 transition-all" />

@@ -50,7 +50,7 @@ const CampDetails = () => {
   } = camp;
 
   return (
-    <div className="flex flex-col lg:flex-row items-start gap-8 p-6 lg:p-12 bg-gray-50 min-h-screen">
+    <div className="flex flex-col lg:flex-row items-start gap-8 p-6 lg:p-12 bg-gray-50 dark:bg-background-dark min-h-screen">
       {/* Left: Image */}
       <div className="flex-1">
         <img
@@ -65,45 +65,51 @@ const CampDetails = () => {
 
       {/* Right: Camp Details */}
       <div className="flex-1 space-y-2 sm:space-y-6">
-        <h1 className="text-2xl lg:text-4xl font-bold text-primary">
+        <h1 className="text-2xl lg:text-4xl font-bold text-primary dark:text-white">
           {campName}
         </h1>
 
         {/* Date and Time */}
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex items-center gap-2">
-            <MdDateRange className="text-primary" />
-            <span className="text-gray-500 font-medium hidden sm:block">
+            <MdDateRange className="text-primary dark:text-white" />
+            <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
               Date:
             </span>
-            <span className="text-text font-semibold">{date}</span>
+            <span className="text-text dark:text-gray-300 font-semibold">
+              {date}
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <MdAccessTime className="text-primary" />
-            <span className="text-gray-500 font-medium hidden sm:block">
+            <MdAccessTime className="text-primary dark:text-white" />
+            <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
               Time:
             </span>
-            <span className="text-text font-semibold">{time}</span>
+            <span className="text-text dark:text-gray-300 font-semibold">
+              {time}
+            </span>
           </div>
         </div>
 
         {/* Location */}
         <div className="flex items-center gap-2">
-          <MdLocationOn className="text-primary" />
-          <span className="text-gray-500 font-medium hidden sm:block">
+          <MdLocationOn className="text-primary dark:text-white" />
+          <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
             Location:
           </span>
-          <span className="text-text font-semibold">{location}</span>
+          <span className="text-text dark:text-gray-300 font-semibold">
+            {location}
+          </span>
         </div>
 
         {/* Camp Fees */}
         <div className="flex items-center gap-2">
-          <FaDollarSign className="text-primary" />
-          <span className="text-gray-500 font-medium hidden sm:block">
+          <FaDollarSign className="text-primary dark:text-white" />
+          <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
             Camp Fees:
           </span>
           <span
-            className={`text-text font-semibold ${
+            className={`text-text dark:text-gray-300 font-semibold ${
               campFees === 0 ? "text-green-600" : ""
             }`}
           >
@@ -113,32 +119,34 @@ const CampDetails = () => {
 
         {/* Healthcare Professional */}
         <div className="flex items-center gap-2">
-          <FaUserDoctor className="text-primary" />
-          <span className="text-gray-500 font-medium hidden sm:block">
+          <FaUserDoctor className="text-primary dark:text-white" />
+          <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
             Healthcare Professional:
           </span>
-          <span className="text-text font-semibold">
+          <span className="text-text dark:text-gray-300 font-semibold">
             {healthcareProfessional}
           </span>
         </div>
 
         {/* Participant Count */}
         <div className="flex items-center gap-2">
-          <MdPeople className="text-primary" />
-          <span className="text-gray-500 font-medium hidden sm:block">
+          <MdPeople className="text-primary dark:text-white" />
+          <span className="text-gray-500 dark:text-white  font-medium hidden sm:block">
             Participants:
           </span>
-          <span className="text-text font-semibold">
+          <span className="text-text dark:text-gray-300 font-semibold">
             {participantCount} people
           </span>
         </div>
 
         {/* Description */}
         <div>
-          <h2 className="text-lg font-medium text-primary text-pretty">
+          <h2 className="text-lg font-medium text-primary dark:text-white text-pretty">
             Description:
           </h2>
-          <p className="text-gray-700 leading-relaxed">{description}</p>
+          <p className="text-gray-700 dark:text-white  leading-relaxed">
+            {description}
+          </p>
         </div>
 
         <div className="mt-4 sm:flex items-center justify-between space-y-4 sm:space-y-0">

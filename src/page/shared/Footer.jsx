@@ -6,13 +6,14 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import "./styles.css";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-primary text-white p-8">
+    <footer className="w-full bg-primary p-8 text-white dark:bg-black relative">
       <div className="container mx-auto">
         {/* Top Section */}
-        <div className="flex flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between">
+        <div className="flex flex-wrap items-center justify-center gap-y-6 gap-x-12 text-center md:justify-between z-10">
           <img src={logo} alt="MediCamp Logo" className="w-36" />
           {/* Navigation Links */}
           <ul className="flex flex-wrap items-center gap-y-2 gap-x-8 opacity-80">

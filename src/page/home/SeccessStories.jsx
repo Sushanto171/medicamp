@@ -1,6 +1,8 @@
 import { default as successImage3 } from "../../assets/brighter.png";
 import { default as successImage1 } from "../../assets/empower.png";
 import { default as successImage2 } from "../../assets/success1.jpg";
+import Container from "../../components/Container";
+import SectionTitle from "../../components/SectionTitle";
 
 const SuccessStories = () => {
   const stories = [
@@ -34,45 +36,45 @@ const SuccessStories = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-8">
-          Success Stories
-        </h2>
-        <p className="text-gray-600 text-lg mb-12">
-          Discover how MediCamp has made a meaningful impact in people&lsquo;s
-          lives through care and compassion.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8">
-          {stories.map((story) => (
-            <div
-              key={story.id}
-              className="bg-white shadow-lg rounded-lg overflow-hidden story-card"
-            >
-              <img
-                src={story.image}
-                alt={`Illustration of ${story.title}`}
-                className="w-full h-48 object-contain"
-                onError={(e) => (e.target.src = "/fallback-image.jpg")}
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-primary mb-2">
-                  {story.title}
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  {story.description}
-                </p>
-                <blockquote className="italic text-secondary">
-                  &ldquo;{story.quote}&ldquo;
-                </blockquote>
-                <p className="text-sm font-medium mt-2 text-right">
-                  - {story.person}
-                </p>
+    <section className="py-12 dark:bg-background-dark">
+      <Container>
+        <SectionTitle title="Success Stories" />
+        <div className="w-full  text-center pt-3 ">
+          <p className="text-gray-600 text-lg mb-12 dark:text-gray-300 ">
+            Discover how MediCamp has made a meaningful impact in people&lsquo;s
+            lives through care and compassion.
+          </p>
+          <div className="grid md:grid-cols-3 gap-8  w-full">
+            {stories.map((story) => (
+              <div
+                key={story.id}
+                className="dark:bg-background bg-white shadow-lg rounded-lg overflow-hidden story-card w-full "
+              >
+                <img
+                  src={story.image}
+                  alt={`Illustration of ${story.title}`}
+                  className="w-full h-48 object-contain p-2"
+                  onError={(e) => (e.target.src = "/fallback-image.jpg")}
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-primary mb-2">
+                    {story.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    {story.description}
+                  </p>
+                  <blockquote className="italic text-secondary">
+                    &ldquo;{story.quote}&ldquo;
+                  </blockquote>
+                  <p className="text-sm font-medium mt-2 text-right">
+                    - {story.person}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

@@ -16,7 +16,7 @@ const Pagination = ({
     scrollToTop();
   }, [currentPage]);
   return (
-    <div className="flex items-center justify-between my-8">
+    <div className="flex items-center justify-between my-8 dark:text-gray-200">
       <p className="text-xs sm:text-base">
         Showing {currentPage * 10 - 9}-{" "}
         {available

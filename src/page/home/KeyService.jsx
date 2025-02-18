@@ -48,7 +48,7 @@ const KeyServices = () => {
               <div
                 data-aos="zoom-in"
                 key={index}
-                className="p-6 bg-white text-primary rounded-lg shadow-md hover:shadow-lg transition duration-300"
+                className="p-6 bg-white dark:bg-background text-primary rounded-lg shadow-md hover:shadow-lg transition duration-300"
               >
                 <div className="flex justify-center mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>

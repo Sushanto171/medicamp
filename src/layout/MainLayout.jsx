@@ -12,11 +12,11 @@ const MainLayout = () => {
   return (
     <div className="relative">
       {/* navbar */}
-      <div className="bg-primary sticky top-0 z-50">
+      <div className="bg-primary dark:text-white  sticky top-0 z-50">
         <ComplexNavbar />
       </div>
       {/* outlet */}
-      <div className="min-h-[calc(100vh-280px)]">
+      <div className="min-h-[calc(100vh-280px)] dark:bg-background-dark !dark:text-white">
         <Outlet />
       </div>
       {/* footer */}

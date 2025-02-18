@@ -28,15 +28,15 @@ const RatingFeedback = ({ camp }) => {
   return (
     <>
       <div className="my-6">
-        <h3 className="text-lg text-text ">
+        <h3 className="text-lg text-text dark:text-gray-200 ">
           Rating & Feedback of {camp.campName}
         </h3>
-        <div className="flex items-center gap-2 font-bold text-blue-gray-500 mt-4">
+        <div className="flex items-center gap-2 font-bold text-blue-gray-500 dark:text-gray-200 mt-4">
           {rating}
           <Rating value={parseInt(rating)} readonly />
           <Typography
             color="blue-gray"
-            className="font-medium text-blue-gray-500"
+            className="font-medium text-blue-gray-500 dark:text-gray-200"
           >
             Based on {totalVote} Reviews
           </Typography>
@@ -44,7 +44,9 @@ const RatingFeedback = ({ camp }) => {
         {/* reviews */}
         {/* Reviews Section */}
         <div className="mt-6">
-          <h4 className="text-lg font-semibold text-gray-800">Reviews:</h4>
+          <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Reviews:
+          </h4>
           {feedbacks.length > 0 ? (
             <div className="space-y-3 mt-4">
               {feedbacks.slice(0, loadAll).map((feedback) => (
@@ -82,7 +84,9 @@ const RatingFeedback = ({ camp }) => {
               </div>
             </div>
           ) : (
-            <p className="text-gray-500 mt-4">No reviews available yet.</p>
+            <p className="text-gray-500 dark:text-gray-200 mt-4">
+              No reviews available yet.
+            </p>
           )}
         </div>
       </div>

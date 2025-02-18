@@ -10,13 +10,13 @@ const PopularMedicalCamps = () => {
   const { camps } = useCamps({ home: true });
 
   return (
-    <>
+    <div className="py-12">
       <Container>
         <SectionTitle title="Popular Medical Camps" />
         {/* cards section */}
         <div
           id="popular-camps"
-          className="grid mt-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+          className="grid mt-12 grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
           {camps.map((camp) => (
             <PopularCampsCard key={camp._id} {...camp} />
@@ -28,7 +28,7 @@ const PopularMedicalCamps = () => {
             <Button
               variant="text"
               size="lg"
-              className="flex items-center gap-1 border border-b-4 border-accent group relative pr-12 hover:bg-accent/10"
+              className="flex items-center gap-1 border border-b-4 border-accent group relative pr-12 dark:text-white hover:bg-accent/10"
             >
               See All Camps{" "}
               <IoIosArrowRoundForward className="text-2xl group-hover:right-3 absolute right-5 transition-all " />
@@ -36,7 +36,7 @@ const PopularMedicalCamps = () => {
           </Link>
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 

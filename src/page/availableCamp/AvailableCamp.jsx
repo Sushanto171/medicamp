@@ -45,7 +45,7 @@ const AvailableCamp = () => {
   if (isLoading || loading) return <LoadingSpinner />;
 
   return (
-    <div className="mb-12">
+    <div className="pb-12">
       <nav className=" w-full bg-accent sticky top-0 backdrop-blur-md z-50">
         <Container>
           <div className="grid md:grid-cols-3 items-center h-full py-4 gap-2">
@@ -128,30 +128,32 @@ const AvailableCamp = () => {
         </Container>
       </nav>
       <Container>
-        {/* section title */}
-        <SectionTitle title="All Available Camps" />
-        {/* content section */}
-        <div
-          className={`grid ${
-            layout ? "md:grid-cols-3" : "md:grid-cols-2"
-          } sm:grid-cols-2  gap-8 mt-12`}
-        >
-          {camps.length === 0 ? (
-            <>
-              <h3>No camp Available.</h3>
-            </>
-          ) : (
-            camps.map((camp) => <PopularCampsCard key={camp._id} {...camp} />)
+        <div className="mt-8">
+          {/* section title */}
+          <SectionTitle title="All Available Camps" />
+          {/* content section */}
+          <div
+            className={`grid ${
+              layout ? "md:grid-cols-3" : "md:grid-cols-2"
+            } sm:grid-cols-2  gap-8 mt-12`}
+          >
+            {camps.length === 0 ? (
+              <>
+                <h3>No camp Available.</h3>
+              </>
+            ) : (
+              camps.map((camp) => <PopularCampsCard key={camp._id} {...camp} />)
+            )}
+          </div>
+          {totalData > 9 && (
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              totalData={totalData}
+              available={true}
+            />
           )}
         </div>
-        {totalData > 9 && (
-          <Pagination
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-            totalData={totalData}
-            available={true}
-          />
-        )}
       </Container>
     </div>
   );

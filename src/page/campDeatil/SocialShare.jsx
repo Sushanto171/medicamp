@@ -21,7 +21,7 @@ const SocialShare = ({ campName }) => {
     <>
       {/* Social Share Buttons */}
       <div className=" gap-4  flex items-center scale-75 sm:scale-100 ">
-        <h2 className="text-lg font-medium text-primary flex items-center  ">
+        <h2 className="text-lg font-medium text-primary flex items-center dark:text-secondary ">
           <FaShare />
           Social Share
         </h2>
