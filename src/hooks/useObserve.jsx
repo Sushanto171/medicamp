@@ -28,7 +28,7 @@ const useIntersectionObserver = (threshold = 0.5) => {
     };
   }, [threshold]);
 
-  return { elementRef, isVisible };
+  return { elementRef, isVisible, setIsVisible, setMount, mount };
 };
 
 export default useIntersectionObserver;

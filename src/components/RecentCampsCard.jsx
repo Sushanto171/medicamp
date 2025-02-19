@@ -21,7 +21,7 @@ const RecentCamps = ({ camp }) => {
   return (
     <Card
       variant="gradient"
-      className="w-full bg-accent/30 p-3 max-w-[24rem] mx-auto dark:text-gray-200"
+      className="w-full bg-accent/30 p-3 max-w-[24rem] mx-auto dark:text-gray-200 flex flex-col justify-between "
     >
       <CardHeader
         floated={false}

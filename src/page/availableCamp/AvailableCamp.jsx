@@ -15,6 +15,7 @@ import Pagination from "../../components/Pagination";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
+import useIntersectionObserver from "../../hooks/useObserve";
 import { scrollToTop } from "../../utilites/utilites";
 import LiveSearch from "../shared/LiveSearch";
 import LoadingSpinner from "./../shared/LoadingSpinner";
@@ -25,6 +26,7 @@ const AvailableCamp = () => {
   const [search, setSearch] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const { elementRef, isVisible } = useIntersectionObserver(0);
 
   const { camps, refetch, isLoading, totalData } = useCamps({
     home: false,
@@ -36,6 +38,7 @@ const AvailableCamp = () => {
 
   useEffect(() => {
     refetch();
+
     if (sort !== "Sort") {
       toast.success(`Successfully sorted by ${sort}`);
     }
@@ -133,11 +136,12 @@ const AvailableCamp = () => {
           <SectionTitle title="All Available Camps" />
           {/* content section */}
           <div
+            ref={elementRef}
             className={`grid ${
               layout
-                ? "lg:grid-cols-4 md:grid-cols-3 gap-4"
+                ? "lg:grid-cols-4 opacity-0 md:grid-cols-3 gap-4"
                 : "md:grid-cols-2 gap-8 "
-            } sm:grid-cols-2  mt-12`}
+            } sm:grid-cols-2  mt-12 ${isVisible ? "contentVisible" : ""} `}
           >
             {camps.length === 0 ? (
               <>

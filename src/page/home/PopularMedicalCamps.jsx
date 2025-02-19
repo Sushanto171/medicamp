@@ -19,7 +19,7 @@ const PopularMedicalCamps = () => {
         <div
           ref={elementRef}
           id="popular-camps"
-          className={`grid mt-12 grid-cols-1 sm:grid-cols-2 opacity-0  md:grid-cols-3 lg:grid-cols-4 gap-4 ${
+          className={`grid mt-12 sm:grid-cols-2 opacity-0  md:grid-cols-3 lg:grid-cols-4 gap-4 ${
             isVisible ? "contentVisible" : ""
           }`}
         >

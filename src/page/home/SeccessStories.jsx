@@ -3,8 +3,10 @@ import { default as successImage1 } from "../../assets/empower.png";
 import { default as successImage2 } from "../../assets/success1.jpg";
 import Container from "../../components/Container";
 import SectionTitle from "../../components/SectionTitle";
+import useIntersectionObserver from "../../hooks/useObserve";
 
 const SuccessStories = () => {
+  const { elementRef, isVisible } = useIntersectionObserver(0);
   const stories = [
     {
       id: 1,
@@ -38,17 +40,30 @@ const SuccessStories = () => {
   return (
     <section className="py-12 dark:bg-background-dark">
       <Container>
-        <SectionTitle title="Success_ Stories" />
-        <div className="w-full  text-center pt-3 ">
-          <p className="text-gray-600 text-lg mb-12 dark:text-gray-300 ">
-            Discover how MediCamp has made a meaningful impact in people&lsquo;s
-            lives through care and compassion.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8  w-full">
+        <SectionTitle
+          title="Success_ Stories"
+          subTitle={
+            "  Discover how MediCamp has made a meaningful impact in people's lives through care and compassion."
+          }
+        />
+        <div className="w-full  text-center">
+          <div className="grid md:grid-cols-3 gap-8  w-full overflow-hidden pb-4">
             {stories.map((story) => (
               <div
+                ref={elementRef}
                 key={story.id}
-                className="dark:bg-background bg-white shadow-lg rounded-lg overflow-hidden story-card w-full "
+                className={`dark:bg-background bg-white shadow-lg rounded-lg overflow-hidden story-card w-full ${
+                  isVisible
+                    ? [
+                        story.id == 3
+                          ? "animate__animated animate__fadeInRight "
+                          : "",
+                        story.id == 1
+                          ? "animate__animated animate__fadeInLeft "
+                          : "",
+                      ].join(" ")
+                    : ""
+                } `}
               >
                 <img
                   src={story.image}

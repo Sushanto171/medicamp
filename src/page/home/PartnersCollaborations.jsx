@@ -48,14 +48,13 @@ export default function PartnersCollaborations() {
   return (
     <section className="py-12 ">
       <div>
-        <SectionTitle title="Partners_ & Collaborations" />
+        <SectionTitle
+          title="Partners_ & Collaborations"
+          subTitle={" We proudly collaborate with these organizations."}
+        />
       </div>
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
-          We proudly collaborate with these organizations.
-        </p>
-
-        <Marquee className="py-8 cursor-auto" pauseOnHover={true}>
+        <Marquee className="pb-4 cursor-auto" pauseOnHover={true}>
           <div className="flex ">
             {partners.map((partner) => (
               <div

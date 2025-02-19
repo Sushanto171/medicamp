@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../components/Container";
+import SectionTitle from "../../components/SectionTitle";
 import { scrollToTop } from "../../utilites/utilites";
 
 const CareerPage = () => {
@@ -12,11 +13,13 @@ const CareerPage = () => {
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold">Join Our_ Mission</h1>
-          <p className="mt-4 text-lg">
-            Be the change you want to see in the world. Join us as a passionate
-            volunteer and make a difference today!
-          </p>
+          <SectionTitle
+            feedback={true}
+            title={"Join Our_ Mission"}
+            subTitle={
+              " Be the change you want to see in the world. Join us as a passionate volunteer and make a difference today!"
+            }
+          />
         </div>
       </header>
 

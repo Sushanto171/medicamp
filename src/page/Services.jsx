@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import SectionTitle from "../components/SectionTitle";
 import { scrollToTop } from "../utilites/utilites";
 
 const Services = () => {
@@ -57,11 +58,13 @@ const Services = () => {
       {/* Header Section */}
       <header className="bg-secondary text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold">Our_ Services</h1>
-          <p className="mt-4 text-lg">
-            At MediCamp, we are dedicated to providing essential healthcare
-            services that make a difference in people&apos;s lives.
-          </p>
+          <SectionTitle
+            feedback={true}
+            title={"Our_ Services"}
+            subTitle={
+              " At MediCamp, we are dedicated to providing essential healthcare services that make a difference in people's lives."
+            }
+          />
         </div>
       </header>
 

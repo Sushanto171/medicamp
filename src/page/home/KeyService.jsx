@@ -5,9 +5,12 @@ import {
   FaSyringe,
 } from "react-icons/fa";
 import Container from "../../components/Container";
+import SectionTitle from "../../components/SectionTitle";
+import useIntersectionObserver from "../../hooks/useObserve";
 import "./keyService.css";
 
 const KeyServices = () => {
+  const { elementRef, isVisible } = useIntersectionObserver(0);
   const services = [
     {
       icon: <FaStethoscope size={30} className="text-accent" />,
@@ -39,14 +42,19 @@ const KeyServices = () => {
     <section className="bg-secondary text-white py-12">
       <Container>
         <div className="container mx-auto text-center ">
-          <h2 className=" text-3xl md:text-4xl font-bold pb-2">
-            Our Key_ Services
-          </h2>
-          <p className="text-lg opacity-80 pb-8">
-            MediCamp offers a range of essential healthcare services to improve
-            the lives of underserved communities.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <SectionTitle
+            feedback={true}
+            title="Our Key_ Services"
+            subTitle={
+              "MediCamp offers a range of essential healthcare services to improve the lives of underserved communities."
+            }
+          />
+          <div
+            ref={elementRef}
+            className={`grid grid-cols-1 opacity-0 md:grid-cols-2 lg:grid-cols-4 gap-8 ${
+              isVisible ? "contentVisible" : ""
+            }`}
+          >
             {services.map((service, index) => (
               <div
                 data-aos="zoom-in"

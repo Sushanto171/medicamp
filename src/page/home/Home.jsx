@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { scrollToTop } from "../../utilites/utilites";
 import Banner from "./Banner";
+import FeaturedDoctors from "./FeaturedDoctors";
 import { FeedbackSection } from "./FeedbackSection";
 import KeyServices from "./KeyService";
 import PartnersCollaborations from "./PartnersCollaborations";
@@ -20,6 +21,7 @@ const Home = () => {
       <RecentMedicalCamps />
       <SuccessStories />
       <KeyServices />
+      <FeaturedDoctors />
       <FeedbackSection />
       <PartnersCollaborations />
       <div></div>
