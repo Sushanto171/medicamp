@@ -5,8 +5,10 @@ import Container from "../../components/Container";
 import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
+import useIntersectionObserver from "../../hooks/useObserve";
 
 const PopularMedicalCamps = () => {
+  const { elementRef, isVisible } = useIntersectionObserver(0);
   const { camps } = useCamps({ home: true });
 
   return (
@@ -15,8 +17,11 @@ const PopularMedicalCamps = () => {
         <SectionTitle title="Popular Medical_ Camps" />
         {/* cards section */}
         <div
+          ref={elementRef}
           id="popular-camps"
-          className="grid mt-12 grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4"
+          className={`grid mt-12 grid-cols-1 sm:grid-cols-2 opacity-0  md:grid-cols-3 lg:grid-cols-4 gap-4 ${
+            isVisible ? "contentVisible" : ""
+          }`}
         >
           {camps.map((camp) => (
             <PopularCampsCard key={camp._id} {...camp} />

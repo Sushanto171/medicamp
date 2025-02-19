@@ -60,7 +60,7 @@ export default function PartnersCollaborations() {
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="box bg-white dark:bg-background dark:shadow-secondary cursor-pointer mx-4 rounded-xl shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="box bg-white dark:bg-background hover:bg-background dark:shadow-secondary cursor-pointer mx-4 rounded-xl shadow-md p-4 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 <img
                   src={partner.logo}

@@ -59,7 +59,7 @@ const Banner = () => {
 
                 <button
                   onClick={handleBtn}
-                  className="px-4 btn sm:px-6 py-2 text-white font-medium rounded hover:bg-primary "
+                  className="px-4 btn sm:px-6 py-2 text-white font-medium rounded hover:bg-primary scale-75 sm:scale-100"
                 >
                   Discover Camps
                 </button>
@@ -86,7 +86,7 @@ const Banner = () => {
                       quality care with empathy and expertise.
                     </p>
                     <Link to={"/about-us"} className="block">
-                      <button className="px-4 sm:px-6 btn py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
+                      <button className="px-4 sm:px-6 btn py-2 scale-75 sm:scale-100 hover:bg-primary text-white font-medium rounded bg-secondary transition">
                         Learn More About Us
                       </button>
                     </Link>
@@ -95,7 +95,7 @@ const Banner = () => {
                     <img
                       src={doctorImage}
                       alt="Medical Staff"
-                      className="w-full hidden  sm:h-full object-cover rounded-tl-[150px] rounded-br-[150px] shadow-lg"
+                      className="w-full hidden sm:h-full border border-primary object-cover rounded-tl-[150px] rounded-br-[150px] bounce "
                     />
                   </div>
                 </div>
@@ -121,7 +121,7 @@ const Banner = () => {
                   local NGOs.
                 </p>
                 <Link to="/career" className="block">
-                  <button className="px-4 btn sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
+                  <button className="px-4 btn scale-75 sm:scale-100 sm:px-6 py-2 hover:bg-primary text-white font-medium rounded bg-secondary transition">
                     Become a Volunteer
                   </button>
                 </Link>

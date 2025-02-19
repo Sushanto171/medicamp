@@ -41,6 +41,7 @@ export function FeedbackSection() {
               delay: 2500,
               disableOnInteraction: false,
             }}
+            spaceBetween={40}
             pagination={{
               clickable: true,
             }}

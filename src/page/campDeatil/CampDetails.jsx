@@ -88,7 +88,7 @@ const CampDetails = () => {
               Time:
             </span>
             <span
-              className={`text-text dark:text-gray-300 font-semibold line-through ${
+              className={`text-text dark:text-gray-300 font-semibold ${
                 date < today ? "line-through" : ""
               } `}
             >

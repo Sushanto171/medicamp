@@ -26,7 +26,7 @@ const FeedbackCard = ({ feedbackData }) => {
           <FaQuoteLeft className="text-2xl dark:text-accent" />
         </p>
         <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-4 flex text-center relative ">
-          {feedback.length > 100 ? `${feedback.slice(0, 185)}...` : feedback}
+          {feedback.length > 185 ? `${feedback.slice(0, 185)}...` : feedback}
         </p>
         {feedback.length > 185 && (
           <FeedbackModal {...{ name, feedback, rating, photo }} />
