@@ -4,6 +4,7 @@ import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useIntersectionObserver from "../../../hooks/useObserve";
 import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 
@@ -14,6 +15,8 @@ const PaymentHistory = () => {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalData, setTotalData] = useState(0);
+  const { isVisible, elementRef } = useIntersectionObserver(0);
+
   const {
     data: payments = [],
     isLoading,
@@ -47,15 +50,27 @@ const PaymentHistory = () => {
         <h3 className="text-lg font-medium text-text">No history available</h3>
       ) : (
         <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
-          <table className="min-w-full bg-white border border-gray-200">
+          <table
+            ref={elementRef}
+            className={`table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300 ${
+              isVisible ? "animate__animated animate__lightSpeedInRight" : ""
+            }`}
+          >
+            {" "}
             <thead className="bg-secondary text-white">
               <tr>
-                <th className="px-6 py-3 border-b">#</th>
-                <th className="px-6 py-3 border-b">Camp Name</th>
-                <th className="px-6 py-3 border-b">Camp Fees</th>
-                <th className="px-6 py-3 border-b">Transaction ID</th>
-                <th className="px-6 py-3 border-b">Payment Status</th>
-                <th className="px-6 py-3 border-b">Confirmation Status</th>
+                <th className="px-6 py-3 border border-gray-300">#</th>
+                <th className="px-6 py-3 border border-gray-300">Camp Name</th>
+                <th className="px-6 py-3 border border-gray-300">Camp Fees</th>
+                <th className="px-6 py-3 border border-gray-300">
+                  Transaction ID
+                </th>
+                <th className="px-6 py-3 border border-gray-300">
+                  Payment Status
+                </th>
+                <th className="px-6 py-3 border border-gray-300">
+                  Confirmation Status
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -63,22 +78,22 @@ const PaymentHistory = () => {
                 <tr
                   key={payment._id}
                   className={`${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-gray-100 text-text`}
+                    index % 2 !== 0 ? "bg-accent/10" : ""
+                  } hover:-translate-x-0.5 text-center`}
                 >
-                  <td className="px-6 py-4 text-center border-b">
-                    {index + 1}
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
+                    {index + 1 * currentPage * 10 - 9}
                   </td>
-                  <td className="px-6 py-4 text-center border-b">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {payment.campName}
                   </td>
-                  <td className="px-6 py-4 text-center border-b">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     ${payment.campFees}
                   </td>
-                  <td className="px-6 py-4 text-center border-b">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     {payment.transactionID}
                   </td>
-                  <td className="px-6 py-4 text-center border-b">
+                  <td className="border border-gray-300 dark:border-gray-800 px-4 py-2">
                     <span
                       className={`px-3 py-1 rounded ${
                         payment.paymentStatus

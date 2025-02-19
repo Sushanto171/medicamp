@@ -9,6 +9,7 @@ import PayModal from "./../../../components/modal/PayModal";
 import SectionTitle from "./../../../components/SectionTitle";
 import useAxiosSecure from "./../../../hooks/useAxiosSecure";
 
+import useIntersectionObserver from "../../../hooks/useObserve";
 import Pagination from "./../../../components/Pagination";
 const RegisteredCamps = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,6 +18,7 @@ const RegisteredCamps = () => {
   const [totalData, setTotalData] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const { user } = useAuth();
+  const { isVisible, elementRef } = useIntersectionObserver(0);
   const {
     data: registered = [],
     isLoading,
@@ -46,13 +48,18 @@ const RegisteredCamps = () => {
       />
       <SectionTitle my={6} title="Explore Registered Camps" />
       {registered.length <= 0 ? (
-        <h3 className="text-lg font-medium text-text">No data available.</h3>
+        <h3 className="text-lg font-medium  ">No data available.</h3>
       ) : (
         <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
-          <table className="table-auto border-collapse border border-gray-300 w-full min-w-max">
+          <table
+            ref={elementRef}
+            className={`table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300 ${
+              isVisible ? "animate__animated animate__lightSpeedInRight" : ""
+            }`}
+          >
             <thead>
-              <tr>
-                <th className="border p-2 bg-secondary text-white">#</th>
+              <tr className="border p-2 bg-secondary text-white ">
+                <th className="px-4">#</th>
                 <th className="border p-2 bg-secondary text-white">
                   Camp Name
                 </th>
@@ -75,18 +82,21 @@ const RegisteredCamps = () => {
               {registered.map((camp, i) => (
                 <tr
                   key={camp._id}
-                  className={`${i % 2 !== 0 ? "bg-accent/10" : ""} text-center`}
+                  className={`${
+                    i % 2 !== 0 ? "bg-accent/10" : ""
+                  } text-center dark:text-gray-300`}
                 >
-                  <td className="border p-1 text-text">{i + 1}</td>
-                  <td className="border p-1 text-text">
+                  <td className="border p-1 ">
+                    {" "}
+                    {i + 1 * currentPage * 10 - 9}
+                  </td>
+                  <td className="border p-1 ">
                     {camp.campName.slice(0, 25)}
                     {camp.campName.length > 24 && ".."}
                   </td>
-                  <td className="border p-1 text-text">${camp.campFees}</td>
-                  <td className="border p-1 text-text">
-                    {camp.participantName}
-                  </td>
-                  <td className={` border p-1 text-text`}>
+                  <td className="border p-1 ">${camp.campFees}</td>
+                  <td className="border p-1 ">{camp.participantName}</td>
+                  <td className={` border p-1 `}>
                     <span
                       className={` px-2 py-0.5 rounded-sm ${
                         camp.paymentStatus
@@ -97,7 +107,7 @@ const RegisteredCamps = () => {
                       {camp.paymentStatus ? "Paid" : "Unpaid"}
                     </span>
                   </td>
-                  <td className="border p-1 text-text">
+                  <td className="border p-1 ">
                     <span
                       className={` px-2 py-0.5 rounded-sm ${
                         camp.confirmationStatus
@@ -108,7 +118,7 @@ const RegisteredCamps = () => {
                       {camp.confirmationStatus ? "Confirmed" : "Pending"}
                     </span>
                   </td>
-                  <td className="w-40 grid grid-cols-2 p-2">
+                  <td className="w-40 grid grid-cols-2 p-2 border-b">
                     {/* payment modal*/}
                     <PayModal camp={camp} refetch={refetch} />
                     {!camp.confirmationStatus ? (

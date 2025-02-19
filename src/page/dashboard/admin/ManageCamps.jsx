@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
 import useCamps from "../../../hooks/useCamps";
+import useIntersectionObserver from "../../../hooks/useObserve";
 import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import CampUpdateModal from "./../../../components/modal/CampUpdateModal";
@@ -13,6 +14,8 @@ const ManageCamps = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const { isVisible, elementRef } = useIntersectionObserver(0);
+
   const { camps, isLoading, refetch, totalData } = useCamps({
     home: false,
     search,
@@ -69,7 +72,12 @@ const ManageCamps = () => {
       <div className="overflow-x-auto">
         {/* Table for large screens */}
         <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg">
-          <table className="table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300">
+          <table
+            ref={elementRef}
+            className={`table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300 ${
+              isVisible ? "animate__animated animate__lightSpeedInRight" : ""
+            }`}
+          >
             <thead className="bg-secondary text-white">
               <tr>
                 <th className="border border-gray-300 dark:border-gray-800 px-4 py-2 text-left">

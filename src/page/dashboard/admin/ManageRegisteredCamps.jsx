@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { TiInfoLarge } from "react-icons/ti";
 import Pagination from "../../../components/Pagination";
 import SectionTitle from "../../../components/SectionTitle";
+import useIntersectionObserver from "../../../hooks/useObserve";
 import LiveSearch from "../../shared/LiveSearch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import ParticipantCancel from "../../shared/ParticipantCancel";
@@ -15,6 +16,7 @@ const ManageRegisteredCamps = () => {
   const [search, setSearch] = useState("");
   const [totalData, setTotalData] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const { isVisible, elementRef } = useIntersectionObserver(0);
   const {
     data: participants = [],
     isLoading,
@@ -56,7 +58,13 @@ const ManageRegisteredCamps = () => {
       />
       <SectionTitle my={6} title="Participant Registration Table" />
       <div className="overflow-x-auto w-[calc(100vw-50px)] sm:w-[calc(100vw-280px)] max-w-screen-lg ">
-        <table className="table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-200">
+        <table
+          ref={elementRef}
+          className={`table-auto border-collapse border border-gray-300 w-full min-w-max dark:text-gray-300 ${
+            isVisible ? "animate__animated animate__lightSpeedInRight" : ""
+          }`}
+        >
+          {" "}
           <thead>
             <tr>
               <th className="border p-2 bg-secondary dark:border-gray-700 text-white">

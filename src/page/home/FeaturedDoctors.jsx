@@ -44,7 +44,7 @@ const FeaturedDoctors = () => {
         <SectionTitle title=" Meet Our Experts & Volunteers" />
         <div
           ref={elementRef}
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-6 mt-12 ${
+          className={`grid grid-cols-1 opacity-0 md:grid-cols-2 lg:grid-cols-4 gap-6 px-6 mt-12 ${
             isVisible ? "contentVisible" : ""
           }`}
         >

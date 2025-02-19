@@ -12,6 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import { JoinCampModal } from "../../components/modal/JoinCampModal";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useIntersectionObserver from "../../hooks/useObserve";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { scrollToTop } from "./../../utilites/utilites";
 import RatingFeedback from "./RatingFeedback";
@@ -21,6 +22,7 @@ const CampDetails = () => {
   const today = new Date().toISOString().split("T")[0];
   const axiosPublic = useAxiosPublic();
   const { id } = useParams();
+  const { elementRef, isVisible } = useIntersectionObserver(0);
   const {
     data: camp = {},
     refetch,
@@ -51,7 +53,12 @@ const CampDetails = () => {
   } = camp;
 
   return (
-    <div className="flex flex-col lg:flex-row items-start gap-8 p-6 lg:p-12 bg-gray-50 dark:bg-background-dark min-h-screen">
+    <div
+      ref={elementRef}
+      className={`flex flex-col lg:flex-row items-start gap-8 p-6 lg:p-12 bg-gray-50 dark:bg-background-dark min-h-screen ${
+        isVisible ? "animate__animated animate__fadeInUp" : ""
+      }`}
+    >
       {/* Left: Image */}
       <div className="flex-1">
         <img

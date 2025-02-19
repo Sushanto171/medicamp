@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Avatar, Button, Input, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -10,7 +9,7 @@ import useDBUser from "../hooks/useDBUser";
 import LoadingSpinner from "../page/shared/LoadingSpinner";
 import { uploadPhotoDB } from "../utilites/utilites";
 
-const Profile = ({ title }) => {
+const Profile = () => {
   const axiosSecure = useAxiosSecure();
   const { user, loading, updateUserProfile, setLoading } = useAuth();
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -94,51 +93,76 @@ const Profile = ({ title }) => {
   if (isLoading || loading) return <LoadingSpinner />;
 
   return (
-    <div className="bg-gray-50 flex items-center justify-center sm:h-[calc(100vh-120px)]">
-      <div className="bg-white rounded-lg shadow-md w-full max-w-lg p-2 sm:p-8">
-        <Typography variant="h4" className="text-center mb-4">
-          {title} Profile
-        </Typography>
-        <div className="flex flex-col items-center mb-6">
+    <div className="bg-gray-50 dark:bg-background-dark min-h-screen flex flex-col items-center relative">
+      {/* Banner Section */}
+      <div className="w-full h-48 bg-primary flex justify-center items-center text-white text-3xl font-bold shadow-lg">
+        Professional Profile
+      </div>
+
+      {/* Update Profile action */}
+      <div className="absolute mt-8 top-48 right-7">
+        {isEditing ? (
+          <Button
+            onClick={handleSave}
+            className="bg-accent hover:bg-secondary flex items-center"
+          >
+            {updateLoading && <BiPlusMedical className="animate-spin size-4" />}{" "}
+            Save Changes
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setIsEditing(true)}
+            className="bg-accent hover:bg-secondary/80"
+          >
+            Edit Profile
+          </Button>
+        )}
+        {isEditing && (
+          <Button
+            onClick={() => setIsEditing(false)}
+            className="bg-red-400 hover:bg-red-500 mt-4"
+          >
+            Cancel
+          </Button>
+        )}
+      </div>
+
+      {/* Profile Section */}
+      <div className=" w-full  pr-8 p-3 pt-0">
+        <div className="flex items-center mb-6">
           {isEditing ? (
-            <div className="relative">
-              <Avatar
-                src={formData.photoURL}
-                alt="User Avatar"
-                size="xl"
-                withBorder
-                className="mb-4"
-              />
-              <label
-                htmlFor="photo-upload"
-                className=" absolute cursor-pointer hover:underline top-0 -right-1 border bg-secondary p-0.5 rounded-full text-white  "
-              >
-                <LiaPenSolid className="" />
-              </label>
-              <input
-                type="file"
-                id="photo-upload"
-                className="hidden"
-                accept="image/*"
-                onChange={handlePhotoUpload}
-              />
+            <div>
+              <h3 className="text-center mb-4 text-lg">
+                {isEditing ? "Edit Profile" : ""}
+              </h3>
+              <div className="relative flex">
+                <Avatar
+                  src={formData.photoURL}
+                  alt="User Avatar"
+                  size="xl"
+                  withBorder
+                  className="mb-4"
+                />
+                <label
+                  htmlFor="photo-upload"
+                  className="absolute cursor-pointer hover:underline top-0 -right-1 border bg-secondary p-0.5 rounded-full text-white"
+                >
+                  <LiaPenSolid />
+                </label>
+                <input
+                  type="file"
+                  id="photo-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                />
+              </div>
             </div>
           ) : (
-            <>
-              <Avatar
-                src={formData.photoURL}
-                alt="User Avatar"
-                size="xl"
-                withBorder
-                className="mb-4"
-              />
-              <h3 className="text-sm opacity-80">
-                User ID: {userDB?._id || "#"}
-              </h3>
-            </>
+            ""
           )}
         </div>
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {isEditing ? (
             <>
               <Input
@@ -167,54 +191,67 @@ const Profile = ({ title }) => {
               />
             </>
           ) : (
-            <>
-              <div className="text-center">
-                <Typography variant="h6" className="font-bold">
-                  {formData.name}
-                </Typography>
-                <Typography variant="small" className="text-gray-600">
-                  {formData.email}
-                </Typography>
-                {formData?.phone && (
-                  <Typography variant="small" className="text-gray-600">
-                    Phone: {formData?.phone}
+            <div className="mx-auto ">
+              <div className="flex items-center gap-6">
+                <Avatar
+                  src={formData.photoURL}
+                  alt="User Avatar"
+                  className="w-32 h-32 rounded-full ring-4 ring-primary"
+                />
+                <div>
+                  <Typography className="text-3xl font-semibold text-gray-800 dark:text-gray-200">
+                    {formData.name}
                   </Typography>
-                )}
-                {formData?.address && (
-                  <Typography variant="small" className="text-gray-600">
-                    Address: {formData?.address}
-                  </Typography>
-                )}
+                  <p className="text-sm text-gray-500 dark:text-gray-200">
+                    User ID: #12345
+                  </p>
+                </div>
               </div>
-            </>
-          )}
-        </div>
-        <div className="mt-6 flex justify-between">
-          {isEditing ? (
-            <Button
-              onClick={handleSave}
-              className="bg-accent hover:bg-secondary flex items-center "
-            >
-              {updateLoading && (
-                <BiPlusMedical className="animate-spin size-4" />
-              )}
-              Save Changes
-            </Button>
-          ) : (
-            <Button
-              onClick={() => setIsEditing(true)}
-              className="bg-accent hover:bg-secondary/80 "
-            >
-              Edit Profile
-            </Button>
-          )}
-          {isEditing && (
-            <Button
-              onClick={() => setIsEditing(false)}
-              className="bg-red-400 hover:bg-red-500"
-            >
-              Cancel
-            </Button>
+
+              <div className="mt-8 text-center">
+                {/* About Me Section */}
+                <Typography
+                  variant="h5"
+                  className="text-xl font-bold text-gray-700 dark:text-gray-200 mb-4"
+                >
+                  About Me
+                </Typography>
+                <p className="text-gray-600 dark:text-gray-400 text-lg">
+                  Passionate software developer with experience in full-stack
+                  development, specialized in creating scalable web
+                  applications.
+                </p>
+              </div>
+
+              <div className="mt-8 space-y-4">
+                <h2 className="text-xl font-semibold text-gray-700 text-center dark:text-gray-200">
+                  Contact Information
+                </h2>
+                <div className="px-12">
+                  {/* Email */}
+                  <div className="grid grid-cols-4  text-gray-600 dark:text-gray-400">
+                    <span className="font-semibold col-span-2">Email:</span>
+                    <span className="col-span-2">{formData.email}</span>
+                  </div>
+
+                  {/* Phone */}
+                  {formData?.phone && (
+                    <div className="grid grid-cols-4 text-gray-600 dark:text-gray-400">
+                      <span className="font-semibold col-span-2">Phone:</span>
+                      <span className="col-span-2">{formData?.phone}</span>
+                    </div>
+                  )}
+
+                  {/* Address */}
+                  {formData?.address && (
+                    <div className="grid grid-cols-4 text-gray-600 dark:text-gray-400">
+                      <span className="font-semibold col-span-2">Address:</span>
+                      <span className="col-span-2">{formData?.address}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
