@@ -3,6 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { BiPlusMedical } from "react-icons/bi";
 import { LiaPenSolid } from "react-icons/lia";
+import banner from "../assets/profile-banner.jpg";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useDBUser from "../hooks/useDBUser";
@@ -95,8 +96,8 @@ const Profile = () => {
   return (
     <div className="bg-gray-50 dark:bg-background-dark min-h-screen flex flex-col items-center relative">
       {/* Banner Section */}
-      <div className="w-full h-48 bg-primary flex justify-center items-center text-white text-3xl font-bold shadow-lg">
-        Professional Profile
+      <div className="w-full h-48 overflow-hidden bg-primary flex justify-center items-center text-white text-3xl font-bold shadow-lg">
+        <img src={banner} alt="" className="w-full object-top object-cover" />
       </div>
 
       {/* Update Profile action */}
