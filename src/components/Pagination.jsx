@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
-import { scrollToTop } from "../utilites/utilites";
+import { scrollToTop } from "../utilities/utilities";
 
 /* eslint-disable react/prop-types */
 const Pagination = ({

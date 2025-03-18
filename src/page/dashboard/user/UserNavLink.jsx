@@ -8,11 +8,11 @@ import {
 } from "react-icons/fa";
 
 const userNavLinks = [
-  {
-    to: "/dashboard/analytics",
-    icon: "FaChartBar",
-    label: "Analytics",
-  },
+  // {
+  //   to: "/dashboard/analytics",
+  //   icon: "FaChartBar",
+  //   label: "Analytics",
+  // },
   {
     to: "/dashboard/participant-profile",
     icon: "FaUserCircle",

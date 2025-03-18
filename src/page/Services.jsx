@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import SectionTitle from "../components/SectionTitle";
-import { scrollToTop } from "../utilites/utilites";
+import { scrollToTop } from "../utilities/utilities";
 
 const Services = () => {
   useEffect(() => {

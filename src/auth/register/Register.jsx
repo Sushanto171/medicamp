@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { saveUserDataDB, uploadPhotoDB } from "../../utilites/utilites";
+import { saveUserDataDB, uploadPhotoDB } from "../../utilities/utilities";
 import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 

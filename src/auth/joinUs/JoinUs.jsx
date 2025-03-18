@@ -13,6 +13,7 @@ import {
 } from "react-simple-captcha";
 import * as yup from "yup";
 import useAuth from "../../hooks/useAuth";
+import { scrollToTop } from "../../utilities/utilities";
 import SocialLogin from "../socialLogin/SocialLogin";
 import SectionTitle from "./../../components/SectionTitle";
 const schema = yup.object({
@@ -28,13 +29,20 @@ export default function JoinUs() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
   const captchaRef = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const [isDisable, setIsDisable] = useState(true);
   const { joinNow, loading, setLoading } = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [credentialShow, setCredentialShow] = useState(false);
+  const [autoForm, setAutoForm] = useState({
+    email: "",
+    password: "",
+  });
 
   const onSubmit = async (data) => {
     try {
@@ -47,6 +55,13 @@ export default function JoinUs() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    scrollToTop();
+    setTimeout(() => {
+      setCredentialShow(true);
+    }, 1000);
+  }, []);
 
   // captcha validate
   const handleCaptcha = () => {
@@ -67,10 +82,61 @@ export default function JoinUs() {
     loadCaptchaEnginge(6);
   }, [captchaRef]);
 
+  useEffect(() => {
+    if (autoForm.email && autoForm.password) {
+      setValue("email", autoForm.email);
+      setValue("password", autoForm.password);
+    }
+  }, [autoForm, setValue]);
   return (
     <>
+      {/* popup */}
+      <div className="flex justify-center">
+        <div
+          className={`w-6/12 min-w-fit mx-auto h-40 bg-accent-dark fixed z-50 transition-all duration-1000 rounded-b-lg shadow-2xl px-10 ${
+            credentialShow ? "top-0" : "-top-[200px]"
+          } `}
+        >
+          <h4 className="text-center text-2xl text-white font-medium mt-4">
+            Auto Credentials
+          </h4>
+
+          <div className="flex justify-center items-center gap-5 my-4">
+            <button
+              onClick={() =>
+                setAutoForm({
+                  email: "info@medicamp.com",
+                  password: "123Ab@",
+                })
+              }
+              className="px-4 py-2 text-white shadow-md bg-primary rounded-md"
+            >
+              Organizer
+            </button>
+            <button
+              onClick={() =>
+                setAutoForm({
+                  email: "joystick.query@gmail.com",
+                  password: "123Ab@",
+                })
+              }
+              className="px-4 py-2 text-white shadow-md bg-primary rounded-md"
+            >
+              Participant
+            </button>
+          </div>
+          <div className="text-right ">
+            <button
+              className="btn h-2 block right-0 "
+              onClick={() => setCredentialShow(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="max-w-lg mx-auto h-full justify-center border border-secondary rounded-md my-8 p-8">
-        <SectionTitle title="Join Now" />
+        <SectionTitle title="Join Now" className="flex-none" />
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -85,9 +151,9 @@ export default function JoinUs() {
               placeholder="Type Email.. "
               {...register("email")}
             />
-            {/* name relate error  */}
-            {errors.name && (
-              <span className="text-red-400 text-xs">Name is required</span>
+            {/* email relate error  */}
+            {errors.email && (
+              <span className="text-red-400 text-xs">Email is required</span>
             )}
           </div>
           <div>
@@ -100,9 +166,9 @@ export default function JoinUs() {
               placeholder="Type password.."
               {...register("password")}
             />
-            {/* email related error */}
-            {errors.email && (
-              <span className="text-red-400 text-xs">Email is required</span>
+            {/* password related error */}
+            {errors.password && (
+              <span className="text-red-400 text-xs">Password is required</span>
             )}
           </div>
           {/* captcha */}

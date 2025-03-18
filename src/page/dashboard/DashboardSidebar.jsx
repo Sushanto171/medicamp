@@ -23,10 +23,10 @@ const DashboardSidebar = ({ isCollapsed, handleClose }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (isAdmin) {
-      navigate("/dashboard/manage-camps");
+      navigate("/dashboard/analytics");
     }
     if (!isAdmin && user) {
-      navigate("/dashboard/analytics");
+      navigate("/dashboard/registered-camps");
     }
   }, [isAdmin, user, navigate]);
 

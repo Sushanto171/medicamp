@@ -20,7 +20,7 @@ import React, { useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import log from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
-import { scrollToTop } from "../../utilites/utilites";
+import { scrollToTop } from "../../utilities/utilities";
 import Container from "./../../components/Container";
 import LoadingSpinner from "./LoadingSpinner";
 

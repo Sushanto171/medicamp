@@ -1,4 +1,5 @@
 import {
+  FaChartBar,
   FaClipboardList,
   FaPlusCircle,
   FaTasks,
@@ -10,6 +11,11 @@ const navLinks = [
     to: "/dashboard/organizer-profile",
     icon: "FaUserCircle", // Use icon name as a string
     label: "Organizer Profile",
+  },
+  {
+    to: "/dashboard/analytics",
+    icon: "FaChartBar",
+    label: "Analytics",
   },
   {
     to: "/dashboard/add-camp",
@@ -29,6 +35,7 @@ const navLinks = [
 ];
 
 const iconMapping = {
+  FaChartBar: FaChartBar,
   FaUserCircle: FaUserCircle,
   FaPlusCircle: FaPlusCircle,
   FaTasks: FaTasks,

@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { saveUserDataDB } from "../../utilites/utilites";
+import { saveUserDataDB } from "../../utilities/utilities";
 
 const LoginWithGoogle = ({ state }) => {
   const { loginWithGoogle } = useAuth();

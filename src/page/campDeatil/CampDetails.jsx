@@ -14,7 +14,7 @@ import { JoinCampModal } from "../../components/modal/JoinCampModal";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useIntersectionObserver from "../../hooks/useObserve";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import { scrollToTop } from "./../../utilites/utilites";
+import { scrollToTop } from "./../../utilities/utilities";
 import RatingFeedback from "./RatingFeedback";
 import SocialShare from "./SocialShare";
 

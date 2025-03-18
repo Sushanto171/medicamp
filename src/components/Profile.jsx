@@ -8,7 +8,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useDBUser from "../hooks/useDBUser";
 import LoadingSpinner from "../page/shared/LoadingSpinner";
-import { uploadPhotoDB } from "../utilites/utilites";
+import { uploadPhotoDB } from "../utilities/utilities";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();

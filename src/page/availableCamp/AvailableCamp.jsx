@@ -16,7 +16,7 @@ import { PopularCampsCard } from "../../components/PopularCampsCard";
 import SectionTitle from "../../components/SectionTitle";
 import useCamps from "../../hooks/useCamps";
 import useIntersectionObserver from "../../hooks/useObserve";
-import { scrollToTop } from "../../utilites/utilites";
+import { scrollToTop } from "../../utilities/utilities";
 import LiveSearch from "../shared/LiveSearch";
 import LoadingSpinner from "./../shared/LoadingSpinner";
 

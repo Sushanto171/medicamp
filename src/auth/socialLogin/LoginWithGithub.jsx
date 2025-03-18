@@ -5,7 +5,7 @@ import { FaGithubAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { saveUserDataDB } from "../../utilites/utilites";
+import { saveUserDataDB } from "../../utilities/utilities";
 
 const LoginWithGithub = ({ state }) => {
   const { LoginWithGithub, setLoading } = useAuth();

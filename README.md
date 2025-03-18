@@ -12,7 +12,7 @@ MediCamp is a comprehensive MERN stack application designed to efficiently manag
 
 ---
 
-## **Admin Credentials**
+## **Organizer Credentials**
 
 - **Email**: info@medicamp.com
 - **Password**: 123Ab@

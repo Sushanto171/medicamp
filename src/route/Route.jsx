@@ -112,15 +112,18 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // participant
+
       {
         path: "/dashboard/analytics",
         element: (
           <PrivateRoute>
-            <Analytics />
+            <AdminRoute>
+              <Analytics />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
+      // participant
       {
         path: "/dashboard/participant-profile",
         element: (

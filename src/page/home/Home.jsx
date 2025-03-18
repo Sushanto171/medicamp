@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { scrollToTop } from "../../utilites/utilites";
+import { scrollToTop } from "../../utilities/utilities";
 import Banner from "./Banner";
 import FeaturedDoctors from "./FeaturedDoctors";
 import { FeedbackSection } from "./FeedbackSection";

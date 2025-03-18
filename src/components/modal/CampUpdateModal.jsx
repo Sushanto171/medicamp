@@ -13,7 +13,7 @@ import { BiPlusMedical } from "react-icons/bi";
 import SectionTitle from "../SectionTitle";
 import TimePicker from "../TimePicker";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
-import { uploadPhotoDB } from "./../../utilites/utilites";
+import { uploadPhotoDB } from "./../../utilities/utilities";
 
 const CampUpdateModal = ({ camp, refetch }) => {
   const [open, setOpen] = useState(false);

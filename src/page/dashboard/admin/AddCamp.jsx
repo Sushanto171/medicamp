@@ -11,7 +11,7 @@ import { BiPlusMedical } from "react-icons/bi";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "./../../../components/SectionTitle";
 import TimePicker from "./../../../components/TimePicker";
-import { uploadPhotoDB } from "./../../../utilites/utilites";
+import { uploadPhotoDB } from "./../../../utilities/utilities";
 
 const AddCamp = () => {
   const [startDate, setStartDate] = useState(new Date());
